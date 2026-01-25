@@ -202,7 +202,7 @@ Now, to find the pdf, we differentiate:
   = - nu^{n-1} \cdot \frac{du}{dx} = - n(1-x)^{n-1} \cdot (0 - 1) && \text{Chain rule, with } u = 1 - x \\
   = \boxed{n(1-x)^{n-1}} && \text{Arithmetic} \\
 \end{align*}
-for \(0 \leq x \leq 1\).
+for \(0 \leq x \leq 1\), and 0 otherwise.
 
 }
 
@@ -212,8 +212,84 @@ for \(0 \leq x \leq 1\).
 
 \subsection*{(a)} 
 
+We are given \(Y \sim e^X\), with \(X \sim N(0, 1)\). We'll use the methodology from the transformation section. From this, we know that we can determine that the pdf 
+\[
+  f_Y(y) = f_X(g^{-1}(y))|\frac{d g^{-1}(y)}{dy}|
+\]
+We know that \(Y \sim g(X) \sim e^X\), so 
+\[
+  g(y) = e^y
+\]
+\[
+  g^{-1}(y) = \ln(y)
+\]
+\[
+  \frac{d}{dy}g^{-1}(y) = \frac{d}{dy}\ln(y) = \frac{1}{y}
+\]
+Now we can substitute accordingly. We know as well by definition that for \(X \sim N(0, 1)\), \(f_X(x) = \frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}}\). Putting this all together:
+\[
+  f_Y(y) = f_X(g^{-1}(y))|\frac{d g^{-1}(y)}{dy}|
+\]
+\[
+  f_Y(y) = f_X(\ln(y))|\frac{1}{y}|
+\]
+\[
+  f_Y(y) = \frac{1}{\sqrt{2\pi}}e^{-\frac{\ln(y)^2}{2}}|\frac{1}{y}|
+\]
+\[
+  \boxed{f_Y(y) = \frac{1}{y} \cdot \frac{1}{\sqrt{2\pi}}e^{-\frac{\ln(y)^2}{2}}}
+\]
+for \(y > 0\), as by definition \(Y \sim e^X > 0\) always, and 0 otherwise.
+
 \subsection*{(b)}
 
+We want to find \(E[Y] = E[e^X]\). 
+% By definition, since for \(X \sim N(\mu, \sigma^2)\), \(E[X] = \mu + \sigma^2\); in this case, \(X \sim N(0,1)\) so \(E[X] = 0 + 1^2 = 1\)
+We know that in general, \(E[Y] = \int_{-\infty}^{\infty} y f_Y(y) dy\). Given the pdf we found in part (a), let's start by plugging in:
+\[
+  E[Y] = \int_{-\infty}^{\infty} y \cdot \frac{1}{y} \cdot \frac{1}{\sqrt{2\pi}}e^{-\frac{\ln(y)^2}{2}} dy
+\]
+\[
+  E[Y] = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty} e^{-\frac{\ln(y)^2}{2}} dy
+\]
+\[
+  E[Y] = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty} e^{-\frac{\ln(y)^2}{2}} dy
+\]
+We can perform integration by substitution. Using \(x = \ln(y)\) (and subsequently, \(y = e^x\) and \(dy = e^xdx\)):
+\[
+  E[Y] = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty} e^{-\frac{x^2}{2}} \cdot e^x dx
+\]
+\[
+  E[Y] = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty} e^{x-\frac{x^2}{2}} dx
+\]
+\[
+  E[Y] = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty} e^{x-\frac{x^2}{2}} dx
+\]
+We want to make the exponent of the \(e\) term more interpretible, in order to get something with the form of the normal pdf, as we know that generally for \(Z \sim N(\mu, \sigma^2)\), \(f_Z(z) = \frac{1}{\sqrt{2\pi}} e^{-\frac{(z - \mu)^2}{2\sigma^2}} \). We complete the square accordingly to get to this form:
+\[
+  x - \frac{x^2}{2} = -\frac{1}{2}(x^2 - 2x)
+\]
+Set up with \((x-1)^2 = x^2 + 1 - 2x\):
+\[
+  x^2 - 2x + 1 = (x-1)^2
+\]
+\[
+  x^2 - 2x = (x-1)^2 - 1
+\]
+\[
+  -\frac{1}{2}(x^2 - 2x) = -\frac{1}{2}((x-1)^2 - 1) = \frac{1}{2} - \frac{(x-1)^2}{2}
+\]
+So substituting back:
+\[
+  E[Y] = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty} e^{\frac{1}{2} - \frac{(x-1)^2}{2}} dx
+\]
+\[
+  E[Y] = e^{\frac{1}{2}} \cdot \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty} e^{-\frac{(x-1)^2}{2}} dx
+\]
+And we use the fact that we know the form of the normal pdf to find it is a pdf with \(\mu=1\), \(\sigma=1\). The integral of this kind of distribution is simply 1, so:
+\[
+  E[Y] = e^{\frac{1}{2}} \cdot 1 = \boxed{e^{\frac{1}{2}}}
+\]
 
 }
 
