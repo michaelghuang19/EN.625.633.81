@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  24 JAN 2026 22:26
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  25 JAN 2026 15:34
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -440,6 +440,11 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
  (/usr/local/texlive/2025/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
+<1a_venn_diagram.png, id=4, 685.56125pt x 385.44pt>
+File: 1a_venn_diagram.png Graphic file (type png)
+<use 1a_venn_diagram.png>
+Package pdftex.def Info: 1a_venn_diagram.png  used on input line 30.
+(pdftex.def)             Requested size: 500.0pt x 281.12184pt.
 LaTeX Font Info:    Trying to load font information for U+msa on input line 33.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
@@ -448,7 +453,7 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 33.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Overfull \hbox (27.83209pt too wide) detected at line 43
+Overfull \hbox (27.83209pt too wide) detected at line 56
 []
  []
 
@@ -456,7 +461,7 @@ Overfull \hbox (27.83209pt too wide) detected at line 43
 
 
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <15> not available
-(Font)              size <14.4> substituted on input line 68.
+(Font)              size <14.4> substituted on input line 56.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -467,34 +472,36 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [1{/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
-]
+ <./1a_venn_diagram.png>]
 
 [2]
-Underfull \hbox (badness 10000) in paragraph at lines 103--105
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 130--132
-
- []
-
-
 
 [3]
-Underfull \hbox (badness 10000) in paragraph at lines 161--164
+Underfull \hbox (badness 10000) in paragraph at lines 118--120
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 145--147
 
  []
 
 
 
 [4]
+Underfull \hbox (badness 10000) in paragraph at lines 176--179
+
+ []
+
+
 
 [5]
 
 [6]
 
-[7] (./mhuang_hw1.aux)
+[7]
+
+[8] (./mhuang_hw1.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
@@ -506,18 +513,18 @@ LaTeX Font Warning: Size substitutions with differences
 
  ) 
 Here is how much of TeX's memory you used:
- 14407 strings out of 473190
- 285314 string characters out of 5715801
+ 14418 strings out of 473190
+ 285605 string characters out of 5715801
  667760 words of memory out of 5000000
- 37424 multiletter control sequences out of 15000+600000
+ 37435 multiletter control sequences out of 15000+600000
  563319 words of font info for 53 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 102i,14n,107p,569b,468s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 102i,14n,107p,569b,473s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
-Output written on mhuang_hw1.pdf (7 pages, 124642 bytes).
+Output written on mhuang_hw1.pdf (8 pages, 135460 bytes).
 PDF statistics:
- 81 PDF objects out of 1000 (max. 8388607)
- 51 compressed objects within 1 object stream
+ 87 PDF objects out of 1000 (max. 8388607)
+ 54 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 13 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 18 words of extra memory for PDF output out of 10000 (max. 10000000)
 

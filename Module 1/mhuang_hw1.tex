@@ -25,8 +25,21 @@
 \section*{1.}
 
 \subsection*{(a)} 
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=500pt]{1a_venn_diagram.png}
+\end{figure} 
 
-
+Intuitively, we first start with adding up the full area of \(P(A)\), \(P(B)\), and \(P(C)\). We see that for each of these, we are double/triple counting when trying to take the union: \\
+- We double count \(P(A) \cup P(B)\), from both \(P(A)\) and \(P(B)\). \\
+- We double count \(P(B) \cup P(C)\), from both \(P(B)\) and \(P(C)\). \\
+- We double count \(P(A) \cup P(C)\), from both \(P(A)\) and \(P(C)\). \\
+- We triple count \(P(A) \cup P(B) \cup P(C)\), from \(P(A)\), \(P(B)\), and \(P(C)\). \\
+To avoid the double counting, let's first subtract one of each of those relevant sections above. However, through this, we've also subtracted the innermost center, \(P(A) \cup P(B) \cup P(C)\), three times, where this was previously triple counted, so we end up with 0 -- we need to add one of these sections back. This gives us the final expression of 
+\[
+  P(A) + P(B) + P(C) - P(A \cap B) - P(B \cap C) - P(A \cap C) + P(A \cap B \cap C)
+\]
+as we sought to show.
 
 \subsection*{(b)}
 
@@ -43,7 +56,7 @@
 \end{align*}
 which ultimately simplifies to 
 \[
-  \boxed{P(A) + P(B) + P(C) - P(A \cap B) - P(A \cap C) - P(B \cap C) + P(A \cap B \cap C)}
+  P(A) + P(B) + P(C) - P(A \cap B) - P(A \cap C) - P(B \cap C) + P(A \cap B \cap C)
 \]
 as we exactly sought to prove.
 
@@ -78,21 +91,23 @@ As the outcomes of each player shooting is deemed to be independent, we can mode
 \[
   P(N) = P(N = 2k-1) + P(N = 2k)
 \]
-where \(N\) is the number of attempts. Given that they make with probability \(p_1\) and \(p_2\), we can break each scenario down using the complements of these probabilities:
+where \(N\) is the number of attempts. Given that they make with probability \(p_1\) and \(p_2\), we can break each scenario down using the complements of these probabilities, with the miss probabilities multiplied together until the applicable make probability:
 \[
   P(N = 2k-1) = ((1 - p_1) \cdot (1 - p_2))^{k-1} \cdot p_1
 \]
-and 
+for odd-numbered makes and 
 \[ 
   P(N = 2k) = ((1 - p_1) \cdot (1 - p_2))^{k-1}  \cdot (1 - p_1) \cdot p_2
 \]
-where \(k \geq 1\). So putting this together, we have the PMF for the make being on the \(N\)th shot being 
+for even numbered-makes, with \(k \geq 1\). Putting this together, and substituting \(n = 2k\) or \(k = \frac{n}{2}\) and \(n = 2k-1\) or \(k = \frac{n+1}{2}\), we have the PMF for the make being on the \(N\)th shot being 
 \[
-  \boxed{
-    p_N(k) = ((1 - p_1) \cdot (1 - p_2))^{k-1} \cdot p_1 + ((1 - p_1) \cdot (1 - p_2))^{k-1}  \cdot (1 - p_1) \cdot p_2
-  }
+\boxed{P(N=n)=
+\begin{cases}
+\big((1-p_1) \cdot (1-p_2)\big)^{\frac{n-1}{2}}\,p_1, & \text{if } n \text{ is odd}\\[6pt]
+\big((1-p_1) \cdot (1-p_2)\big)^{\frac{n}{2}-1}(1-p_1)p_2, & \text{if } n \text{ is even}
+\end{cases}}
 \]
-for \(k = 1, 2, 3, \) \ldots
+for \(n = 1, 2, 3, \) \ldots
 
 }
 
