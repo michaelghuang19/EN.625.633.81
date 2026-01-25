@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  8 JUN 2025 10:26
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  23 JAN 2026 00:36
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**"/Users/mhuang19/Documents/edu/jhu/Statistical Methods and Data Analysis (EN.625.603.84)/Problem Sets/samples/template"
-(/Users/mhuang19/Documents/edu/jhu/Statistical Methods and Data Analysis (EN.625.603.84)/Problem Sets/samples/template.tex
+**"/Users/mhuang19/Documents/edu/jhu/Monte Carlo Methods (EN.625.633.81)/EN.625.633.81/samples/template"
+(/Users/mhuang19/Documents/edu/jhu/Monte Carlo Methods (EN.625.633.81)/EN.625.633.81/samples/template.tex
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
 (/usr/local/texlive/2025/texmf-dist/tex/latex/base/article.cls
@@ -440,10 +440,18 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
  (/usr/local/texlive/2025/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
+LaTeX Font Info:    Trying to load font information for U+msa on input line 29.
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 29.
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
 
 
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <15> not available
-(Font)              size <14.4> substituted on input line 36.
+(Font)              size <14.4> substituted on input line 38.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -466,18 +474,18 @@ LaTeX Font Warning: Size substitutions with differences
 
  ) 
 Here is how much of TeX's memory you used:
- 14364 strings out of 473190
- 284558 string characters out of 5715801
- 653759 words of memory out of 5000000
- 37395 multiletter control sequences out of 15000+600000
- 560400 words of font info for 41 fonts, out of 8000000 for 9000
+ 14398 strings out of 473190
+ 285113 string characters out of 5715801
+ 654757 words of memory out of 5000000
+ 37417 multiletter control sequences out of 15000+600000
+ 562701 words of font info for 51 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 102i,13n,107p,513b,405s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb>
-Output written on template.pdf (1 page, 31612 bytes).
+ 102i,13n,107p,496b,405s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+Output written on template.pdf (1 page, 41947 bytes).
 PDF statistics:
- 26 PDF objects out of 1000 (max. 8388607)
- 16 compressed objects within 1 object stream
+ 31 PDF objects out of 1000 (max. 8388607)
+ 19 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 
