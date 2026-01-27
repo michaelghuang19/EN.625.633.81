@@ -22,7 +22,7 @@
 \thispagestyle{firstpageheader}
 {\Large 
 
-\section*{1}
+\section*{1.}
 
 \subsection*{(a)}
 
@@ -44,7 +44,7 @@
 
 {\Large 
 
-\section*{2}
+\section*{2.}
 
 \subsection*{(a)} 
 
@@ -58,7 +58,7 @@
 
 {\Large 
 
-\section*{3}
+\section*{3.}
 
 
 
@@ -66,7 +66,7 @@
 
 {\Large 
 
-\section*{4}
+\section*{4.}
 
 \subsection*{(a)} 
 
@@ -80,7 +80,7 @@
 
 {\Large 
 
-\section*{5}
+\section*{5.}
 
 
 
@@ -88,15 +88,45 @@
 
 {\Large 
 
-\section*{6}
+\section*{6.}
 
-
+We are given the distribution of the average of the independent measurements as \(\bar{X} \sim N\left(\mu, \frac{25}{n}\right)\). We apply the Central Limit Theorem after standardizing the probability expression to \(N(0, 1)\) with \(Z = \frac{\bar{X} - \mu}{\sigma}\):
+\[
+  P(|\bar{X} - \mu| < 1)
+\]
+\[
+  P(\frac{-1}{\sqrt{\frac{25}{n}}} < Z < \frac{1}{\sqrt{\frac{25}{n}}})
+\]
+\[
+  P(-\frac{\sqrt{n}}{5} < Z < \frac{\sqrt{n}}{5})
+\]
+Since we are looking for tails on either side, we look for 2 symmetrical regions that give us the the remaining \(1 - 0.95 = 0.05\):
+\[
+  2\phi(\frac{\sqrt{n}}{5}) = 0.05
+\]
+\[
+  \phi(\frac{\sqrt{n}}{5}) = 0.025
+\]
+\[
+  \frac{\sqrt{n}}{5} = z_{0.025}
+\]
+We now do a lookup for the corresponding \(z\)-value, and substitute:
+\[
+  \frac{\sqrt{n}}{5} = 1.96
+\]
+\[
+  \sqrt{n} = 9.8
+\]
+\[
+  n = 96.04
+\]
+We round up as we need a whole number, which gives us the final answer that we need the number of measurements \(\boxed{n \geq 97}\).
 
 }
 
 {\Large 
 
-\section*{7}
+\section*{7.}
 
 \subsection*{(a)} 
 
@@ -110,9 +140,50 @@
 
 {\Large 
 
-\section*{8}
+\section*{8.}
 
-
+We are given the exponential distribution with probability density \(f(x|\lambda) = \lambda e^{-\lambda x}\). We first take the proper expression for the likelihood function corresponding to the \(n\) observed values of \(X\):
+\[
+  L(\lambda) = \prod_{i=1}^n \lambda e^{-\lambda x_i} 
+\]
+which we can easily simplify by multiplying to get
+\[
+  L(\lambda) = \lambda^n e^{-\lambda \sum_{i=1}^n x_i}
+\]
+We then proceed to take the log likelihood:
+\[
+  l(\lambda) = \ln(\lambda^n e^{-\lambda \sum_{i=1}^n x_i})
+\]
+\[
+  l(\lambda) = n\ln(\lambda) - \lambda \sum_{i=1}^n x_i
+\]
+We then try to maximize this, so find a critical point by taking the derivative and setting equal to 0:
+\[
+  0 = \frac{dl}{d\lambda}
+\]
+\[
+  0 = \frac{d}{d\lambda}(n\ln(\lambda) - \lambda \sum_{i=1}^n x_i)
+\]
+\[
+  0 = \frac{n}{\lambda} - \sum_{i=1}^n x_i
+\]
+\[
+  \sum_{i=1}^n x_i = \frac{n}{\lambda} 
+\]
+\[
+  \lambda \sum_{i=1}^n x_i = n 
+\]
+\[
+  \lambda = \frac{n}{\sum_{i=1}^n x_i} 
+\]
+We can also ensure that this is a maximum by taking the derivative again:
+\[
+  \frac{d^2l}{d\lambda^2} = \frac{d}{d\lambda}(\frac{n}{\lambda} - \sum_{i=1}^n x_i)
+\]
+\[
+  \frac{d^2l}{d\lambda^2} = -\frac{n}{\lambda^2} - 0 = -\frac{n}{\lambda^2}
+\]
+The original probability density must be positive, so we know that \(\lambda > 0\) always. We see that this value of \(\frac{d^2l}{d\lambda^2} < 0\) for all \(\lambda > 0\), which means that this is indeed a maximum. We can now finally conclude that \(\hat{\lambda}_{\text{MLE}} = \frac{n}{\sum_{i=1}^n X_i} = \boxed{\frac{1}{\bar{X}}}\)
 
 }
 
