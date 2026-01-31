@@ -26,19 +26,158 @@
 
 \subsection*{(a)}
 
-
+We can find \(c\) by starting with the fact that the total integral of the density must equal 1, as it represents a probability, i.e.:
+\[
+  \int_{0}^{1} \int_{0}^{x} cxy dy dx = 1
+\]
+And we can integrate and solve from here:
+\[
+  \int_{0}^{1} cx \cdot \frac{y^2}{2} |_{0}^x dx = 1
+\]
+\[
+  \int_{0}^{1} cx \cdot (\frac{x^2}{2} - 0) dx = 1
+\]
+\[
+  \int_{0}^{1} \frac{cx^3}{2} dx = 1
+\]
+\[
+  \frac{c}{2} \cdot \frac{x^4}{4} |_{0}^{1} = 1
+\]
+\[
+  \frac{c}{2} \cdot (\frac{1}{4} - 0)= 1
+\]
+\[
+  \frac{c}{8} = 1
+\]
+\[
+  \boxed{c = 8}
+\]
 
 \subsection*{(b)}
 
-
+To determine \(P(X + 2Y \leq 1)\), we intersect the line of \(y = -\frac{x}{2} + \frac{1}{2}\) with \(y = x\) from the original problem statement:
+\[
+  x = -\frac{x}{2} + \frac{1}{2}
+\]
+\[
+  \frac{3x}{2} = \frac{1}{2}
+\]
+\[
+  x = \frac{1}{3}
+\]
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=200pt]{1b_graph.png}
+\end{figure} 
+So we have regions from \(0 \leq x \leq \frac{1}{3}\) and \(\frac{1}{3} \leq x \leq 1\). For the first region, we see that \(y = x\) is the binding equation, while we see that for the second region, \(y = \frac{-x}{2} + \frac{1}{2}\) is the binding equation. Let's evaluate accordingly. Region 1:
+\[
+  \int_{0}^{\frac{1}{3}} \int_{0}^{x} 8xy dydx
+\]
+\[
+  = \int_{0}^{\frac{1}{3}} 8x \cdot \frac{y^2}{2} |_{0}^{x} dx
+\]
+\[
+  = \int_{0}^{\frac{1}{3}} 8x \cdot (\frac{x^2}{2} - 0) dx = \int_{0}^{\frac{1}{3}} 4x^3 dx
+\]
+\[
+  = x^4 |_{0}^{\frac{1}{3}}
+\]
+\[
+  = \frac{1}{81}
+\]
+Region 2:
+\[
+  \int_{\frac{1}{3}}^{1} \int_{0}^{\frac{-x+1}{2}} 8xy dy dx
+\]
+\[
+  \int_{\frac{1}{3}}^{1} 8x \cdot \frac{y^2}{2} |_{0}^{\frac{-x+1}{2}} dx
+\]
+\[
+  = \int_{\frac{1}{3}}^{1} 8x \cdot \frac{(-x+1)^2}{4 \cdot 2} dx
+  = \int_{\frac{1}{3}}^{1} 8x \cdot \frac{x^2 + 1 - 2x}{8} dx
+  = \int_{\frac{1}{3}}^{1} x^3 + x - 2x^2 dx
+\]
+\[
+  = \frac{x^4}{4} + \frac{x^2}{2} - \frac{2x^3}{3} |_{\frac{1}{3}}^{1}
+\]
+\[
+  = (\frac{1}{4} + \frac{1}{2} - \frac{2}{3}) - (\frac{1}{324} + \frac{1}{18} - \frac{2}{81}) = \frac{1}{12} - \frac{11}{324}
+\]
+\[
+  = \frac{27}{324} - \frac{11}{324} = \frac{16}{324} = \frac{4}{81}
+\]
+So in total, we have \(\frac{1}{81} + \frac{4}{81} = \boxed{\frac{5}{81}}\)
 
 \subsection*{(c)}
 
-
+To find \( E(X | Y = y)\), we can start with calculating the conditional density \( f_{X | Y} (x|y) = \frac{f(x, y)}{f_Y(y)}\). We have \(f(x, y)\), so we need to find \(f_Y(y)\). We can derive this from \(f(x, y)\):
+\[
+  f_Y(y) = \int_{y}^{1} 8xy dx
+\]
+\[
+  f_Y(y) = 8y \cdot \frac{x^2}{2} |_{y}^{1} 
+\]
+\[
+  f_Y(y) = 8y \cdot (\frac{1}{2} - \frac{y^2}{2})
+\]
+\[
+  f_Y(y) = 4y - 4y^3
+\]
+And plug in accordingly:
+\[
+  f_{X | Y} (x|y) = \frac{f(x, y)}{f_Y(y)}
+\]
+\[
+  f_{X | Y} (x|y) = \frac{8xy}{4y - 4y^3}
+\]
+\[
+  f_{X | Y} (x|y) = \frac{2x \cdot 4y}{4y(1 - y^2)} = \frac{2x}{1-y^2}
+\]
+We can now finally find the expectation:
+\[
+  E(X | Y = y) = \int_{y}^{1} x \cdot f_{X | Y} (x|y) dx
+\]
+\[
+  E(X | Y = y) = \int_{y}^{1} x \cdot \frac{2x}{1-y^2} dx
+\]
+\[
+  E(X | Y = y) = \int_{y}^{1} \frac{2x^2}{1-y^2} dx
+\]
+\[
+  E(X | Y = y) = \frac{2}{1-y^2} \cdot \frac{x^3}{3} |_{y}^{1}
+\]
+\[
+  E(X | Y = y) = \frac{2}{1-y^2} \cdot \frac{1 - y^3}{3}
+\]
+\[
+  E(X | Y = y) = \frac{2}{(1+y)(1-y)} \cdot \frac{(1-y)(y^2 + y + 1)}{3} = \boxed{\frac{2(y^2 + y + 1)}{3(y + 1)}}
+\]
 
 \subsection*{(d)}
 
-
+To do this, we simply need to find \(f_X(x)\):
+\[
+  f_X(x) = \int_{0}^{x} 8xy dy 
+\]
+\[
+  f_X(x) = 8x \cdot \frac{y^2}{2} |_{0}^{x} 
+\]
+\[
+  f_X(x) = 8x \cdot (\frac{x^2}{2} - 0) = 4x^3
+\]
+and thusly find \(E(X)\):
+\[
+  E(X) = \int_{0}^{1} x \cdot f_X(x) dx
+\]
+\[
+  E(X) = \int_{0}^{1} x \cdot 4x^3 dx = \int_{0}^{1} 4x^4 dx
+\]
+\[
+  E(X) = \frac{4x^5}{5} |_{0}^{1}
+\]
+\[
+  E(X) = \frac{4}{5} - 0 = \boxed{\frac{4}{5}}
+\]
 
 }
 
@@ -206,11 +345,61 @@ We round up as we need a whole number, which gives us the final answer that we n
 
 \subsection*{(a)} 
 
-
+We run the code a few times, reducing \(n\) and keeping \(\epsilon\) constant:
+\begin{verbatim}
+> limitTheorem(100, 0.5)
+[1] 0.9874
+> limitTheorem(50, 0.5)
+[1] 0.928
+> limitTheorem(20, 0.5)
+[1] 0.7522
+> limitTheorem(5, 0.5)
+[1] 0.4088
+\end{verbatim}
+Here, we see that law of large numbers applies with higher \(n\), with a higher fraction of numbers landing within the \(\epsilon=0.5\) of the mean \(\mu=4.2\). \\ \\
+We now run reducing \(\epsilon\) and keeping \(n\) constant:
+\begin{verbatim}
+> limitTheorem(50, 1)
+[1] 0.9992
+> limitTheorem(50, 0.5)
+[1] 0.9179
+> limitTheorem(50, 0.1)
+[1] 0.2635
+\end{verbatim}
+We see that the fraction reduces as we expect it to.
 
 \subsection*{(b)}
 
-
+While we already showed this previously, something we can do to further show this is to further standardize the averages, and we see that the fraction further decreases and the histogram becomes more normalized:
+\begin{verbatim}
+> limitTheorem = function(n,epsilon) {
++ 	
++ 	vecOfAverages = c(rep(0,10000))
++ 	for (i in 1:10000) {
++ 		smpl = rpois(n,4.2)
++ 		avg = mean(smpl);
++ 		vecOfAverages[i] = avg;
++ 	}
++ 	standardizedAverages = (vecOfAverages - 4.2) / sqrt(4.2/n)
++ 	hist(standardizedAverages);
++ 	vecOfDifferences = standardizedAverages - 4.2*c(rep(1,10000));
++ 	nmbCloseToTruth = length(vecOfDifferences[abs(vecOfDifferences) <= epsilon]);
++ 	print(nmbCloseToTruth/10000);
++ }
+> 
+> limitTheorem(100, 0.5)
+[1] 1e-04
+\end{verbatim}
+Before:
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=400pt]{7b_before.png}
+\end{figure} 
+After:
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=400pt]{7b_after.png}
+\end{figure} 
 
 }
 
