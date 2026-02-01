@@ -68,7 +68,7 @@ To determine \(P(X + 2Y \leq 1)\), we intersect the line of \(y = -\frac{x}{2} +
 \begin{figure}[h!]
   \centering
   \includegraphics[width=200pt]{1b_graph.png}
-\end{figure} 
+\end{figure} \\ \\
 So we have regions from \(0 \leq x \leq \frac{1}{3}\) and \(\frac{1}{3} \leq x \leq 1\). For the first region, we see that \(y = x\) is the binding equation, while we see that for the second region, \(y = \frac{-x}{2} + \frac{1}{2}\) is the binding equation. Let's evaluate accordingly. Region 1:
 \[
   \int_{0}^{\frac{1}{3}} \int_{0}^{x} 8xy dydx
@@ -165,18 +165,18 @@ To do this, we simply need to find \(f_X(x)\):
 \[
   f_X(x) = 8x \cdot (\frac{x^2}{2} - 0) = 4x^3
 \]
-and thusly find \(E(X)\):
+and thusly find \(E[X]\):
 \[
-  E(X) = \int_{0}^{1} x \cdot f_X(x) dx
+  E[X] = \int_{0}^{1} x \cdot f_X(x) dx
 \]
 \[
-  E(X) = \int_{0}^{1} x \cdot 4x^3 dx = \int_{0}^{1} 4x^4 dx
+  E[X] = \int_{0}^{1} x \cdot 4x^3 dx = \int_{0}^{1} 4x^4 dx
 \]
 \[
-  E(X) = \frac{4x^5}{5} |_{0}^{1}
+  E[X] = \frac{4x^5}{5} |_{0}^{1}
 \]
 \[
-  E(X) = \frac{4}{5} - 0 = \boxed{\frac{4}{5}}
+  E[X] = \frac{4}{5} - 0 = \boxed{\frac{4}{5}}
 \]
 
 }
@@ -187,11 +187,71 @@ and thusly find \(E(X)\):
 
 \subsection*{(a)} 
 
-
+We are given \(\mu = (2, -3, 1)^T\), and \(X \sim N(\mu, \Sigma)\), with \(X = (X_1, X_2, X_3)^T\). We can use this fact to determine that \(Y = AX \sim N(A\mu, A \Sigma A^T)\). We therefore have \( A = (3, -2, 1) \) as given in the problem statement. Let's calculate the mean first:
+\[
+  E(Y) = A \mu 
+\]
+\[
+  E(Y) = \begin{pmatrix} 3 & -2 & 1 \end{pmatrix} \begin{pmatrix} \mu_1 \\ \mu_2 \\ \mu_3 \end{pmatrix} 
+\]
+\[
+  E(Y) = \begin{pmatrix} 3 & -2 & 1 \end{pmatrix} \begin{pmatrix} 2 \\ -3 \\ 1 \end{pmatrix} 
+\]
+\[
+  E(Y) = 3(2) + -2(-3) + 1(1) = 6 + 6 + 1 = 13
+\]
+and now the variance:
+\[
+  \text{Var}(Y) = A \Sigma A^T
+\]
+\[
+  \text{Var}(Y) = \begin{pmatrix} 3 & -2 & 1 \end{pmatrix}
+  \begin{pmatrix} 1 & 1 & 1 \\ 1 & 3 & 2 \\ 1 & 2 & 2 \end{pmatrix}
+  \begin{pmatrix} 3 \\ -2 \\ 1 \end{pmatrix}
+\]
+\[
+  \text{Var}(Y) = \begin{pmatrix} 3(1) -2(1) + 1(1) & 3(1) -2(3) + 1(2) & 3(1) -2(2) + 1(2) \end{pmatrix}
+  \begin{pmatrix} 3 \\ -2 \\ 1 \end{pmatrix}
+\]
+\[
+  \text{Var}(Y) = \begin{pmatrix} 2 & -1 & 1 \end{pmatrix}
+  \begin{pmatrix} 3 \\ -2 \\ 1 \end{pmatrix}
+\]
+\[
+  \text{Var}(Y) = 2(3) -1(-2) + 1(1) = 9
+\]
+So therefore \(Y = AX = \boxed{3X_1 - 2X_2 + X_3 \sim N(13, 9)}\)
 
 \subsection*{(b)}
 
-
+To find \(a^T = \begin{pmatrix} a_1 & a_2 \end{pmatrix}\) that satisfies the condition of \(X_2\) and \(X_2 - a^T \begin{pmatrix} X_1 \\ X_2 \end{pmatrix}\) are independent, we can use the definition of independence for the jointly normal variables as the covariance being 0, i.e. 
+\[
+  \text{Cov}(X_2, X_2 - a^T \begin{pmatrix} X_1 \\ X_2 \end{pmatrix} ) = 0
+\]
+\[
+  \text{Cov}(X_2, X_2 - \begin{pmatrix} a_1 & a_2 \end{pmatrix} \begin{pmatrix} X_1 \\ X_2 \end{pmatrix} ) = 0
+\]
+\[
+  \text{Cov}(X_2, X_2 - a_1X_1 - a_2X_2) = 0
+\]
+and using linearity of covariance:
+\[
+  \text{Cov}(X_2, X_2 - a_1X_1 - a_2X_2) = \text{Cov}(X_2, X_2) - a_1\text{Cov}(X_2, X_1) - a_2\text{Cov}(X_2, X_2)
+\]
+Looking at \(\Sigma\) for these values, we see that \(\text{Cov}(X_2, X_2) = \text{Var}(X_2) = \Sigma_{2,2} = 3\) and \(\text{Cov}(X_2, X_1) = \Sigma_{1, 2} = 1\). Plugging these in:
+\[
+  \text{Cov}(X_2, X_2) - a_1\text{Cov}(X_2, X_1) - a_2\text{Cov}(X_2, X_2) 
+\]
+\[
+  = 3 - a_1(1) - a_2(3)
+\]
+\[
+  = 3 - a_1 - 3a_2
+\]
+\[
+  a_1 + 3a_2 = 3
+\]
+One sample answer given this equation is setting \(a_1 = 3\), with \(a_2 = 0\) as a result. So one example solution is \(\boxed{a = \begin{pmatrix} 3 \\ 0 \end{pmatrix}}\)
 
 }
 
@@ -297,7 +357,64 @@ $V=4$ & $\frac{1}{12}$ & $\frac{1}{6}$ & $\frac{1}{12}$
 
 \section*{5.}
 
-
+We aim to find \(P(S \leq 10)\) with \(S = \sum_{i=1}^{20} X_i\) each variable independent and in the range \([0, 1]\) with \(f(x) = 2x\). We can determine this by using the Central Limit Theorem, for which we need to find the mean and variance of \(S\). We start by thus finding the mean and variance for one \(X_i\):
+\[
+  E[X] = \int_{0}^{1} x \cdot f(x) dx
+\]
+\[
+  E[X] = \int_{0}^{1} x \cdot 2x dx = \int_{0}^{1} 2x^2 dx
+\]
+\[
+  E[X] = \frac{2x^3}{3} |_{0}^{1} 
+\]
+\[
+  E[X] = \frac{2}{3} - 0 = \frac{2}{3}
+\]
+For variance, let's first find \(E[X^2]\):
+\[
+  E[X^2] = \int_{0}^{1} x^2 \cdot f(x) dx
+\]
+\[
+  E[X^2] = \int_{0}^{1} x^2 \cdot 2x dx = \int_{0}^{1} 2x^3 dx
+\]
+\[
+  E[X^2] = \frac{x^4}{2} |_{0}^{1}
+\]
+\[
+  E[X^2] = \frac{1}{2} - 0 = \frac{1}{2}
+\]
+And now let's find the corresponding variance:
+\[
+  \text{Var}(X) = E[X^2] - (E[X])^2
+\]
+\[
+  \text{Var}(X) = \frac{1}{2} - (\frac{2}{3})^2 = \frac{1}{2} - \frac{4}{9} = \frac{1}{18}
+\]
+Since these variables are all independent, we can use linearity of expectation and variance here to find the same values for \(S\):
+\[
+  E[S] = 20 \cdot E[X]
+\]
+\[
+  E[S] = 20 \cdot \frac{2}{3} = \frac{40}{3}
+\]
+\[
+  \text{Var}(S) = 20 \cdot \text{Var}(X)
+\]
+\[
+  \text{Var}(S) = 20 \cdot \frac{1}{18} = \frac{20}{18} = \frac{10}{9}
+\]
+Finally, let's apply the Central Limit Theorem to find \(P(S \leq 10)\). We first find the corresponding Z-value to look up against, in terms of \(S\):
+\[
+  Z = \frac{S - E[S]}{\text{Std}(S)}
+\]
+\[
+  Z = \frac{10 - \frac{40}{3}}{\sqrt{\frac{10}{9}}} = \frac{-\frac{10}{3}}{\frac{\sqrt{10}}{3}} = \frac{-10}{\sqrt{10}} = -3.16227766017
+\]
+So therefore
+\[
+  P(S \leq 10) = P(Z \leq -3.16227766017) \approx \boxed{0.00079}
+\]
+which we determine by looking up in a table.
 
 }
 
@@ -394,7 +511,7 @@ Before:
 \begin{figure}[h!]
   \centering
   \includegraphics[width=400pt]{7b_before.png}
-\end{figure} 
+\end{figure} \\
 After:
 \begin{figure}[h!]
   \centering

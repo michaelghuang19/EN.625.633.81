@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  30 JAN 2026 22:42
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  1 FEB 2026 18:21
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -454,6 +454,10 @@ File: 1b_graph.png Graphic file (type png)
 Package pdftex.def Info: 1b_graph.png  used on input line 70.
 (pdftex.def)             Requested size: 200.0pt x 189.69174pt.
 
+Underfull \hbox (badness 10000) in paragraph at lines 67--73
+
+ []
+
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
@@ -484,75 +488,79 @@ Overfull \hbox (5.31984pt too wide) in paragraph at lines 113--114
 [3]
 
 [4]
-Underfull \hbox (badness 10000) in paragraph at lines 232--233
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 233--234
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 234--235
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 235--236
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 236--237
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 237--238
-
- []
-
-
 
 [5]
+Underfull \hbox (badness 10000) in paragraph at lines 292--293
+
+ []
+
+
 
 [6]
-Underfull \hbox (badness 10000) in paragraph at lines 359--361
+Underfull \hbox (badness 10000) in paragraph at lines 293--294
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 294--295
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 295--296
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 296--297
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 297--298
 
  []
 
 
 
 [7]
-Overfull \hbox (78.50407pt too wide) in paragraph at lines 392--392
-[]\OT1/cmtt/m/n/14.4 +  nmbCloseToTruth = length(vecOfDifferences[abs(vecOfDifferences) <= epsilon]);[] 
+
+[8]
+
+[9]
+
+[10]
+Underfull \hbox (badness 10000) in paragraph at lines 476--478
+
  []
 
 
 
-[8]
-<7b_before.png, id=45, 1031.855pt x 774.895pt>
+[11]
+Overfull \hbox (78.50407pt too wide) in paragraph at lines 509--509
+[]\OT1/cmtt/m/n/14.4 +  nmbCloseToTruth = length(vecOfDifferences[abs(vecOfDifferences) <= epsilon]);[] 
+ []
+
+<7b_before.png, id=54, 1031.855pt x 774.895pt>
 File: 7b_before.png Graphic file (type png)
 <use 7b_before.png>
-Package pdftex.def Info: 7b_before.png  used on input line 396.
+Package pdftex.def Info: 7b_before.png  used on input line 513.
 (pdftex.def)             Requested size: 400.0pt x 300.38695pt.
-<7b_after.png, id=46, 1031.855pt x 774.895pt>
+<7b_after.png, id=55, 1031.855pt x 774.895pt>
 File: 7b_after.png Graphic file (type png)
 <use 7b_after.png>
-Package pdftex.def Info: 7b_after.png  used on input line 401.
+Package pdftex.def Info: 7b_after.png  used on input line 518.
 (pdftex.def)             Requested size: 400.0pt x 300.38695pt.
-
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
 
-[9 <./7b_before.png>]
+[12 <./7b_before.png>]
 
-[10 <./7b_after.png>]
+[13 <./7b_after.png>]
 
-[11] (./mhuang_hw2.aux)
+[14] (./mhuang_hw2.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
@@ -564,18 +572,18 @@ LaTeX Font Warning: Size substitutions with differences
 
  ) 
 Here is how much of TeX's memory you used:
- 14431 strings out of 473190
- 285858 string characters out of 5715801
- 668762 words of memory out of 5000000
- 37449 multiletter control sequences out of 15000+600000
+ 14433 strings out of 473190
+ 285916 string characters out of 5715801
+ 667762 words of memory out of 5000000
+ 37451 multiletter control sequences out of 15000+600000
  562870 words of font info for 52 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  102i,14n,107p,499b,544s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on mhuang_hw2.pdf (11 pages, 268615 bytes).
+Output written on mhuang_hw2.pdf (14 pages, 278204 bytes).
 PDF statistics:
- 105 PDF objects out of 1000 (max. 8388607)
- 63 compressed objects within 1 object stream
+ 115 PDF objects out of 1000 (max. 8388607)
+ 70 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  28 words of extra memory for PDF output out of 10000 (max. 10000000)
 
