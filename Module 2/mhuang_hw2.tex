@@ -1,0 +1,572 @@
+\documentclass{article}
+\linespread{1.3}
+\usepackage[margin=50pt]{geometry}
+\usepackage{amsmath, amsthm, amssymb, amsthm, tikz, fancyhdr, graphicx, systeme}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\newcommand{\changefont}{\fontsize{15}{15}\selectfont}
+
+\fancypagestyle{firstpageheader}{
+  \fancyhead[R]{
+    \changefont
+    \parbox[t]{4cm}{ % Adjust width as needed
+      Michael Huang\\
+      EN.625.633.81\\
+      Homework 2
+    }
+  }
+}
+
+\begin{document}
+
+\thispagestyle{firstpageheader}
+{\Large 
+
+\section*{1.}
+
+\subsection*{(a)}
+
+We can find \(c\) by starting with the fact that the total integral of the density must equal 1, as it represents a probability, i.e.:
+\[
+  \int_{0}^{1} \int_{0}^{x} cxy dy dx = 1
+\]
+And we can integrate and solve from here:
+\[
+  \int_{0}^{1} cx \cdot \frac{y^2}{2} |_{0}^x dx = 1
+\]
+\[
+  \int_{0}^{1} cx \cdot (\frac{x^2}{2} - 0) dx = 1
+\]
+\[
+  \int_{0}^{1} \frac{cx^3}{2} dx = 1
+\]
+\[
+  \frac{c}{2} \cdot \frac{x^4}{4} |_{0}^{1} = 1
+\]
+\[
+  \frac{c}{2} \cdot (\frac{1}{4} - 0)= 1
+\]
+\[
+  \frac{c}{8} = 1
+\]
+\[
+  \boxed{c = 8}
+\]
+
+\subsection*{(b)}
+
+To determine \(P(X + 2Y \leq 1)\), we intersect the line of \(y = -\frac{x}{2} + \frac{1}{2}\) with \(y = x\) from the original problem statement:
+\[
+  x = -\frac{x}{2} + \frac{1}{2}
+\]
+\[
+  \frac{3x}{2} = \frac{1}{2}
+\]
+\[
+  x = \frac{1}{3}
+\]
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=200pt]{1b_graph.png}
+\end{figure} \\ \\
+So we have regions from \(0 \leq x \leq \frac{1}{3}\) and \(\frac{1}{3} \leq x \leq 1\). For the first region, we see that \(y = x\) is the binding equation, while we see that for the second region, \(y = \frac{-x}{2} + \frac{1}{2}\) is the binding equation. Let's evaluate accordingly. Region 1:
+\[
+  \int_{0}^{\frac{1}{3}} \int_{0}^{x} 8xy dydx
+\]
+\[
+  = \int_{0}^{\frac{1}{3}} 8x \cdot \frac{y^2}{2} |_{0}^{x} dx
+\]
+\[
+  = \int_{0}^{\frac{1}{3}} 8x \cdot (\frac{x^2}{2} - 0) dx = \int_{0}^{\frac{1}{3}} 4x^3 dx
+\]
+\[
+  = x^4 |_{0}^{\frac{1}{3}}
+\]
+\[
+  = \frac{1}{81}
+\]
+Region 2:
+\[
+  \int_{\frac{1}{3}}^{1} \int_{0}^{\frac{-x+1}{2}} 8xy dy dx
+\]
+\[
+  \int_{\frac{1}{3}}^{1} 8x \cdot \frac{y^2}{2} |_{0}^{\frac{-x+1}{2}} dx
+\]
+\[
+  = \int_{\frac{1}{3}}^{1} 8x \cdot \frac{(-x+1)^2}{4 \cdot 2} dx
+  = \int_{\frac{1}{3}}^{1} 8x \cdot \frac{x^2 + 1 - 2x}{8} dx
+  = \int_{\frac{1}{3}}^{1} x^3 + x - 2x^2 dx
+\]
+\[
+  = \frac{x^4}{4} + \frac{x^2}{2} - \frac{2x^3}{3} |_{\frac{1}{3}}^{1}
+\]
+\[
+  = (\frac{1}{4} + \frac{1}{2} - \frac{2}{3}) - (\frac{1}{324} + \frac{1}{18} - \frac{2}{81}) = \frac{1}{12} - \frac{11}{324}
+\]
+\[
+  = \frac{27}{324} - \frac{11}{324} = \frac{16}{324} = \frac{4}{81}
+\]
+So in total, we have \(\frac{1}{81} + \frac{4}{81} = \boxed{\frac{5}{81}}\)
+
+\subsection*{(c)}
+
+To find \( E(X | Y = y)\), we can start with calculating the conditional density \( f_{X | Y} (x|y) = \frac{f(x, y)}{f_Y(y)}\). We have \(f(x, y)\), so we need to find \(f_Y(y)\). We can derive this from \(f(x, y)\):
+\[
+  f_Y(y) = \int_{y}^{1} 8xy dx
+\]
+\[
+  f_Y(y) = 8y \cdot \frac{x^2}{2} |_{y}^{1} 
+\]
+\[
+  f_Y(y) = 8y \cdot (\frac{1}{2} - \frac{y^2}{2})
+\]
+\[
+  f_Y(y) = 4y - 4y^3
+\]
+And plug in accordingly:
+\[
+  f_{X | Y} (x|y) = \frac{f(x, y)}{f_Y(y)}
+\]
+\[
+  f_{X | Y} (x|y) = \frac{8xy}{4y - 4y^3}
+\]
+\[
+  f_{X | Y} (x|y) = \frac{2x \cdot 4y}{4y(1 - y^2)} = \frac{2x}{1-y^2}
+\]
+We can now finally find the expectation:
+\[
+  E(X | Y = y) = \int_{y}^{1} x \cdot f_{X | Y} (x|y) dx
+\]
+\[
+  E(X | Y = y) = \int_{y}^{1} x \cdot \frac{2x}{1-y^2} dx
+\]
+\[
+  E(X | Y = y) = \int_{y}^{1} \frac{2x^2}{1-y^2} dx
+\]
+\[
+  E(X | Y = y) = \frac{2}{1-y^2} \cdot \frac{x^3}{3} |_{y}^{1}
+\]
+\[
+  E(X | Y = y) = \frac{2}{1-y^2} \cdot \frac{1 - y^3}{3}
+\]
+\[
+  E(X | Y = y) = \frac{2}{(1+y)(1-y)} \cdot \frac{(1-y)(y^2 + y + 1)}{3} = \boxed{\frac{2(y^2 + y + 1)}{3(y + 1)}}
+\]
+
+\subsection*{(d)}
+
+To do this, we simply need to find \(f_X(x)\):
+\[
+  f_X(x) = \int_{0}^{x} 8xy dy 
+\]
+\[
+  f_X(x) = 8x \cdot \frac{y^2}{2} |_{0}^{x} 
+\]
+\[
+  f_X(x) = 8x \cdot (\frac{x^2}{2} - 0) = 4x^3
+\]
+and thusly find \(E[X]\):
+\[
+  E[X] = \int_{0}^{1} x \cdot f_X(x) dx
+\]
+\[
+  E[X] = \int_{0}^{1} x \cdot 4x^3 dx = \int_{0}^{1} 4x^4 dx
+\]
+\[
+  E[X] = \frac{4x^5}{5} |_{0}^{1}
+\]
+\[
+  E[X] = \frac{4}{5} - 0 = \boxed{\frac{4}{5}}
+\]
+
+}
+
+{\Large 
+
+\section*{2.}
+
+\subsection*{(a)} 
+
+We are given \(\mu = (2, -3, 1)^T\), and \(X \sim N(\mu, \Sigma)\), with \(X = (X_1, X_2, X_3)^T\). We can use this fact to determine that \(Y = AX \sim N(A\mu, A \Sigma A^T)\). We therefore have \( A = (3, -2, 1) \) as given in the problem statement. Let's calculate the mean first:
+\[
+  E(Y) = A \mu 
+\]
+\[
+  E(Y) = \begin{pmatrix} 3 & -2 & 1 \end{pmatrix} \begin{pmatrix} \mu_1 \\ \mu_2 \\ \mu_3 \end{pmatrix} 
+\]
+\[
+  E(Y) = \begin{pmatrix} 3 & -2 & 1 \end{pmatrix} \begin{pmatrix} 2 \\ -3 \\ 1 \end{pmatrix} 
+\]
+\[
+  E(Y) = 3(2) + -2(-3) + 1(1) = 6 + 6 + 1 = 13
+\]
+and now the variance:
+\[
+  \text{Var}(Y) = A \Sigma A^T
+\]
+\[
+  \text{Var}(Y) = \begin{pmatrix} 3 & -2 & 1 \end{pmatrix}
+  \begin{pmatrix} 1 & 1 & 1 \\ 1 & 3 & 2 \\ 1 & 2 & 2 \end{pmatrix}
+  \begin{pmatrix} 3 \\ -2 \\ 1 \end{pmatrix}
+\]
+\[
+  \text{Var}(Y) = \begin{pmatrix} 3(1) -2(1) + 1(1) & 3(1) -2(3) + 1(2) & 3(1) -2(2) + 1(2) \end{pmatrix}
+  \begin{pmatrix} 3 \\ -2 \\ 1 \end{pmatrix}
+\]
+\[
+  \text{Var}(Y) = \begin{pmatrix} 2 & -1 & 1 \end{pmatrix}
+  \begin{pmatrix} 3 \\ -2 \\ 1 \end{pmatrix}
+\]
+\[
+  \text{Var}(Y) = 2(3) -1(-2) + 1(1) = 9
+\]
+So therefore \(Y = AX = \boxed{3X_1 - 2X_2 + X_3 \sim N(13, 9)}\)
+
+\subsection*{(b)}
+
+To find \(a^T = \begin{pmatrix} a_1 & a_2 \end{pmatrix}\) that satisfies the condition of \(X_2\) and \(X_2 - a^T \begin{pmatrix} X_1 \\ X_2 \end{pmatrix}\) are independent, we can use the definition of independence for the jointly normal variables as the covariance being 0, i.e. 
+\[
+  \text{Cov}(X_2, X_2 - a^T \begin{pmatrix} X_1 \\ X_2 \end{pmatrix} ) = 0
+\]
+\[
+  \text{Cov}(X_2, X_2 - \begin{pmatrix} a_1 & a_2 \end{pmatrix} \begin{pmatrix} X_1 \\ X_2 \end{pmatrix} ) = 0
+\]
+\[
+  \text{Cov}(X_2, X_2 - a_1X_1 - a_2X_2) = 0
+\]
+and using linearity of covariance:
+\[
+  \text{Cov}(X_2, X_2 - a_1X_1 - a_2X_2) = \text{Cov}(X_2, X_2) - a_1\text{Cov}(X_2, X_1) - a_2\text{Cov}(X_2, X_2)
+\]
+Looking at \(\Sigma\) for these values, we see that \(\text{Cov}(X_2, X_2) = \text{Var}(X_2) = \Sigma_{2,2} = 3\) and \(\text{Cov}(X_2, X_1) = \Sigma_{1, 2} = 1\). Plugging these in:
+\[
+  \text{Cov}(X_2, X_2) - a_1\text{Cov}(X_2, X_1) - a_2\text{Cov}(X_2, X_2) 
+\]
+\[
+  = 3 - a_1(1) - a_2(3)
+\]
+\[
+  = 3 - a_1 - 3a_2
+\]
+\[
+  a_1 + 3a_2 = 3
+\]
+One sample answer given this equation is setting \(a_1 = 3\), with \(a_2 = 0\) as a result. So one example solution is \(\boxed{a = \begin{pmatrix} 3 \\ 0 \end{pmatrix}}\)
+
+}
+
+{\Large 
+
+\section*{3.}
+
+Find $P(X^2 < Y < X)$ where $f(x,y) = 2x$ for $0 \le x, y \le 1$ [1].
+
+We first establish the bounds -- given that we need \(X^2 < Y < X\), it is obvious that we must have \(0 < x < 1\). Given these two bounds, we can now establish the double integral for representing the joint pdf and evaluate:
+\[
+  P(X^2 < Y < X) = \int_0^1 \int_{x^2}^x 2x dy dx
+\]
+\[
+  P(X^2 < Y < X) = \int_0^1 2x |_{x^2}^x dx
+\]
+\[
+  P(X^2 < Y < X) = \int_0^1 2x^2 - 2x^3 dx
+\]
+\[
+  P(X^2 < Y < X) = \frac{2x^3}{3} - \frac{2x^4}{4} |_0^1
+\]
+\[
+  P(X^2 < Y < X) = (\frac{2}{3} - \frac{2}{4}) - (0 - 0) 
+\]
+\[
+  \boxed{P(X^2 < Y < X) = \frac{1}{6}}
+\]
+
+}
+
+{\Large 
+
+\section*{4.}
+
+\subsection*{(a)} 
+
+Let's begin by calculating the marginal distributions from the table. \\
+\[P(X = 1) = \frac{1}{12} + \frac{1}{6} + 0 = \frac{1}{4}\] \\
+\[P(X = 2) = \frac{1}{6} + 0 + \frac{1}{3} = \frac{1}{2}\] \\
+\[P(X = 3) = \frac{1}{12} + \frac{1}{6} + 0 = \frac{1}{4}\] \\
+\[P(Y = 2) = \frac{1}{12} + \frac{1}{6} + \frac{1}{12} = \frac{1}{3}\] \\
+\[P(Y = 3) = \frac{1}{6} + 0 + \frac{1}{6} = \frac{1}{3}\] \\
+\[P(Y = 4) = 0 + \frac{1}{3} + 0 = \frac{1}{3}\] \\
+Now, we can simply check for independence. We know that \(X\) and \(Y\) are independent if \(P(X = x, Y = y) = P(X = x) \cdot P(Y = y) \). Most values fulfill the condition, but we find that for \(Y = 3\) and \(X = 1\):
+\[
+  P(X = 1, Y = 3) = P(X = 1) \cdot P(Y = 3) 
+\]
+\[
+  \frac{1}{6} = \frac{1}{4} \cdot \frac{1}{3}
+\]
+\[
+  \frac{1}{6} \neq \frac{1}{12}
+\]
+So \(X\) and \(Y\) are not independent, and therefore dependent.
+
+\subsection*{(b)}
+
+We can do this by simply recreating the table, except multiply the marginals together. This ensures that they are independent, taking \(X = U\) and \(Y = V\):
+
+\begin{center}
+
+\begin{tabular}{c|ccc}
+
+& $U=1$ & $U=2$ & $U=3$ \\
+
+\hline
+
+$V=2$ & $\frac{1}{4} \cdot \frac{1}{3}$ & $\frac{1}{2} \cdot \frac{1}{3}$ & $\frac{1}{4} \cdot \frac{1}{3}$ \\
+
+$V=3$ & $\frac{1}{4} \cdot \frac{1}{3}$ & $\frac{1}{2} \cdot \frac{1}{3}$ & $\frac{1}{4} \cdot \frac{1}{3}$ \\
+
+$V=4$ & $\frac{1}{4} \cdot \frac{1}{3}$ & $\frac{1}{2} \cdot \frac{1}{3}$ & $\frac{1}{4} \cdot \frac{1}{3}$
+
+\end{tabular}
+
+\end{center}
+
+
+\begin{center}
+\boxed{
+\begin{tabular}{c|ccc}
+
+& $U=1$ & $U=2$ & $U=3$ \\
+
+\hline
+
+$V=2$ & $\frac{1}{12}$ & $\frac{1}{6}$ & $\frac{1}{12}$ \\
+
+$V=3$ & $\frac{1}{12}$ & $\frac{1}{6}$ & $\frac{1}{12}$ \\
+
+$V=4$ & $\frac{1}{12}$ & $\frac{1}{6}$ & $\frac{1}{12}$
+
+\end{tabular}
+}
+\end{center}
+
+
+
+}
+
+{\Large 
+
+\section*{5.}
+
+We aim to find \(P(S \leq 10)\) with \(S = \sum_{i=1}^{20} X_i\) each variable independent and in the range \([0, 1]\) with \(f(x) = 2x\). We can determine this by using the Central Limit Theorem, for which we need to find the mean and variance of \(S\). We start by thus finding the mean and variance for one \(X_i\):
+\[
+  E[X] = \int_{0}^{1} x \cdot f(x) dx
+\]
+\[
+  E[X] = \int_{0}^{1} x \cdot 2x dx = \int_{0}^{1} 2x^2 dx
+\]
+\[
+  E[X] = \frac{2x^3}{3} |_{0}^{1} 
+\]
+\[
+  E[X] = \frac{2}{3} - 0 = \frac{2}{3}
+\]
+For variance, let's first find \(E[X^2]\):
+\[
+  E[X^2] = \int_{0}^{1} x^2 \cdot f(x) dx
+\]
+\[
+  E[X^2] = \int_{0}^{1} x^2 \cdot 2x dx = \int_{0}^{1} 2x^3 dx
+\]
+\[
+  E[X^2] = \frac{x^4}{2} |_{0}^{1}
+\]
+\[
+  E[X^2] = \frac{1}{2} - 0 = \frac{1}{2}
+\]
+And now let's find the corresponding variance:
+\[
+  \text{Var}(X) = E[X^2] - (E[X])^2
+\]
+\[
+  \text{Var}(X) = \frac{1}{2} - (\frac{2}{3})^2 = \frac{1}{2} - \frac{4}{9} = \frac{1}{18}
+\]
+Since these variables are all independent, we can use linearity of expectation and variance here to find the same values for \(S\):
+\[
+  E[S] = 20 \cdot E[X]
+\]
+\[
+  E[S] = 20 \cdot \frac{2}{3} = \frac{40}{3}
+\]
+\[
+  \text{Var}(S) = 20 \cdot \text{Var}(X)
+\]
+\[
+  \text{Var}(S) = 20 \cdot \frac{1}{18} = \frac{20}{18} = \frac{10}{9}
+\]
+Finally, let's apply the Central Limit Theorem to find \(P(S \leq 10)\). We first find the corresponding Z-value to look up against, in terms of \(S\):
+\[
+  Z = \frac{S - E[S]}{\text{Std}(S)}
+\]
+\[
+  Z = \frac{10 - \frac{40}{3}}{\sqrt{\frac{10}{9}}} = \frac{-\frac{10}{3}}{\frac{\sqrt{10}}{3}} = \frac{-10}{\sqrt{10}} = -3.16227766017
+\]
+So therefore
+\[
+  P(S \leq 10) = P(Z \leq -3.16227766017) \approx \boxed{0.00079}
+\]
+which we determine by looking up in a table.
+
+}
+
+{\Large 
+
+\section*{6.}
+
+We are given the distribution of the average of the independent measurements as \(\bar{X} \sim N\left(\mu, \frac{25}{n}\right)\). We apply the Central Limit Theorem after standardizing the probability expression to \(N(0, 1)\) with \(Z = \frac{\bar{X} - \mu}{\sigma}\):
+\[
+  P(|\bar{X} - \mu| < 1)
+\]
+\[
+  P(\frac{-1}{\sqrt{\frac{25}{n}}} < Z < \frac{1}{\sqrt{\frac{25}{n}}})
+\]
+\[
+  P(-\frac{\sqrt{n}}{5} < Z < \frac{\sqrt{n}}{5})
+\]
+Since we are looking for tails on either side, we look for 2 symmetrical regions that give us the the remaining \(1 - 0.95 = 0.05\):
+\[
+  2\phi(\frac{\sqrt{n}}{5}) = 0.05
+\]
+\[
+  \phi(\frac{\sqrt{n}}{5}) = 0.025
+\]
+\[
+  \frac{\sqrt{n}}{5} = z_{0.025}
+\]
+We now do a lookup for the corresponding \(z\)-value, and substitute:
+\[
+  \frac{\sqrt{n}}{5} = 1.96
+\]
+\[
+  \sqrt{n} = 9.8
+\]
+\[
+  n = 96.04
+\]
+We round up as we need a whole number, which gives us the final answer that we need the number of measurements \(\boxed{n \geq 97}\).
+
+}
+
+{\Large 
+
+\section*{7.}
+
+\subsection*{(a)} 
+
+We run the code a few times, reducing \(n\) and keeping \(\epsilon\) constant:
+\begin{verbatim}
+> limitTheorem(100, 0.5)
+[1] 0.9874
+> limitTheorem(50, 0.5)
+[1] 0.928
+> limitTheorem(20, 0.5)
+[1] 0.7522
+> limitTheorem(5, 0.5)
+[1] 0.4088
+\end{verbatim}
+Here, we see that law of large numbers applies with higher \(n\), with a higher fraction of numbers landing within the \(\epsilon=0.5\) of the mean \(\mu=4.2\). \\ \\
+We now run reducing \(\epsilon\) and keeping \(n\) constant:
+\begin{verbatim}
+> limitTheorem(50, 1)
+[1] 0.9992
+> limitTheorem(50, 0.5)
+[1] 0.9179
+> limitTheorem(50, 0.1)
+[1] 0.2635
+\end{verbatim}
+We see that the fraction reduces as we expect it to.
+
+\subsection*{(b)}
+
+While we already showed this previously, something we can do to further show this is to further standardize the averages, and we see that the fraction further decreases and the histogram becomes more normalized:
+\begin{verbatim}
+> limitTheorem = function(n,epsilon) {
++ 	
++ 	vecOfAverages = c(rep(0,10000))
++ 	for (i in 1:10000) {
++ 		smpl = rpois(n,4.2)
++ 		avg = mean(smpl);
++ 		vecOfAverages[i] = avg;
++ 	}
++ 	standardizedAverages = (vecOfAverages - 4.2) / sqrt(4.2/n)
++ 	hist(standardizedAverages);
++ 	vecOfDifferences = standardizedAverages - 4.2*c(rep(1,10000));
++ 	nmbCloseToTruth = length(vecOfDifferences[abs(vecOfDifferences) <= epsilon]);
++ 	print(nmbCloseToTruth/10000);
++ }
+> 
+> limitTheorem(100, 0.5)
+[1] 1e-04
+\end{verbatim}
+Before:
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=400pt]{7b_before.png}
+\end{figure} \\
+After:
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=400pt]{7b_after.png}
+\end{figure} 
+
+}
+
+{\Large 
+
+\section*{8.}
+
+We are given the exponential distribution with probability density \(f(x|\lambda) = \lambda e^{-\lambda x}\). We first take the proper expression for the likelihood function corresponding to the \(n\) observed values of \(X\):
+\[
+  L(\lambda) = \prod_{i=1}^n \lambda e^{-\lambda x_i} 
+\]
+which we can easily simplify by multiplying to get
+\[
+  L(\lambda) = \lambda^n e^{-\lambda \sum_{i=1}^n x_i}
+\]
+We then proceed to take the log likelihood:
+\[
+  l(\lambda) = \ln(\lambda^n e^{-\lambda \sum_{i=1}^n x_i})
+\]
+\[
+  l(\lambda) = n\ln(\lambda) - \lambda \sum_{i=1}^n x_i
+\]
+We then try to maximize this, so find a critical point by taking the derivative and setting equal to 0:
+\[
+  0 = \frac{dl}{d\lambda}
+\]
+\[
+  0 = \frac{d}{d\lambda}(n\ln(\lambda) - \lambda \sum_{i=1}^n x_i)
+\]
+\[
+  0 = \frac{n}{\lambda} - \sum_{i=1}^n x_i
+\]
+\[
+  \sum_{i=1}^n x_i = \frac{n}{\lambda} 
+\]
+\[
+  \lambda \sum_{i=1}^n x_i = n 
+\]
+\[
+  \lambda = \frac{n}{\sum_{i=1}^n x_i} 
+\]
+We can also ensure that this is a maximum by taking the derivative again:
+\[
+  \frac{d^2l}{d\lambda^2} = \frac{d}{d\lambda}(\frac{n}{\lambda} - \sum_{i=1}^n x_i)
+\]
+\[
+  \frac{d^2l}{d\lambda^2} = -\frac{n}{\lambda^2} - 0 = -\frac{n}{\lambda^2}
+\]
+The original probability density must be positive, so we know that \(\lambda > 0\) always. We see that this value of \(\frac{d^2l}{d\lambda^2} < 0\) for all \(\lambda > 0\), which means that this is indeed a maximum. We can now finally conclude that \(\hat{\lambda}_{\text{MLE}} = \frac{n}{\sum_{i=1}^n X_i} = \boxed{\frac{1}{\bar{X}}}\)
+
+}
+
+\end{document}
