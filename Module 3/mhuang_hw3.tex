@@ -86,14 +86,76 @@ as we sought to show.
 
 \section*{3.}
 
+\subsection*{(a)}
 
+We are given that the service times are modeled by an exponential distribution with \(\mu = 4\), thus \(\lambda = \frac{1}{\mu} = \frac{1}{4}\). Carol will wait the minimum of Alice and Betty's service times, since they are both directly in service. We know from example 1 that the minimum of their services is represented by the sum of their exponential, i.e. this minimum would be represented by an dexponential distribution with \(\lambda = \frac{1}{4} + \frac{1}{4} = \frac{1}{2}\). The expectation of this is therefore \(\mu = \frac{1}{\lambda} = \frac{1}{\frac{1}{2}} = 2\). We then add this to the expectation of the time required for the actual service, which is simply our original \(\mu = 4\); the expected total time for Carol thus can be represented as 2 + 4 = \boxed{6}.
+
+\subsection*{(b)}
+
+To find the expected total time until the last of the three customers leave, we must first recognize that using the memoryless property, the remaining service time of whoever didn't finish first still has the same distribution as we were given above, which is a bit tricky. We can represent the expectation of the total time \(T\) to be 
+\[
+  E[T] = E[\text{min}(A, B)] + E[\text{max}(S_{Slower}, S_C)]
+\]
+Using the example again and applying linearity of expectation, we can substitute the latter max term:
+\[
+  E[T] = E[\text{min}(A, B)] + E[S_{Slower}] + E[S_C] - E[\text{min}(S_{Slower}, S_C)] 
+\]
+Using the memoryless property, now, and also the minimum priority we used in the previous part
+\[
+  E[T] = E[\text{Exp}(\lambda + \lambda)] + E[\text{Exp}(\lambda)] + E[\text{Exp}(\lambda)] - EE[\text{Exp}(\lambda + \lambda)] 
+\]
+\[
+  E[T] = E[\text{Exp}(\frac{1}{4} + \frac{1}{4})] + E[\text{Exp}(\frac{1}{4})] + E[\text{Exp}(\frac{1}{4})] - EE[\text{Exp}(\frac{1}{4} + \frac{1}{4})] 
+\]
+\[
+  E[T] = E[\text{Exp}(\frac{1}{2})] + E[\text{Exp}(\frac{1}{4})] + E[\text{Exp}(\frac{1}{4})] - EE[\text{Exp}(\frac{1}{2})] 
+\]
+\[
+  E[T] = 2 + 4 + 4 - 2 = \boxed{8}
+\]
 
 }
 {\Large 
 
 \section*{4.}
 
+\subsection*{(a)}
 
+We are given shocks that occur at rates modeled by Poisson process with $\lambda_1, \lambda_2, \lambda_3$. To find \(P(Y > s , V > t)\), we need to recognize what this means -- that is, this represents the probability that part 1 works past time \(s\), and that part 2 works past time \(t\). We therefore need no type 1 shocks from \([0, s]\), no type 2 shocks from \([0, t]\), and not ype 3 shocks from \([0, \text{max}(s, t)]\). We can just multiply as these are independent, and replacing the expression for these, we simply can represent this as 
+\[
+  P(Y > s , V > t) = e^{-\lambda_1 s} e^{-\lambda_2 t} e^{-\lambda_3 \text{max}(s, t)}
+\]
+\[
+  \boxed{P(Y > s , V > t) = e^{-\lambda_1 -\lambda_2 t - \lambda_3 \text{max}(s, t)}}
+\]
+
+\subsection*{(b)}
+
+Simply, as \(U\) represents the failure time of part 1, we use the logic of needing neither shocks 1 or 3. We do the same for \(V\) with shock 2, and can easily represent both:
+\[
+  P(U > s) = e^{-\lambda_1 s} e^{-\lambda_3 s } = \boxed{e^{-(\lambda_1 + \lambda_3) \cdot s }}
+\]
+\[
+  P(V > t) = e^{-\lambda_2 t} e^{-\lambda_3 t} = \boxed{e^{-(\lambda_2 + \lambda_3) \cdot t }}
+\]
+
+\subsection*{(c)}
+
+Put simply, \(U\) and \(V\) are independent if \(P(U > s, V > t) = P(U > s) \cdot P(V > t)\). Given we have both of these, let's do the math:
+\[
+  P(U > s) \cdot P(V > t)
+\]
+\[
+  e^{-(\lambda_1 + \lambda_3) \cdot s } \cdot e^{-(\lambda_2 + \lambda_3) \cdot t }
+\]
+\[
+  e^{-\lambda_1 s - \lambda_2 t - \lambda_3 (s + t)}
+\]
+Let's equalize to what we found in part (a):
+\[
+  e^{-\lambda_1 s} e^{-\lambda_2 t} e^{-\lambda_3 \text{max}(s, t)} = e^{-\lambda_1 s - \lambda_2 t - \lambda_3 (s + t) }
+\]
+From this, we see that these are equal only in the case that \( \text{max}(s, t) = s + t \). We can easily see that this is only generally the case if \(s\) or \(t\) is 0. However, in any other case, this does not hold, so therefore we cannot generally say this holds, i.e. \boxed{U \text{ and } V \text{ are not independent}}.
 
 }
 {\Large 
@@ -218,14 +280,49 @@ To find \(P(N(4)=3 | N(2)=1, N(3)=2)\), we can first remove the \(N(2) = 1\) par
 
 \section*{7.}
 
+I added this to the end of the provided code, and included the terminal ouput:
 
+\begin{verbatim}
+> lambda = 0.2
+> s = 10
+> n = 5
+> tot = 20
+> simulations = 1000
+> simulated_prob = poissonProcess(tot, n, lambda, s, simulations)
+> 
+> real_prob = dpois(n, lambda * s)
+> 
+> paste("Simulated Probability P(N(5)=3):", simulated_prob)
+[1] "Simulated Probability P(N(5)=3): estimated Probability =  0.036"
+> paste("Real Probability using dpois:", real_prob)
+[1] "Real Probability using dpois: 0.0360894088630967"
+\end{verbatim}
+This shows that the probabilities are indeed extremely close to each other, with the simulation following the calculated probability very closely.
 
 }
 {\Large 
 
 \section*{8.}
 
+As we aim to show that as the upper limit gets smaller, the approximation gets better, we can just run for different maximum arrival probabilities (the uppLimit parameter in this case). I ran this code in addition to the provided method:
+\begin{verbatim}
+# Higher max probability of arrival / uppLimit, so approximation should be worse
+# n, uppLimit, nmbSimulations
+differentArrivalProbs(100, 0.75, 1000)
 
+# Lower max probability of arrival / uppLimit, so approximation should be better
+differentArrivalProbs(100, 0.075, 1000)
+\end{verbatim}
+This was the output of the code:
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=300pt]{8a_high_hist.png}
+\end{figure} \\ \\
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=300pt]{8a_low_hist.png}
+\end{figure} \\ \\
+The second set of histograms is meant to have better approximation, with the simulated arrivals looking better and more closely fitted to the actual histogram xompared to the first set, which has less closely fitted shapes of the histograms.
 
 }
 {\Large 
@@ -234,13 +331,40 @@ To find \(P(N(4)=3 | N(2)=1, N(3)=2)\), we can first remove the \(N(2) = 1\) par
 
 \subsection*{(a)} 
 
-
+We are given the piecewise linear example: \\
+- 0 arrival rate at 10:00 \\
+- 4 arrival rate at 12:00 \\
+- 6 arrival rate at 14:00 \\
+- 2 arrival rate at 16:00 \\
+- 0 arrival rate at 18:00 \\
+To find the distribution of the number of arrivals in a day, we simply take the sum of the integrals:
+\[
+  E(A) = \int_{10:00}^{12:00} \lambda_1(r) dr + \int_{12:00}^{14:00} \lambda_2(r) dr + \int_{14:00}^{16:00} \lambda_3(r) dr + \int_{16:00}^{18:00} \lambda_4(r) dr
+\]
+\[
+  E(A) = \frac{1}{2}(0 + 4) \cdot 2 + \frac{1}{2}(4 + 6) \cdot 2 + \frac{1}{2}(6 + 2) \cdot 2 + \frac{1}{2}(2 + 0) \cdot 2
+\]
+\[
+  E(A) = \frac{1}{2}(0 + 4) \cdot 2 + \frac{1}{2}(4 + 6) \cdot 2 + \frac{1}{2}(6 + 2) \cdot 2 + \frac{1}{2}(2 + 0) \cdot 2
+\]
+\[
+  E(A) = 4 + 10 + 8 + 2 = 24
+\]
+As this is the number of expected arrivals in a day, we can model the arrivals using Poisson, i.e. that \boxed{A \sim \text{Poisson}(24)}.
 
 \subsection*{(b)}
 
-
+To find the probability that nobody arrives before noon is essentially, we start by finding \(\lambda\) for 10:00 to 12:00, which we find using the same method as previously to be \(\int_{10:00}^{12:00} \lambda(r) dr = \frac{1}{2}(0 + 4) \cdot 2 = 4\). In this case, we
+\[
+  P(N(10:00-12:00) = n) = \frac{e^{-\lambda}\lambda^n}{n!} 
+\]
+\[
+  P(N(10:00-12:00) = 0) = \frac{e^{-4}4^0}{0!} 
+\]
+\[
+  P(N(10:00-12:00) = 0) = e^{-4} = \boxed{0.01831563888}
+\]
 
 }
-
 
 \end{document}
