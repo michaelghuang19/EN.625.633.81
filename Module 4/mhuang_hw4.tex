@@ -218,11 +218,124 @@ Given the properties of the Markov chain, we can just treat this as a normal 2-s
 
 \subsection*{(a)} 
 
-
+Restating the information from the problem to calculate the transition matrix: \\
+- Dick is equally likely to throw it to Helen, Mark, Sam, and Tony. In other words, we have probability \(\frac{1}{4}\) to each of them. \\
+- Helen is equally likely to throw to Dick, Joni, Sam, and Tony. In other words, we have probability \(\frac{1}{4}\) to each of them. \\ 
+- Sam is equally likely to throw to Dick, Helen, Mark, and Tony. In other words, we have probability \(\frac{1}{4}\) to each of them. \\ 
+- Joni and Tony throw only to each other. So each have probability 1 to throw to each other. \\
+- Mark runs away with the ball. So we have probability 1 to "throw to himself." \\ \\
+Let's create the matrix based on this information: \\
+\[
+  \begin{array}{|c|c|c|c|c|c|c|}
+    \hline
+    & \text{Dick} & \text{Helen} & \text{Sam} & \text{Joni} & \text{Tony} & \text{Mark} \\ \hline
+    \text{Dick} & 0 & \frac{1}{4} & \frac{1}{4} & 0 & \frac{1}{4} & \frac{1}{4} \\ \hline
+    \text{Helen} & \frac{1}{4} & 0 & \frac{1}{4} & \frac{1}{4} & \frac{1}{4} & 0 \\ \hline
+    \text{Sam} & \frac{1}{4} & \frac{1}{4} & 0 & 0 & \frac{1}{4} & \frac{1}{4} \\ \hline
+    \text{Joni} & 0 & 0 & 0 & 0 & 1 & 0 \\ \hline
+    \text{Tony} & 0 & 0 & 0 & 1 & 0 & 0 \\ \hline
+    \text{Mark} & 0 & 0 & 0 & 0 & 0 & 1 \\ \hline
+  \end{array}
+\] \\
+Looking at the matrix, we can see that Dick, Helen, and Sam are transient states/people since there's a chance that the ball is thrown to Joni, Tony, and Mark, who will never return the ball to any of the group of transient people. \\ \\ 
+Similarily, we can see that Joni, Tony, and Mark are recurrent states/people -- Joni and Tony will only go back and forth with each other, and Mark will only go to himself.
 
 \subsection*{(b)}
 
-
+We aim to find the probability that Mark will end up with the ball given that Dick has the ball at the beginning of the game. We can start by understanding the recurrent states: \\
+- Mark will always get the ball if he has the ball, so \(P(M | M) = 1\) \\
+- Tony and Joni go back and forth with each other, so \(P(M | T) = 0\) and \(P(M | J) = 0\) \\
+We aren't concerned with these cases as much as the other people, which we actually have to solve for. Starting with Dick's case: 
+\[
+  P(M | D) = \frac{1}{4} \cdot P(M | H) + \frac{1}{4} \cdot P(M | S) + \frac{1}{4} \cdot P(M | M) + \frac{1}{4} \cdot P(M | T)
+\]
+\[
+  P(M | D) = \frac{1}{4} \cdot P(M | H) + \frac{1}{4} \cdot P(M | S) + \frac{1}{4} \cdot 1 + \frac{1}{4} \cdot 0
+\]
+\[
+  P(M | D) = \frac{1}{4} \cdot P(M | H) + \frac{1}{4} \cdot P(M | S) + \frac{1}{4}
+\]
+For Helen:
+\[
+  P(M | H) = \frac{1}{4} \cdot P(M | D) + \frac{1}{4} \cdot P(M | S) + \frac{1}{4} \cdot P(M | J) + \frac{1}{4} \cdot P(M | T)
+\]
+\[
+  P(M | H) = \frac{1}{4} \cdot P(M | D) + \frac{1}{4} \cdot P(M | S) + \frac{1}{4} \cdot 0 + \frac{1}{4} \cdot 0
+\]
+\[
+  P(M | H) = \frac{1}{4} \cdot P(M | D) + \frac{1}{4} \cdot P(M | S)
+\]
+Finally, for Sam:
+\[
+  P(M | S) = \frac{1}{4} \cdot P(M | D) + \frac{1}{4} \cdot P(M | H) + \frac{1}{4} \cdot P(M | T) + \frac{1}{4} \cdot P(M | M)
+\]
+\[
+  P(M | S) = \frac{1}{4} \cdot P(M | D) + \frac{1}{4} \cdot P(M | H) + \frac{1}{4} \cdot 0 + \frac{1}{4} \cdot 1
+\]
+\[
+  P(M | S) = \frac{1}{4} \cdot P(M | D) + \frac{1}{4} \cdot P(M | H) + \frac{1}{4}
+\]
+Let's get to solving -- let's substitute \(P(M | H)\) into the equation for \(P(M | D)\):
+\[
+  P(M | D) = \frac{1}{4} \cdot (\frac{1}{4} \cdot P(M | D) + \frac{1}{4} \cdot P(M | S)) + \frac{1}{4} \cdot P(M | S) + \frac{1}{4}
+\]
+\[
+  P(M | D) = \frac{1}{16} \cdot P(M | D) + \frac{1}{16} \cdot P(M | S) + \frac{1}{4} \cdot P(M | S) + \frac{1}{4}
+\]
+\[
+  P(M | D) = \frac{1}{16} \cdot P(M | D) +\frac{5}{16} \cdot P(M | S) + \frac{1}{4}
+\]
+\[
+  \frac{15}{16} \cdot P(M | D) = \frac{5}{16} \cdot P(M | S) + \frac{1}{4}
+\]
+\[
+  15 \cdot P(M | D) = 5 \cdot P(M | S) + 4
+\]
+Let's now substitute \(P(M | H)\) into the equation for \(P(M | S)\):
+\[
+  P(M | S) = \frac{1}{4} \cdot P(M | D) + \frac{1}{4} \cdot (\frac{1}{4} \cdot P(M | D) + \frac{1}{4} \cdot P(M | S)) + \frac{1}{4}
+\]
+\[
+  P(M | S) = \frac{1}{4} \cdot P(M | D) + \frac{1}{16} \cdot P(M | D) + \frac{1}{16} \cdot P(M | S) + \frac{1}{4}
+\]
+\[
+  \frac{15}{16} \cdot P(M | S) = \frac{5}{16} \cdot P(M | D) + \frac{1}{4}
+\]
+\[
+  15 \cdot P(M | S) = 5 \cdot P(M | D) + 4
+\]
+\[
+  15 \cdot P(M | S) - 4 = 5 \cdot P(M | D)
+\]
+\[
+  P(M | D) = 3 \cdot P(M | S) - \frac{4}{5}
+\]
+We can now plug this into the first equation and solve:
+\[
+  15 \cdot P(M | D) = 5 \cdot P(M | S) + 4
+\]
+\[
+  15 \cdot (3 \cdot P(M | S) - \frac{4}{5}) = 5 \cdot P(M | S) + 4
+\]
+\[
+  45 \cdot P(M | S) - 12 = 5 \cdot P(M | S) + 4
+\]
+\[
+  40 \cdot P(M | S) = 16
+\]
+\[
+  P(M | S) = \frac{16}{40} = \frac{2}{5}
+\]
+And subsequently,
+\[
+  P(M | D) = 3 \cdot P(M | S) - \frac{4}{5}
+\]
+\[
+  P(M | D) = 3 \cdot \frac{2}{5} - \frac{4}{5}
+\]
+\[
+  P(M | D) = \frac{6}{5} - \frac{4}{5} = \boxed{\frac{2}{5}}
+\]
 
 }
 
