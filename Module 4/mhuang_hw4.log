@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  11 FEB 2026 21:35
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  14 FEB 2026 20:59
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**"/Users/mhuang19/Documents/edu/jhu/Monte Carlo Methods (EN.625.633.81)/EN.625.633.81/Module 3/mhuang_hw3"
-(/Users/mhuang19/Documents/edu/jhu/Monte Carlo Methods (EN.625.633.81)/EN.625.633.81/Module 3/mhuang_hw3.tex
+**"/Users/mhuang19/Documents/edu/jhu/Monte Carlo Methods (EN.625.633.81)/EN.625.633.81/Module 4/mhuang_hw4"
+(/Users/mhuang19/Documents/edu/jhu/Monte Carlo Methods (EN.625.633.81)/EN.625.633.81/Module 4/mhuang_hw4.tex
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
 (/usr/local/texlive/2025/texmf-dist/tex/latex/base/article.cls
@@ -369,8 +369,8 @@ Package: systeme 2025/02/16 v0.35 Mise en forme de systemes d'equations (CT)
 File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count309
 \l__pdf_internal_box=\box65
-) (./mhuang_hw3.aux)
-\openout1 = `mhuang_hw3.aux'.
+) (./mhuang_hw4.aux)
+\openout1 = `mhuang_hw4.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 20.
 LaTeX Font Info:    ... okay on input line 20.
@@ -448,15 +448,15 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 29.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Overfull \hbox (23.14948pt too wide) detected at line 81
-[]
+Overfull \hbox (65.41147pt too wide) detected at line 65
+\OML/cmm/m/it/14.4 P[] \OT1/cmr/m/n/14.4 = []
  []
 
 
 
 
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <15> not available
-(Font)              size <14.4> substituted on input line 81.
+(Font)              size <14.4> substituted on input line 95.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -468,77 +468,66 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [1{/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 ]
+Overfull \hbox (25.0624pt too wide) detected at line 134
+\OML/cmm/m/it/14.4 P[] \OT1/cmr/m/n/14.4 = []
+ []
+
+
 
 [2]
 
 [3]
-
-[4]
-Underfull \hbox (badness 10000) in paragraph at lines 208--210
+Underfull \hbox (badness 10000) in paragraph at lines 212--216
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 218--220
+Underfull \hbox (badness 10000) in paragraph at lines 225--227
+
+ []
+
+
+
+[4]
+Underfull \hbox (badness 10000) in paragraph at lines 258--260
 
  []
 
 
 
 [5]
-Underfull \hbox (badness 10000) in paragraph at lines 225--227
+Underfull \hbox (badness 10000) in paragraph at lines 303--310
 
  []
 
 
-Overfull \hbox (38.34561pt too wide) detected at line 236
-\OML/cmm/m/it/14.4 P\OT1/cmr/m/n/14.4 (\OML/cmm/m/it/14.4 N\OT1/cmr/m/n/14.4 (2) = 1\OML/cmm/m/it/14.4 ; N\OT1/cmr/m/n/14.4 (3) = 4\OML/cmm/m/it/14.4 ; N\OT1/cmr/m/n/14.4 (5) = 5) = \OML/cmm/m/it/14.4 P\OT1/cmr/m/n/14.4 (\OML/cmm/m/it/14.4 N\OT1/cmr/m/n/14.4 (2) = 1) \OMS/cmsy/m/n/14.4 ^^A \OML/cmm/m/it/14.4 P\OT1/cmr/m/n/14.4 (\OML/cmm/m/it/14.4 N\OT1/cmr/m/n/14.4 (3) \OMS/cmsy/m/n/14.4 ^^@ \OML/cmm/m/it/14.4 N\OT1/cmr/m/n/14.4 (2) = 3) \OMS/cmsy/m/n/14.4 ^^A \OML/cmm/m/it/14.4 P\OT1/cmr/m/n/14.4 (\OML/cmm/m/it/14.4 N\OT1/cmr/m/n/14.4 (5) \OMS/cmsy/m/n/14.4 ^^@ \OML/cmm/m/it/14.4 N\OT1/cmr/m/n/14.4 (3) = 1)
+Underfull \hbox (badness 10000) in paragraph at lines 303--310
+
  []
 
 
 
 [6]
+Overfull \hbox (13.73347pt too wide) in paragraph at lines 321--324
+\OT1/cmr/m/n/14.4 Looking at the ma-trix, we can see that Dick, He-len, and Sam are tran-sient states/people
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 321--324
+
+ []
+
+
 
 [7]
-Overfull \hbox (78.50407pt too wide) in paragraph at lines 315--315
-[]\OT1/cmtt/m/n/14.4 # Higher max probability of arrival / uppLimit, so approximation should be worse[] 
- []
 
+[8]
 
-Overfull \hbox (78.50407pt too wide) in paragraph at lines 315--315
-[]\OT1/cmtt/m/n/14.4 # Lower max probability of arrival / uppLimit, so approximation should be better[] 
- []
+[9]
 
-<8a_high_hist.png, id=39, 957.5775pt x 774.895pt>
-File: 8a_high_hist.png Graphic file (type png)
-<use 8a_high_hist.png>
-Package pdftex.def Info: 8a_high_hist.png  used on input line 319.
-(pdftex.def)             Requested size: 300.0pt x 242.76894pt.
-<8a_low_hist.png, id=41, 957.5775pt x 774.895pt>
-File: 8a_low_hist.png Graphic file (type png)
-<use 8a_low_hist.png>
-Package pdftex.def Info: 8a_low_hist.png  used on input line 323.
-(pdftex.def)             Requested size: 300.0pt x 242.76894pt.
+[10]
 
-Underfull \hbox (badness 10000) in paragraph at lines 316--326
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 316--326
-
- []
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-
-[8 <./8a_high_hist.png>]
-
-[9 <./8a_low_hist.png>]
-
-[10] (./mhuang_hw3.aux)
+[11] (./mhuang_hw4.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
@@ -550,18 +539,18 @@ LaTeX Font Warning: Size substitutions with differences
 
  ) 
 Here is how much of TeX's memory you used:
- 14422 strings out of 473190
- 285710 string characters out of 5715801
- 666762 words of memory out of 5000000
- 37440 multiletter control sequences out of 15000+600000
- 562870 words of font info for 52 fonts, out of 8000000 for 9000
+ 14406 strings out of 473190
+ 285370 string characters out of 5715801
+ 669762 words of memory out of 5000000
+ 37425 multiletter control sequences out of 15000+600000
+ 562701 words of font info for 51 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 102i,14n,107p,910b,537s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on mhuang_hw3.pdf (10 pages, 225755 bytes).
+ 102i,14n,107p,523b,470s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+Output written on mhuang_hw4.pdf (11 pages, 100782 bytes).
 PDF statistics:
- 100 PDF objects out of 1000 (max. 8388607)
- 61 compressed objects within 1 object stream
+ 78 PDF objects out of 1000 (max. 8388607)
+ 50 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 23 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 13 words of extra memory for PDF output out of 10000 (max. 10000000)
 
