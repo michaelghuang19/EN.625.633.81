@@ -209,7 +209,89 @@ Given the properties of the Markov chain, we can just treat this as a normal 2-s
 {\Large 
 \section*{2.}
 
-
+Let's begin by constructing the applicable transition matrix. We are given the following information: \\
+- From state 0 (no umbrellas): No matter what whether it rains or doesn't, there's no umbrellas to take, so we always arrive to state 3, with the remaining 3 umbrellas on the other side. \\
+- From any other nonzero state \(i\) (1-3 umbrellas): If it rains with probability \(p\), then take one umbrella across -- the other side has \(3 - i \) umbrellas, and then we bring one more, so we will reach state \( 3 - i + 1 = 4 - i\) with probability \(p\). Conversely, it doesn't rain with probability \(1-p\), so she leaves the umbrella, so we go to state \( 3 - i\) with probability \(1-p\). \\ \\
+Visualizing this all as a matrix:
+\[
+  \begin{array}{|c|c|c|c|c|}
+    \hline
+    & 0 & 1 & 2 & 3 \\ \hline
+    0 & 0 & 0 & 0 & 1 \\ \hline
+    1 & 0 & 0 & 1-p & p \\ \hline
+    2 & 0 & 1-p & p & 0 \\ \hline
+    3 & 1-p & p & 0 & 0 \\ \hline
+  \end{array}
+\] \\
+Using this, we can find the limiting distribution \(\pi_i\) by solving \(\pi = \pi P\). Let's set up the equations that represent this: \\
+\begin{align*}
+  \pi_0 &= (1-p) \cdot \pi_3 \\
+  \pi_1 &= (1-p) \cdot \pi_2 + p \cdot \pi_3 \\
+  \pi_2 &= (1-p) \cdot \pi_1 + p \cdot \pi_2 \\
+  \pi_3 &= 1 \cdot \pi_0 + p \cdot \pi_1
+\end{align*}
+Substituting \(\pi_0\) into \(\pi_3\):
+\[
+  \pi_3 = 1 \cdot \pi_0 + p \cdot \pi_1
+\]
+\[
+  \pi_3 = (1 - p) \cdot \pi_3 + p \cdot \pi_1
+\]
+\[
+  \pi_3 = \pi_3 - p \cdot \pi_3 + p \cdot \pi_1
+\]
+\[
+  p \cdot \pi_3 = p \cdot \pi_1
+\]
+\[
+  \pi_3 = \pi_1
+\]
+And plugging this into the equation for \(\pi_1\): 
+\[
+  \pi_1 = (1-p) \cdot \pi_2 + p \cdot \pi_1
+\]
+\[
+  (1-p) \cdot \pi_1 = (1-p) \cdot \pi_2
+\]
+\[
+  \pi_1 = \pi_2
+\]
+By definition, we know that the total probability of these probabilities must add up to 1, i.e. \\
+\[
+  \pi_0 + \pi_1 + \pi_2 + \pi_3 = 1
+\]
+\[
+  (1 - p) \cdot \pi_3 + \pi_3 + \pi_1 + \pi_3 = 1
+\]
+\[
+  (1 - p) \cdot \pi_3 + \pi_3 + \pi_3 + \pi_3 = 1
+\]
+\[
+  (4 - p) \cdot \pi_3 = 1
+\]
+\[
+  \pi_3 = \frac{1}{4-p}
+\]
+This also tells us that 
+\[
+  \pi_0 = 1 - \pi_1 - \pi_2 - \pi_3
+\]
+\[
+  \pi_0 = 1 - \frac{1}{4-p} - \frac{1}{4-p} - \frac{1}{4-p}
+\]
+\[
+  \pi_0 = 1 - \frac{3}{4-p}
+\]
+\[
+  \pi_0 = \frac{4 - p - 3}{4-p}
+\]
+\[
+  \pi_0 = \frac{1 - p}{4-p}
+\]
+Our end goal was to find the limiting probability that it rains and no umbrella is available. By definition, the probability that it rains is \(p\), and the limiting probability that no umbrella is available is \(P(X_n = 0) = \pi_0\). This is equivalent to 
+\[
+  p \cdot \pi_0 = p \cdot \frac{1-p}{4 - p} = \boxed{\frac{p(1-p)}{4 - p}}
+\]
 
 }
 
