@@ -156,7 +156,11 @@ So to generate the random variables, we do the following: \\
 
 We are given a distribution with pdf 
 \[ 
-  f_X(x) = \begin{cases} \frac{1}{4} & 0 < x < 1 \\[4pt] x - \frac{3}{4} & 1 \leq x \leq 2 \end{cases} 
+  f_X(x) = 
+  \begin{cases} 
+    \frac{1}{4} & 0 < x < 1 \\
+    x - \frac{3}{4} & 1 \leq x \leq 2 
+  \end{cases} 
 \]
 
 \subsection*{(a)} 
@@ -254,7 +258,7 @@ Plugging this in, we find that
   M = 2 \cdot \frac{5}{4} = \frac{5}{2}
 \]
 The steps to generate the random variable using the accept-reject method are as follows: \\
-- Generate \(X_{cand} \sim g(x)\), i.e. \(X \sim \text{Uniform}(0, 2)\) \\
+- Generate \(X_{cand} \sim g(x)\), i.e. \(X \sim \text{Unif}(0, 2)\) \\
 - Generate \(U \sim \text{Unif}(0, 1)\) independently \\
 - If \(U \leq \frac{f(X_{cand})}{M \cdot g(x)} = \frac{f(X_{cand})}{\frac{5}{2} \cdot \frac{1}{2}} = \frac{4f(X_{cand})}{5}\), accept \(X_{cand}\)
 
@@ -264,13 +268,122 @@ The steps to generate the random variable using the accept-reject method are as 
 
 \section*{3.}
 
+We are given a distribution with pdf 
+\[ 
+  f_X(x) = 
+  \begin{cases} 
+    \frac{1}{2}x & 0 < x < 1 \\
+    \frac{1}{2} & 1 \leq x \leq \frac{5}{2}
+  \end{cases} 
+\]
+
 \subsection*{(a)} 
 
-
+As always, let's find the piecewise CDF: \\
+- \(0 < x < 1\): 
+\[
+  F_X(x) = \int_0^x f_X(x) dx
+\]
+\[
+  = \int_0^x \frac{1}{2}x dx
+\]
+\[
+  = \frac{x^2}{4} |_0^x 
+\]
+\[
+  = \frac{x^2}{4} - 0 
+\]
+\[
+  F_X(x) = \frac{x^2}{4}
+\]
+- \(1 \leq x \leq \frac{5}{2}\): \\
+\[
+  F_X(x) = \int_0^1 f_X(x) dx + \int_1^x f_X(x) dx
+\]
+\[
+  = \int_0^1 \frac{1}{2}x dx + \int_1^x \frac{1}{2} dx
+\]
+\[
+  = \frac{x^2}{4} |_0^1 + \frac{1}{2}x |_1^x
+\]
+\[
+  = \frac{1}{4} - 0 + \frac{x}{2} - \frac{1}{2}
+\]
+\[
+  F_X(x )= \frac{x}{2} - \frac{1}{4}
+\]
+Now, invert accordingly:
+- \(0 < x < 1\):
+\[
+  U_i = \frac{x^2}{4}
+\]
+\[
+  4U_i = x^2
+\]
+\[
+  x = 2\sqrt{U_i}
+\]
+- \(1 \leq x \leq \frac{5}{2}\):
+\[
+  U_i = \frac{x}{2} - \frac{1}{4}
+\]
+\[
+  U_i + \frac{1}{4} = \frac{x}{2}
+\]
+\[
+  x = 2U_i + \frac{1}{2}
+\]
+Given the breakpoint of \(x = 1\) and \(F_X(1) = \frac{1^2}{4} = \frac{1}{4}\), we can now delineate the following steps for generating the random variables: \\
+- Generate \(U_1, U_2, \dots, U_n \sim \text{Unif(0,1)}\) \\ 
+- For \(U_i < \frac{1}{4}\), set \(X_i = F^{-1}_X(U_i) = 2\sqrt{U_i}\) \\
+- For all other values, set \(X_i = F^{-1}_X(U_i) = 2U_i + \frac{1}{2} \)
 
 \subsection*{(b)}
 
-
+Given the proposal density \(g(x) = \frac{8}{25}x \quad 0 \leq x \leq \frac{5}{2}\), for the accept-reject method, we need to find the appropriate constant \( M \geq sup_x[\frac{f(x)}{g(x)}]\). We know that 
+\[
+  \frac{f(x)}{g(x)} = \frac{f(x)}{\frac{8}{25}x} = \frac{25 \cdot f(x)}{8x}
+\]
+Taking this case-by-case now, since we see that it varies: \\
+- \(0 < x < 1\): \\
+\[
+  \frac{f(x)}{g(x)} = \frac{25 \cdot f(x)}{8x} = \frac{25 \cdot \frac{1}{2}x}{8x} = \frac{25}{16}
+\]
+- \(1 \leq x \leq \frac{5}{2}\): \\
+\[
+  \frac{f(x)}{g(x)} = \frac{25 \cdot f(x)}{8x} = \frac{25 \cdot \frac{1}{2}}{8x} = \frac{25}{16x}
+\]
+Looking at this latter function, we see that as \(x\) increases, the ratio decreases, so the maximum value will be at the lower bound of \(x = 1\), i.e. \(\frac{25}{16x} = \frac{25}{16 \cdot 1} = \frac{25}{16}\). So the maximum \(M\) is the same for both of these cases, with \(M = \frac{25}{16}\). \\ \\
+As \(g(x)\) is not univariate, we must generate candidates from we must use the inverse-transform on \(g(x)\) to generate candidates:
+\[
+  G(x) = \int_0^x g(x) dx
+\]
+\[
+  = \int_0^x \frac{8}{25}x dx
+\]
+\[
+  = \frac{4x^2}{25} |_0^x 
+\]
+\[
+  = \frac{4x^2}{25} - 0 
+\]
+\[
+  G(x) = \frac{4x^2}{25}
+\]
+And now inverting:
+\[
+  U_1 = \frac{4x^2}{25}
+\]
+\[
+  \frac{25U_1}{4} = x^2
+\]
+\[
+  x = \frac{5\sqrt{U_1}}{2}
+\]
+We can now lay out the steps to generate the random variable using the accept-reject method as: \\
+- Generate \(X_{cand} \sim g(x)\), i.e. get \(U_1 \sim \text{Unif}(0, 1)\) and set \(X_{cand} = \frac{5\sqrt{U_1}}{2}\) \\
+- Generate \(U \sim \text{Unif}(0, 1)\) independently \\
+- If \(U \leq \frac{f(X_{cand})}{M \cdot g(x)} = \frac{f(X_{cand})}{\frac{25}{16} \cdot g(X_{cand})} = \frac{25f(X_{cand})}{16g(X_{cand})}\), accept \(X_{cand}\)
 
 }
 
