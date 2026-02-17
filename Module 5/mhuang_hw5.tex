@@ -154,13 +154,109 @@ So to generate the random variables, we do the following: \\
 
 \section*{2.}
 
+We are given a distribution with pdf 
+\[ 
+  f_X(x) = \begin{cases} \frac{1}{4} & 0 < x < 1 \\[4pt] x - \frac{3}{4} & 1 \leq x \leq 2 \end{cases} 
+\]
+
 \subsection*{(a)} 
 
-
+As we normally do with the inverse-transform method, let's take the CDF for each section: \\
+- \(0 < x < 1\): \\ 
+\[
+  F_X(x) = \int_0^x f_X(x) dx
+\]
+\[
+  = \int_0^x \frac{1}{4} dx
+\]
+\[
+  = \frac{1}{4}x |_0^x
+\]
+\[
+  = \frac{1}{4}x - 0
+\]
+\[
+  F_X(x) = \frac{x}{4}
+\]
+- \(1 \leq x \leq 2\): \\
+\[
+  F_X(x) = \int_0^1 f_X(x) dx + \int_1^x f_X(x) dx
+\]
+\[
+  = \int_0^1 \frac{1}{4} dx + \int_1^x x - \frac{3}{4} dx
+\]
+\[
+  = \frac{1}{4}x |_0^1 + \frac{x^2}{2} - \frac{3}{4}x |_1^x
+\]
+\[
+  = \frac{1}{4}x |_0^1 + [\frac{x^2}{2} - \frac{3}{4}x] |_1^x
+\]
+\[
+  = \frac{1}{4} - 0 + \frac{x^2}{2} - \frac{3}{4}x - \frac{1}{2} + \frac{3}{4}
+\]
+\[
+  = \frac{x^2}{2} - \frac{3}{4}x + \frac{1}{2}
+\]
+Now, invert accordingly: \\
+- \(0 < x < 1\): \\ 
+\[
+  U_i = \frac{x}{4}
+\]
+\[
+  x = 4U_i
+\]
+- \(1 \leq x \leq 2\): \\ 
+\[
+  U_i = \frac{x^2}{2} - \frac{3}{4}x + \frac{1}{2}
+\]
+\[
+  4U_i = 2x^2 - 3x + 2
+\]
+\[
+  0 = 2x^2 - 3x + (2 - 4U_i)
+\]
+\[
+  x = \frac{3 \pm \sqrt{(-3)^2 - 4(2 \cdot (2 - 4U_i))}}{2(2)}
+\]
+\[
+  x = \frac{3 \pm \sqrt{9 - 16 + 32U_i}}{4}
+\]
+\[
+  x = \frac{3 \pm \sqrt{32U_i - 7}}{4}
+\]
+To see whether we should be using \(+\) or \(-\), let's evaluate at the breakpoint of \(x=1\) and \(U_i = \frac{1}{4}\):
+\[
+  1 = \frac{3 \pm \sqrt{32(\frac{1}{4})- 7}}{4}
+\]
+\[
+  1 = \frac{3 \pm \sqrt{8- 7}}{4}
+\]
+\[
+  4 = 3 \pm 1
+\]
+So clearly we should take \(+\) in this case. We would therefore take the following steps to generate the random variables: \\
+- Generate \(U_1, U_2, \dots, U_n \sim \text{Unif(0,1)}\) \\ 
+- For \(U_i < \frac{1}{4}\), set \(X_i = F^{-1}_X(U_i) = 4U_i\) \\
+- For all other values, set \(X_i = F^{-1}_X(U_i) = \frac{3 + \sqrt{32U_i - 7}}{4}\)
 
 \subsection*{(b)}
 
-
+Given the proposal density \(g(x) = \frac{1}{2} \quad 0 \leq x \leq 2\), for the accept-reject method, we need to find the appropriate constant \( M \geq sup_x[\frac{f(x)}{g(x)}]\). We know that 
+\[
+  \frac{f(x)}{g(x)} = \frac{f(x)}{\frac{1}{2}} = 2f(x)
+\]
+We now find the maximum of \(f(x)\). Looking at the function, this is 
+\[
+  f(2) = 2 - \frac{3}{4} = \frac{5}{4}
+\]
+Plugging this in, we find that 
+\[
+  M = 2 \cdot \frac{5}{4} = \frac{5}{2}
+\]
+The steps to generate the random variable using the accept-reject method are as follows: \\
+- Generate \(X_{cand} \sim g(x)\), i.e. \(X \sim \text{Uniform}(0, 2)\) \\
+- Generate \(U \sim \text{Unif}(0, 1)\) independently \\
+- If \(U \leq \frac{f(X_{cand})}{M \cdot g(x)} = \frac{f(X_{cand})}{\frac{5}{2} \cdot \frac{1}{2}} = \frac{4f(X_{cand})}{5}\), accept \(X_{cand}\)
 
 }
 
