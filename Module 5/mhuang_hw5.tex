@@ -24,7 +24,129 @@
 
 \section*{1.}
 
-
+We are given a Laplace distribution with pdf 
+\[
+  f_X(x) = \frac{\lambda}{2}\exp\{-\lambda|x-\theta|\}
+\]
+with \(\lambda = 2\) and \(\theta = 2\), for \(-\infty < x < \infty\). To apply the inverse transform method, we first find the CDF. Given the absolute value in the function, we need to find the CDF for two different cases: \\ 
+- Case 1: \(x > \theta\)
+\[
+  F_X(x) = P(X \leq x) = \int_{-\infty}^{x} f_X(x) dx = \int_{-\infty}^{\theta} f_X(x) dx + \int_{\theta}^{x} f_X(x) dx
+\]
+\[
+  = \int_{-\infty}^{\theta} \frac{\lambda}{2}\exp\{-\lambda|x-\theta|\} dx + \int_{\theta}^{x} \frac{\lambda}{2}\exp\{-\lambda|x-\theta|\} dx
+\]
+\[
+  = \int_{-\infty}^{\theta} \frac{\lambda}{2}\exp\{-\lambda(-x-(-\theta))\} dx + \int_{\theta}^{x} \frac{\lambda}{2}\exp\{-\lambda(x-\theta)\} dx
+\]
+\[
+  = \int_{-\infty}^{\theta} \frac{\lambda}{2}\exp\{\lambda(x-\theta)\} dx + \int_{\theta}^{x} \frac{\lambda}{2}\exp\{-\lambda(x-\theta)\} dx
+\]
+For the first integral, we do substitution with \(u = \lambda(x - \theta)\) (and thus \(\frac{du}{dx} = \lambda\) and \(dx = \frac{1}{\lambda}du\)):
+\[
+  = \int_{-\infty}^{0} \frac{\lambda}{2}\exp\{u\} \cdot \frac{1}{\lambda} du + \int_{\theta}^{x} \frac{\lambda}{2}\exp\{-\lambda(x-\theta)\} dx 
+\]
+\[
+  = \int_{-\infty}^{0} \frac{1}{2}\exp\{u\} du + \int_{\theta}^{x} \frac{\lambda}{2}\exp\{-\lambda(x-\theta)\} dx 
+\]
+\[
+  = \frac{1}{2}\exp\{u\} |_{-\infty}^{0}  + \int_{\theta}^{x} \frac{\lambda}{2}\exp\{-\lambda(x-\theta)\} dx 
+\]
+\[
+  = \frac{1}{2}\exp\{0\} - 0 + \int_{\theta}^{x} \frac{\lambda}{2}\exp\{-\lambda(x-\theta)\} dx 
+\]
+\[
+  = \frac{1}{2} + \int_{\theta}^{x} \frac{\lambda}{2}\exp\{-\lambda(x-\theta)\} dx 
+\]
+Do substitution in a similar way for the second integral, with \(u = -\lambda(x - \theta)\), \(\frac{du}{dx} = -\lambda\), and \(dx = -\frac{1}{\lambda}du\):
+\[
+  = \frac{1}{2} + \int_{0}^{-\lambda(x - \theta)} \frac{\lambda}{2}\exp\{u\} \cdot -\frac{1}{\lambda} du
+\]
+\[
+  = \frac{1}{2} + \int_{0}^{-\lambda(x - \theta)} -\frac{1}{2}\exp\{u\} du
+\]
+\[
+  = \frac{1}{2} - \frac{1}{2}\exp\{u\} |_{0}^{-\lambda(x - \theta)}
+\]
+\[
+  = \frac{1}{2} - \frac{1}{2}(\exp\{-\lambda(x - \theta)\} - \exp\{0\})
+\]
+\[
+  = \frac{1}{2} - \frac{1}{2}(\exp\{-\lambda(x - \theta)\} - 1)
+\]
+\[
+  = \frac{1}{2} + \frac{1}{2} - \frac{1}{2}(\exp\{-\lambda(x - \theta)\})
+\]
+\[
+  = 1 - \frac{1}{2}\exp\{-\lambda(x - \theta)\}
+\]
+- Case 2: \(x < \theta\)
+\[
+  F_X(x) = P(X \leq x) = \int_{-\infty}^{x} f_X(x) dx 
+\]
+\[
+  = \int_{-\infty}^{x} \frac{\lambda}{2}\exp\{-\lambda(-x-(-\theta))\} dx
+\]
+\[
+  = \int_{-\infty}^{x} \frac{\lambda}{2}\exp\{\lambda(x-\theta)\} dx
+\]
+We do substitution as we previously did above:
+\[
+  = \int_{-\infty}^{\lambda(x-\theta)} \frac{\lambda}{2}\exp\{u\} \cdot \frac{1}{\lambda} du
+\]
+\[
+  = \int_{-\infty}^{\lambda(x-\theta)} \frac{1}{2}\exp\{u\} du
+\]
+\[
+  = \frac{1}{2}\exp\{u\} |_{-\infty}^{\lambda(x-\theta)}
+\]
+\[
+  = \frac{1}{2}(\exp\{\lambda(x-\theta)\} - \exp\{-\infty\})
+\]
+\[
+  = \frac{1}{2}\exp\{\lambda(x-\theta)\}
+\]
+Now that we have the CDFs, let's invert accordingly. We know that given the CDF has a breakpoint at the value where the cases are equal, which we can evaluate at \(x = \theta\) to be \(\frac{1}{2}\exp\{\lambda(\theta-\theta)\} = \frac{1}{2}\exp\{0\} = \frac{1}{2}\). So we start inverting based on the corresponding values: \\
+- Case 1: \(U_i > \frac{1}{2} \) \\
+\[
+  U_i = 1 - \frac{1}{2}\exp\{-\lambda(x - \theta)\}
+\]
+\[
+  \frac{1}{2}\exp\{-\lambda(x - \theta)\} = 1 - U_i
+\]
+\[
+  \exp\{-\lambda(x - \theta)\} = 2(1 - U_i)
+\]
+\[
+  -\lambda(x - \theta) = \ln\{2(1 - U_i)\}
+\]
+\[
+  x - \theta = -\frac{\ln\{2(1 - U_i)\}}{\lambda}
+\]
+\[
+  x = \theta -\frac{\ln\{2(1 - U_i)\}}{\lambda}
+\]
+- Case 2: \(U_i < \frac{1}{2} \) \\
+\[
+  U_i = \frac{1}{2}\exp\{\lambda(x-\theta)\}
+\]
+\[
+  2U_i = \exp\{\lambda(x-\theta)\}
+\]
+\[
+  \ln\{2U_i\} = \lambda(x-\theta)
+\]
+\[
+  \frac{\ln\{2U_i\}}{\lambda} = x - \theta
+\]
+\[
+  x = \frac{\ln\{2U_i\}}{\lambda} + \theta
+\]
+So to generate the random variables, we do the following: \\
+- Generate \(U_1, U_2, \dots, U_n \sim \text{Unif(0,1)}\) \\ 
+- For \(U_i > \frac{1}{2}\), set \(X_i = F^{-1}_X(U_i) = \theta - \frac{\ln\{2(1 - U_i)\}}{\lambda} = 2 - \frac{\ln\{2(1 - U_i)\}}{2}\) \\
+- For \(U_i < \frac{1}{2}\), set \(X_i = F^{-1}_X(U_i) = \frac{\ln\{2U_i\}}{\lambda} + \theta = 2 + \frac{\ln\{2U_i\}}{2}\) \\
+- For \(U_i = \frac{1}{2}\), apply either function above.
 
 }
 
@@ -60,7 +182,23 @@
 
 \section*{4.}
 
-
+We are given the following discrete uniform distribution with pdf:
+\[
+  f_X(x) = \frac{1}{n+1}
+\]
+for \(x = 0, 1, 2, \dots, n\), and 0 otherwise. To apply the inverse-transform method to generate a random variable, we first take the CDF:
+\[
+  F_x(x) = P(X \leq k) = \sum_{k=0}^{x} f_X(x)
+\]
+\[
+  F_x(x) = \sum_{k=0}^{x} \frac{1}{n+1}
+\]
+\[
+  F_x(x) = \frac{x + 1}{n+1}
+\]
+We would therefore take the following steps to generate samples: \\
+- Generate \(U_1, U_2, \dots, U_n \sim \text{Unif(0,1)}\) \\ 
+- Set \(X_i = F^{-1}_X (U_i) = (n+1) \cdot  U_i = \lfloor U_i \cdot (n + 1) \rfloor \), with the floor needed due to the discrete nature of the original function. 
 
 }
 
