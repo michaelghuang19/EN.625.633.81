@@ -1,0 +1,414 @@
+\documentclass{article}
+\linespread{1.3}
+\usepackage[margin=50pt]{geometry}
+\usepackage{amsmath, amsthm, amssymb, amsthm, tikz, fancyhdr, graphicx, systeme}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\newcommand{\changefont}{\fontsize{15}{15}\selectfont}
+
+\fancypagestyle{firstpageheader}{
+  \fancyhead[R]{
+    \changefont
+    \parbox[t]{4cm}{ % Adjust width as needed
+      Michael Huang\\
+      EN.625.633.81\\
+      Homework 5
+    }
+  }
+}
+
+\begin{document}
+
+\thispagestyle{firstpageheader}
+{\Large 
+
+\section*{1.}
+
+We are given a Laplace distribution with pdf 
+\[
+  f_X(x) = \frac{\lambda}{2}\exp\{-\lambda|x-\theta|\}
+\]
+with \(\lambda = 2\) and \(\theta = 2\), for \(-\infty < x < \infty\). To apply the inverse transform method, we first find the CDF. Given the absolute value in the function, we need to find the CDF for two different cases: \\ 
+- Case 1: \(x > \theta\)
+\[
+  F_X(x) = P(X \leq x) = \int_{-\infty}^{x} f_X(x) dx = \int_{-\infty}^{\theta} f_X(x) dx + \int_{\theta}^{x} f_X(x) dx
+\]
+\[
+  = \int_{-\infty}^{\theta} \frac{\lambda}{2}\exp\{-\lambda|x-\theta|\} dx + \int_{\theta}^{x} \frac{\lambda}{2}\exp\{-\lambda|x-\theta|\} dx
+\]
+\[
+  = \int_{-\infty}^{\theta} \frac{\lambda}{2}\exp\{-\lambda(-x-(-\theta))\} dx + \int_{\theta}^{x} \frac{\lambda}{2}\exp\{-\lambda(x-\theta)\} dx
+\]
+\[
+  = \int_{-\infty}^{\theta} \frac{\lambda}{2}\exp\{\lambda(x-\theta)\} dx + \int_{\theta}^{x} \frac{\lambda}{2}\exp\{-\lambda(x-\theta)\} dx
+\]
+For the first integral, we do substitution with \(u = \lambda(x - \theta)\) (and thus \(\frac{du}{dx} = \lambda\) and \(dx = \frac{1}{\lambda}du\)):
+\[
+  = \int_{-\infty}^{0} \frac{\lambda}{2}\exp\{u\} \cdot \frac{1}{\lambda} du + \int_{\theta}^{x} \frac{\lambda}{2}\exp\{-\lambda(x-\theta)\} dx 
+\]
+\[
+  = \int_{-\infty}^{0} \frac{1}{2}\exp\{u\} du + \int_{\theta}^{x} \frac{\lambda}{2}\exp\{-\lambda(x-\theta)\} dx 
+\]
+\[
+  = \frac{1}{2}\exp\{u\} |_{-\infty}^{0}  + \int_{\theta}^{x} \frac{\lambda}{2}\exp\{-\lambda(x-\theta)\} dx 
+\]
+\[
+  = \frac{1}{2}\exp\{0\} - 0 + \int_{\theta}^{x} \frac{\lambda}{2}\exp\{-\lambda(x-\theta)\} dx 
+\]
+\[
+  = \frac{1}{2} + \int_{\theta}^{x} \frac{\lambda}{2}\exp\{-\lambda(x-\theta)\} dx 
+\]
+Do substitution in a similar way for the second integral, with \(u = -\lambda(x - \theta)\), \(\frac{du}{dx} = -\lambda\), and \(dx = -\frac{1}{\lambda}du\):
+\[
+  = \frac{1}{2} + \int_{0}^{-\lambda(x - \theta)} \frac{\lambda}{2}\exp\{u\} \cdot -\frac{1}{\lambda} du
+\]
+\[
+  = \frac{1}{2} + \int_{0}^{-\lambda(x - \theta)} -\frac{1}{2}\exp\{u\} du
+\]
+\[
+  = \frac{1}{2} - \frac{1}{2}\exp\{u\} |_{0}^{-\lambda(x - \theta)}
+\]
+\[
+  = \frac{1}{2} - \frac{1}{2}(\exp\{-\lambda(x - \theta)\} - \exp\{0\})
+\]
+\[
+  = \frac{1}{2} - \frac{1}{2}(\exp\{-\lambda(x - \theta)\} - 1)
+\]
+\[
+  = \frac{1}{2} + \frac{1}{2} - \frac{1}{2}(\exp\{-\lambda(x - \theta)\})
+\]
+\[
+  = 1 - \frac{1}{2}\exp\{-\lambda(x - \theta)\}
+\]
+- Case 2: \(x < \theta\)
+\[
+  F_X(x) = P(X \leq x) = \int_{-\infty}^{x} f_X(x) dx 
+\]
+\[
+  = \int_{-\infty}^{x} \frac{\lambda}{2}\exp\{-\lambda(-x-(-\theta))\} dx
+\]
+\[
+  = \int_{-\infty}^{x} \frac{\lambda}{2}\exp\{\lambda(x-\theta)\} dx
+\]
+We do substitution as we previously did above:
+\[
+  = \int_{-\infty}^{\lambda(x-\theta)} \frac{\lambda}{2}\exp\{u\} \cdot \frac{1}{\lambda} du
+\]
+\[
+  = \int_{-\infty}^{\lambda(x-\theta)} \frac{1}{2}\exp\{u\} du
+\]
+\[
+  = \frac{1}{2}\exp\{u\} |_{-\infty}^{\lambda(x-\theta)}
+\]
+\[
+  = \frac{1}{2}(\exp\{\lambda(x-\theta)\} - \exp\{-\infty\})
+\]
+\[
+  = \frac{1}{2}\exp\{\lambda(x-\theta)\}
+\]
+Now that we have the CDFs, let's invert accordingly. We know that given the CDF has a breakpoint at the value where the cases are equal, which we can evaluate at \(x = \theta\) to be \(\frac{1}{2}\exp\{\lambda(\theta-\theta)\} = \frac{1}{2}\exp\{0\} = \frac{1}{2}\). So we start inverting based on the corresponding values: \\
+- Case 1: \(U_i > \frac{1}{2} \) \\
+\[
+  U_i = 1 - \frac{1}{2}\exp\{-\lambda(x - \theta)\}
+\]
+\[
+  \frac{1}{2}\exp\{-\lambda(x - \theta)\} = 1 - U_i
+\]
+\[
+  \exp\{-\lambda(x - \theta)\} = 2(1 - U_i)
+\]
+\[
+  -\lambda(x - \theta) = \ln\{2(1 - U_i)\}
+\]
+\[
+  x - \theta = -\frac{\ln\{2(1 - U_i)\}}{\lambda}
+\]
+\[
+  x = \theta -\frac{\ln\{2(1 - U_i)\}}{\lambda}
+\]
+- Case 2: \(U_i < \frac{1}{2} \) \\
+\[
+  U_i = \frac{1}{2}\exp\{\lambda(x-\theta)\}
+\]
+\[
+  2U_i = \exp\{\lambda(x-\theta)\}
+\]
+\[
+  \ln\{2U_i\} = \lambda(x-\theta)
+\]
+\[
+  \frac{\ln\{2U_i\}}{\lambda} = x - \theta
+\]
+\[
+  x = \frac{\ln\{2U_i\}}{\lambda} + \theta
+\]
+So to generate the random variables, we do the following: \\
+- Generate \(U_1, U_2, \dots, U_n \sim \text{Unif(0,1)}\) \\ 
+- For \(U_i > \frac{1}{2}\), set \(X_i = F^{-1}_X(U_i) = \theta - \frac{\ln\{2(1 - U_i)\}}{\lambda} = 2 - \frac{\ln\{2(1 - U_i)\}}{2}\) \\
+- For \(U_i < \frac{1}{2}\), set \(X_i = F^{-1}_X(U_i) = \frac{\ln\{2U_i\}}{\lambda} + \theta = 2 + \frac{\ln\{2U_i\}}{2}\) \\
+- For \(U_i = \frac{1}{2}\), apply either function above.
+
+}
+
+{\Large 
+
+\section*{2.}
+
+We are given a distribution with pdf 
+\[ 
+  f_X(x) = 
+  \begin{cases} 
+    \frac{1}{4} & 0 < x < 1 \\
+    x - \frac{3}{4} & 1 \leq x \leq 2 
+  \end{cases} 
+\]
+
+\subsection*{(a)} 
+
+As we normally do with the inverse-transform method, let's take the CDF for each section: \\
+- \(0 < x < 1\): \\ 
+\[
+  F_X(x) = \int_0^x f_X(x) dx
+\]
+\[
+  = \int_0^x \frac{1}{4} dx
+\]
+\[
+  = \frac{1}{4}x |_0^x
+\]
+\[
+  = \frac{1}{4}x - 0
+\]
+\[
+  F_X(x) = \frac{x}{4}
+\]
+- \(1 \leq x \leq 2\): \\
+\[
+  F_X(x) = \int_0^1 f_X(x) dx + \int_1^x f_X(x) dx
+\]
+\[
+  = \int_0^1 \frac{1}{4} dx + \int_1^x x - \frac{3}{4} dx
+\]
+\[
+  = \frac{1}{4}x |_0^1 + \frac{x^2}{2} - \frac{3}{4}x |_1^x
+\]
+\[
+  = \frac{1}{4}x |_0^1 + [\frac{x^2}{2} - \frac{3}{4}x] |_1^x
+\]
+\[
+  = \frac{1}{4} - 0 + \frac{x^2}{2} - \frac{3}{4}x - \frac{1}{2} + \frac{3}{4}
+\]
+\[
+  = \frac{x^2}{2} - \frac{3}{4}x + \frac{1}{2}
+\]
+Now, invert accordingly: \\
+- \(0 < x < 1\): \\ 
+\[
+  U_i = \frac{x}{4}
+\]
+\[
+  x = 4U_i
+\]
+- \(1 \leq x \leq 2\): \\ 
+\[
+  U_i = \frac{x^2}{2} - \frac{3}{4}x + \frac{1}{2}
+\]
+\[
+  4U_i = 2x^2 - 3x + 2
+\]
+\[
+  0 = 2x^2 - 3x + (2 - 4U_i)
+\]
+\[
+  x = \frac{3 \pm \sqrt{(-3)^2 - 4(2 \cdot (2 - 4U_i))}}{2(2)}
+\]
+\[
+  x = \frac{3 \pm \sqrt{9 - 16 + 32U_i}}{4}
+\]
+\[
+  x = \frac{3 \pm \sqrt{32U_i - 7}}{4}
+\]
+To see whether we should be using \(+\) or \(-\), let's evaluate at the breakpoint of \(x=1\) and \(U_i = \frac{1}{4}\):
+\[
+  1 = \frac{3 \pm \sqrt{32(\frac{1}{4})- 7}}{4}
+\]
+\[
+  1 = \frac{3 \pm \sqrt{8- 7}}{4}
+\]
+\[
+  4 = 3 \pm 1
+\]
+So clearly we should take \(+\) in this case. We would therefore take the following steps to generate the random variables: \\
+- Generate \(U_1, U_2, \dots, U_n \sim \text{Unif(0,1)}\) \\ 
+- For \(U_i < \frac{1}{4}\), set \(X_i = F^{-1}_X(U_i) = 4U_i\) \\
+- For all other values, set \(X_i = F^{-1}_X(U_i) = \frac{3 + \sqrt{32U_i - 7}}{4}\)
+
+\subsection*{(b)}
+
+Given the proposal density \(g(x) = \frac{1}{2} \quad 0 \leq x \leq 2\), for the accept-reject method, we need to find the appropriate constant \( M \geq sup_x[\frac{f(x)}{g(x)}]\). We know that 
+\[
+  \frac{f(x)}{g(x)} = \frac{f(x)}{\frac{1}{2}} = 2f(x)
+\]
+We now find the maximum of \(f(x)\). Looking at the function, this is 
+\[
+  f(2) = 2 - \frac{3}{4} = \frac{5}{4}
+\]
+Plugging this in, we find that 
+\[
+  M = 2 \cdot \frac{5}{4} = \frac{5}{2}
+\]
+The steps to generate the random variable using the accept-reject method are as follows: \\
+- Generate \(X_{cand} \sim g(x)\), i.e. \(X \sim \text{Unif}(0, 2)\) \\
+- Generate \(U \sim \text{Unif}(0, 1)\) independently \\
+- If \(U \leq \frac{f(X_{cand})}{M \cdot g(x)} = \frac{f(X_{cand})}{\frac{5}{2} \cdot \frac{1}{2}} = \frac{4f(X_{cand})}{5}\), accept \(X_{cand}\)
+
+}
+
+{\Large 
+
+\section*{3.}
+
+We are given a distribution with pdf 
+\[ 
+  f_X(x) = 
+  \begin{cases} 
+    \frac{1}{2}x & 0 < x < 1 \\
+    \frac{1}{2} & 1 \leq x \leq \frac{5}{2}
+  \end{cases} 
+\]
+
+\subsection*{(a)} 
+
+As always, let's find the piecewise CDF: \\
+- \(0 < x < 1\): 
+\[
+  F_X(x) = \int_0^x f_X(x) dx
+\]
+\[
+  = \int_0^x \frac{1}{2}x dx
+\]
+\[
+  = \frac{x^2}{4} |_0^x 
+\]
+\[
+  = \frac{x^2}{4} - 0 
+\]
+\[
+  F_X(x) = \frac{x^2}{4}
+\]
+- \(1 \leq x \leq \frac{5}{2}\): \\
+\[
+  F_X(x) = \int_0^1 f_X(x) dx + \int_1^x f_X(x) dx
+\]
+\[
+  = \int_0^1 \frac{1}{2}x dx + \int_1^x \frac{1}{2} dx
+\]
+\[
+  = \frac{x^2}{4} |_0^1 + \frac{1}{2}x |_1^x
+\]
+\[
+  = \frac{1}{4} - 0 + \frac{x}{2} - \frac{1}{2}
+\]
+\[
+  F_X(x )= \frac{x}{2} - \frac{1}{4}
+\]
+Now, invert accordingly:
+- \(0 < x < 1\):
+\[
+  U_i = \frac{x^2}{4}
+\]
+\[
+  4U_i = x^2
+\]
+\[
+  x = 2\sqrt{U_i}
+\]
+- \(1 \leq x \leq \frac{5}{2}\):
+\[
+  U_i = \frac{x}{2} - \frac{1}{4}
+\]
+\[
+  U_i + \frac{1}{4} = \frac{x}{2}
+\]
+\[
+  x = 2U_i + \frac{1}{2}
+\]
+Given the breakpoint of \(x = 1\) and \(F_X(1) = \frac{1^2}{4} = \frac{1}{4}\), we can now delineate the following steps for generating the random variables: \\
+- Generate \(U_1, U_2, \dots, U_n \sim \text{Unif(0,1)}\) \\ 
+- For \(U_i < \frac{1}{4}\), set \(X_i = F^{-1}_X(U_i) = 2\sqrt{U_i}\) \\
+- For all other values, set \(X_i = F^{-1}_X(U_i) = 2U_i + \frac{1}{2} \)
+
+\subsection*{(b)}
+
+Given the proposal density \(g(x) = \frac{8}{25}x \quad 0 \leq x \leq \frac{5}{2}\), for the accept-reject method, we need to find the appropriate constant \( M \geq sup_x[\frac{f(x)}{g(x)}]\). We know that 
+\[
+  \frac{f(x)}{g(x)} = \frac{f(x)}{\frac{8}{25}x} = \frac{25 \cdot f(x)}{8x}
+\]
+Taking this case-by-case now, since we see that it varies: \\
+- \(0 < x < 1\): \\
+\[
+  \frac{f(x)}{g(x)} = \frac{25 \cdot f(x)}{8x} = \frac{25 \cdot \frac{1}{2}x}{8x} = \frac{25}{16}
+\]
+- \(1 \leq x \leq \frac{5}{2}\): \\
+\[
+  \frac{f(x)}{g(x)} = \frac{25 \cdot f(x)}{8x} = \frac{25 \cdot \frac{1}{2}}{8x} = \frac{25}{16x}
+\]
+Looking at this latter function, we see that as \(x\) increases, the ratio decreases, so the maximum value will be at the lower bound of \(x = 1\), i.e. \(\frac{25}{16x} = \frac{25}{16 \cdot 1} = \frac{25}{16}\). So the maximum \(M\) is the same for both of these cases, with \(M = \frac{25}{16}\). \\ \\
+As \(g(x)\) is not univariate, we must generate candidates from we must use the inverse-transform on \(g(x)\) to generate candidates:
+\[
+  G(x) = \int_0^x g(x) dx
+\]
+\[
+  = \int_0^x \frac{8}{25}x dx
+\]
+\[
+  = \frac{4x^2}{25} |_0^x 
+\]
+\[
+  = \frac{4x^2}{25} - 0 
+\]
+\[
+  G(x) = \frac{4x^2}{25}
+\]
+And now inverting:
+\[
+  U_1 = \frac{4x^2}{25}
+\]
+\[
+  \frac{25U_1}{4} = x^2
+\]
+\[
+  x = \frac{5\sqrt{U_1}}{2}
+\]
+We can now lay out the steps to generate the random variable using the accept-reject method as: \\
+- Generate \(X_{cand} \sim g(x)\), i.e. get \(U_1 \sim \text{Unif}(0, 1)\) and set \(X_{cand} = \frac{5\sqrt{U_1}}{2}\) \\
+- Generate \(U \sim \text{Unif}(0, 1)\) independently \\
+- If \(U \leq \frac{f(X_{cand})}{M \cdot g(x)} = \frac{f(X_{cand})}{\frac{25}{16} \cdot g(X_{cand})} = \frac{25f(X_{cand})}{16g(X_{cand})}\), accept \(X_{cand}\)
+
+}
+
+{\Large 
+
+\section*{4.}
+
+We are given the following discrete uniform distribution with pdf:
+\[
+  f_X(x) = \frac{1}{n+1}
+\]
+for \(x = 0, 1, 2, \dots, n\), and 0 otherwise. To apply the inverse-transform method to generate a random variable, we first take the CDF:
+\[
+  F_x(x) = P(X \leq k) = \sum_{k=0}^{x} f_X(x)
+\]
+\[
+  F_x(x) = \sum_{k=0}^{x} \frac{1}{n+1}
+\]
+\[
+  F_x(x) = \frac{x + 1}{n+1}
+\]
+We would therefore take the following steps to generate samples: \\
+- Generate \(U_1, U_2, \dots, U_n \sim \text{Unif(0,1)}\) \\ 
+- Set \(X_i = F^{-1}_X (U_i) = (n+1) \cdot  U_i = \lfloor U_i \cdot (n + 1) \rfloor \), with the floor needed due to the discrete nature of the original function. 
+
+}
+
+\end{document}
