@@ -1,7 +1,7 @@
 \documentclass{article}
 \linespread{1.3}
 \usepackage[margin=50pt]{geometry}
-\usepackage{amsmath, amsthm, amssymb, amsthm, tikz, fancyhdr, graphicx, systeme}
+\usepackage{amsmath, amsthm, amssymb, amsthm, tikz, fancyhdr, graphicx, spverbatim, systeme}
 \pagestyle{fancy}
 \renewcommand{\headrulewidth}{0pt}
 \newcommand{\changefont}{\fontsize{15}{15}\selectfont}
@@ -26,6 +26,11 @@
 
 \begin{figure}[h]
     \centering
+    \includegraphics[width=1\textwidth]{Example2.7.png}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
     \includegraphics[width=1\textwidth]{Exercise6.7.png}
 \end{figure}
 
@@ -47,16 +52,135 @@
     \includegraphics[width=1\textwidth]{Exercise6.9.png}
 \end{figure}
 
+We need to calculate the mean of a gamma \(G(4.3, 6.2)\) random variable. We know the true mean by definition to be \(\frac{4.3}{6.2} = 0.69354838709\).
+
 \subsection*{(a)} 
 
+For the accept-reject method with a gamma \(G(4,7)\) candidate, we need to first calculate constant \(M\) such that \( M \geq sup_x[\frac{f(x)}{g(x)}]\):
+\[
+  \frac{f(x)}{g(x)} = \frac{G(4.3, 6.2)}{G(4, 7)}
+\]
+which we can use code to try and investigate, and then proceed:
 
+\begin{spverbatim}
+> x_seq <- seq(0.01, 20, length.out = 100)
+> 
+> # Calculate ratio of f(x) / g(x) at each point
+> ratios <- dgamma(x_seq, shape=4.3, rate=6.2) / dgamma(x_seq, shape=4, rate=7)
+> print(ratios)
+  [1] 1.825208e-01 5.361883e-01 7.703168e-01 1.019992e+00 1.305276e+00 1.639118e+00
+  [7] 2.033787e+00 2.502597e+00 3.060751e+00 3.725963e+00 4.519063e+00 5.464642e+00
+ [13] 6.591792e+00 7.934962e+00 9.534960e+00 1.144013e+01 1.370777e+01 1.640574e+01
+ [19] 1.961443e+01 2.342908e+01 2.796244e+01 3.334805e+01 3.974399e+01 4.733737e+01
+ [25] 5.634968e+01 6.704297e+01 7.972734e+01 9.476962e+01 1.126037e+02 1.337429e+02
+ [31] 1.587941e+02 1.884748e+02 2.236337e+02 2.652737e+02 3.145806e+02 3.729556e+02
+ [37] 4.420550e+02 5.238358e+02 6.206104e+02 7.351110e+02 8.705652e+02 1.030786e+03
+ [43] 1.220276e+03 1.444356e+03 1.709307e+03 2.022547e+03 2.392837e+03 2.830519e+03
+ [49] 3.347805e+03 3.959112e+03 4.681459e+03 5.534937e+03 6.543258e+03 7.734414e+03
+ [55] 9.141436e+03 1.080331e+04 1.276604e+04 1.508392e+04 1.782100e+04 2.105287e+04
+ [61] 2.486871e+04 2.937372e+04 3.469203e+04 4.097006e+04 4.838055e+04 5.712723e+04
+ [67] 6.745043e+04 7.963362e+04 9.401111e+04 1.109772e+05 1.309969e+05 1.546186e+05
+ [73] 1.824890e+05 2.153706e+05 2.541627e+05 2.999255e+05 3.539092e+05 4.175878e+05
+ [79] 4.926992e+05 5.812922e+05 6.857822e+05 8.090170e+05 9.543534e+05 1.125749e+06
+ [85] 1.327868e+06 1.566209e+06 1.847254e+06 2.178642e+06 2.569378e+06 3.030074e+06
+ [91] 3.573240e+06 4.213616e+06 4.968577e+06 5.858598e+06 6.907810e+06 8.144647e+06
+ [97] 9.602621e+06 1.132122e+07 1.334697e+07 1.573471e+07
+> 
+> # The ratios seem to continue to infinity, 
+> # and took a long time to run when taking this M, 
+> # since the acceptance rate becomes extremely low.
+> # Instead, I used G(4,6) with a heavier tail to better model
+> 
+> ratios <- dgamma(x_seq, shape=4.3, rate=6.2) / dgamma(x_seq, shape=4, rate=6)
+> print(ratios)
+  [1] 0.33477770 0.80365403 0.94347152 1.02085489 1.06752266 1.09545000 1.11069626
+  [8] 1.11683343 1.11617694 1.11032784 1.10044584 1.08740073 1.07186240 1.05435774
+ [15] 1.03530806 1.01505474 0.99387737 0.97200691 0.94963546 0.92692364 0.90400631
+ [22] 0.88099703 0.85799163 0.83507098 0.81230340 0.78974647 0.76744862 0.74545045
+ [29] 0.72378581 0.70248271 0.68156415 0.66104871 0.64095122 0.62128316 0.60205318
+ [36] 0.58326740 0.56492975 0.54704229 0.52960539 0.51261803 0.49607790 0.47998165
+ [43] 0.46432497 0.44910278 0.43430930 0.41993816 0.40598253 0.39243515 0.37928841
+ [50] 0.36653446 0.35416519 0.34217236 0.33054757 0.31928235 0.30836817 0.29779649
+ [57] 0.28755876 0.27764647 0.26805114 0.25876439 0.24977788 0.24108341 0.23267284
+ [64] 0.22453819 0.21667159 0.20906530 0.20171173 0.19460342 0.18773308 0.18109356
+ [71] 0.17467787 0.16847917 0.16249077 0.15670618 0.15111901 0.14572307 0.14051232
+ [78] 0.13548087 0.13062298 0.12593307 0.12140573 0.11703566 0.11281774 0.10874699
+ [85] 0.10481857 0.10102776 0.09737001 0.09384089 0.09043610 0.08715147 0.08398296
+ [92] 0.08092666 0.07797875 0.07513557 0.07239354 0.06974922 0.06719926 0.06474041
+ [99] 0.06236955 0.06008363
+> M <- max(ratios)
+> print(M)
+[1] 1.116833
+> 
+> accept_reject_part_a = function(n, M) {
++   
++   simulated_values = rep(0, n)
++   simulated_successes = 0
++   simulated_trials = 0
++   
++   # Target distribution: Gamma(4.3, 6.2)
++   target_shape = 4.3
++   target_rate = 6.2
++ 
++   # Candidate distribution: Gamma(4, 6) -- not Gamma(4, 7)
++   cand_shape = 4
++   cand_rate = 6
++   
++   while (simulated_successes < n) {
++     
++     simulated_trials = simulated_trials + 1
++     
++     x_cand = rgamma(1, shape=cand_shape, rate=cand_rate)
++     uniform = runif(1, 0, M * dgamma(x_cand, shape=cand_shape, rate=cand_rate))
++     
++     # Accept if uniform < f(x_cand) where f is Gamma(4.3, 6.2)
++     if (uniform < dgamma(x_cand, shape=target_shape, rate=target_rate)) {
++       simulated_successes = simulated_successes + 1
++       simulated_values[simulated_successes] = x_cand
++     }
++     
++     if (simulated_trials %% 10 == 0) {
++       print(mean(simulated_values))      
++     }
++   }
++   
++   accept_prob = simulated_successes / simulated_trials
++   print(paste("Acceptance probability: ", accept_prob))
++   print(paste("Estimated mean: ", mean(simulated_values)))
++   hist(simulated_values, density = 50, breaks = 50, main = "2. (a): Accept-Reject")
++ }
+> 
+> accept_reject_part_a(100, M)
+[1] 0.05665959
+[1] 0.1203828
+[1] 0.1870921
+[1] 0.2544794
+[1] 0.3234769
+[1] 0.3984934
+[1] 0.486172
+[1] 0.5284604
+[1] 0.5913988
+[1] 0.6276052
+[1] 0.6955475
+[1] "Acceptance probability:  0.909090909090909"
+[1] "Estimated mean:  0.695547518773497"
+\end{spverbatim}
+
+With the new candidate gamma \(G(4, 6)\), it converges fairly well:
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.75\textwidth]{2a_hist.png}
+\end{figure}
 
 \subsection*{(b)}
 
+Metropolis-Hastings with a gamma \(G(4,7)\) candidate:
 
 
 \subsection*{(c)}
 
+Metropolis-Hastings with a gamma \(G(5,6)\) candidate:
 
 
 }
@@ -124,7 +248,25 @@ exactly as we sought to find.
 
 \section*{4.}
 
-
+We are given the Baker suggested acceptance probability \( p = \frac{f_X(x_{i+1})}{f_X(x_{i+1}) + f_X(x_i)}. \) We aim to find whether \(g(x_{i+1} | x_i) = g(x_i | x_{i+1})\) guarantees detailed balance, which is defined in the notes to be \( P(X = x_i) P(X_i \rightarrow X_{i+1}) = P(X = x_{i+1}) P(X_{i+1} \rightarrow X_i) \). Let's evaluate this statement by solving either side. Starting with the left side:
+\[ 
+  P(X = x_i) P(X_i \rightarrow X_{i+1})  = f(x_i) \cdot g(x_{i+1} | x_i) \cdot \frac{f(x_{i+1})}{f(x_{i+1}) + f(x_i)}
+\]
+\[ 
+  P(X = x_i) P(X_i \rightarrow X_{i+1})  = \frac{f(x_i) f(x_{i+1}) g(x_{i+1} | x_i)}{f(x_{i+1}) + f(x_i)}
+\]
+Let's evaluate the right hand side and see where it goes:
+\[
+  P(X = x_{i+1}) P(X_{i+1} \rightarrow X_i) = f(x_{i+1}) \cdot g(x_i | x_{i+1}) \cdot \frac{f(x_i)}{f(x_i) + f(x_{i+1})}
+\]
+Given that \(g(x_{i+1} | x_i) = g(x_i | x_{i+1})\):
+\[
+  = f(x_{i+1}) \cdot g(x_{i+1} | x_i) \cdot \frac{f(x_i)}{f(x_i) + f(x_{i+1})}
+\]
+\[
+  = \frac{f(x_i) f(x_{i+1}) g(x_{i+1} | x_i)}{f(x_{i+1}) + f(x_i)}
+\]
+This is the same as the left hand side, which indicates that this does indeed guarantee detailed symmetry. Intuitively, the probability works since it indicates the proportion of the total probability belongs to the \(x_{i+1}\) state, and the g function symmetry means that the proposed state generation doesn't favor either side. So there is equilibrium in the sense that only the acceptance probability matters, which is balanced out by the probability of being in the initial state, whether that is \(x_i\) or \(x_{i+1}\).
 
 }
 
