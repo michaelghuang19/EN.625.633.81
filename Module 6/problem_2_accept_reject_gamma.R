@@ -14,7 +14,7 @@ print(ratios)
 M <- max(ratios)
 print(M)
 
-accept_reject_part_a = function(n, M) {
+accept_reject_gamma = function(n, M) {
   
   simulated_values = rep(0, n)
   simulated_successes = 0
@@ -42,14 +42,14 @@ accept_reject_part_a = function(n, M) {
     }
     
     if (simulated_trials %% 10 == 0) {
-      print(mean(simulated_values))      
+      print(paste("mean after", simulated_trials, "simulated_trials:", mean(simulated_values)))      
     }
   }
   
   accept_prob = simulated_successes / simulated_trials
-  print(paste("Acceptance probability: ", accept_prob))
-  print(paste("Estimated mean: ", mean(simulated_values)))
+  print(paste("Acceptance probability:", accept_prob))
+  print(paste("Estimated mean:", mean(simulated_values)))
   hist(simulated_values, density = 50, breaks = 50, main = "2. (a): Accept-Reject")
 }
 
-accept_reject_part_a(100, M)
+accept_reject_gamma(100, M)
