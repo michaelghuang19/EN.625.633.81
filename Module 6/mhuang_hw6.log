@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  28 FEB 2026 23:22
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  28 FEB 2026 23:19
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**"/Users/mhuang19/Documents/edu/jhu/Monte Carlo Methods (EN.625.633.81)/EN.625.633.81/samples/template"
-(/Users/mhuang19/Documents/edu/jhu/Monte Carlo Methods (EN.625.633.81)/EN.625.633.81/samples/template.tex
+**"/Users/mhuang19/Documents/edu/jhu/Monte Carlo Methods (EN.625.633.81)/EN.625.633.81/Module 6/mhuang_hw6"
+(/Users/mhuang19/Documents/edu/jhu/Monte Carlo Methods (EN.625.633.81)/EN.625.633.81/Module 6/mhuang_hw6.tex
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
 (/usr/local/texlive/2025/texmf-dist/tex/latex/base/article.cls
@@ -378,8 +378,9 @@ Package: systeme 2025/02/16 v0.35 Mise en forme de systemes d'equations (CT)
 File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count310
 \l__pdf_internal_box=\box67
-) (./template.aux)
-\openout1 = `template.aux'.
+)
+No file mhuang_hw6.aux.
+\openout1 = `mhuang_hw6.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 20.
 LaTeX Font Info:    ... okay on input line 20.
@@ -395,7 +396,6 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 20.
 LaTeX Font Info:    ... okay on input line 20.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 20.
 LaTeX Font Info:    ... okay on input line 20.
-
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -449,18 +449,21 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
  (/usr/local/texlive/2025/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-LaTeX Font Info:    Trying to load font information for U+msa on input line 29.
- (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-)
-LaTeX Font Info:    Trying to load font information for U+msb on input line 29.
- (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
+<Example2.7.png, id=4, 580.1675pt x 593.21625pt>
+File: Example2.7.png Graphic file (type png)
+<use Example2.7.png>
+Package pdftex.def Info: Example2.7.png  used on input line 29.
+(pdftex.def)             Requested size: 514.295pt x 525.897pt.
+<Exercise6.7.png, id=6, 606.265pt x 200.75pt>
+File: Exercise6.7.png Graphic file (type png)
+<use Exercise6.7.png>
+Package pdftex.def Info: Exercise6.7.png  used on input line 34.
+(pdftex.def)             Requested size: 514.295pt x 170.29828pt.
+
 
 
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <15> not available
-(Font)              size <14.4> substituted on input line 38.
+(Font)              size <14.4> substituted on input line 36.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -471,7 +474,412 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [1{/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
-] (./template.aux)
+ <./Example2.7.png>]
+LaTeX Font Info:    Trying to load font information for U+msa on input line 37.
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 37.
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+Underfull \hbox (badness 10000) in paragraph at lines 41--47
+
+ []
+
+
+
+[2 <./Exercise6.7.png>]
+Overfull \hbox (19.22417pt too wide) in paragraph at lines 129--129
+[]\OT1/cmtt/m/n/14.4 +[] [] [] [] [] acc_prob[] =[] acc_prob_calc_beta(x_cand,[] x[j],[] prop_alpha,[] prop_beta)[] 
+ []
+
+
+Overfull \hbox (34.04414pt too wide) in paragraph at lines 129--129
+[]\OT1/cmtt/m/n/14.4 +[] [] [] [] [] "1.[] Metropolis-Hastings[] for[] Beta(",[] prop_alpha,[] ",",[] prop_beta,[] ")")[] 
+ []
+
+
+Overfull \hbox (26.63416pt too wide) in paragraph at lines 129--129
+[]\OT1/cmtt/m/n/14.4 >[] acc_prob_calc_beta[] =[] function(candidate,[] former,[] prop_alpha,[] prop_beta)[]
+ []
+
+
+
+[3]
+Overfull \hbox (19.22417pt too wide) in paragraph at lines 129--129
+[]\OT1/cmtt/m/n/14.4 +[] [] [] [] [] g_candidate_given_former[] =[] dbeta(candidate,[] prop_alpha,[] prop_beta)[] 
+ []
+
+
+Overfull \hbox (93.32405pt too wide) in paragraph at lines 129--129
+[]\OT1/cmtt/m/n/14.4 +[] [] [] [] [] acc_probability[] =[] (dens_candidate[] *[] g_former_given_candidate)[] /[] (dens_former[]
+ []
+
+
+
+[4]
+<1a_hist_1_1.png, id=31, 1216.545pt x 784.9325pt>
+File: 1a_hist_1_1.png Graphic file (type png)
+<use 1a_hist_1_1.png>
+Package pdftex.def Info: 1a_hist_1_1.png  used on input line 133.
+(pdftex.def)             Requested size: 385.72124pt x 248.87195pt.
+<1a_hist_2_2.png, id=32, 1216.545pt x 784.9325pt>
+File: 1a_hist_2_2.png Graphic file (type png)
+<use 1a_hist_2_2.png>
+Package pdftex.def Info: 1a_hist_2_2.png  used on input line 138.
+(pdftex.def)             Requested size: 385.72124pt x 248.87195pt.
+
+
+[5 <./1a_hist_1_1.png>]
+<1a_hist_2_4.png, id=37, 1216.545pt x 784.9325pt>
+File: 1a_hist_2_4.png Graphic file (type png)
+<use 1a_hist_2_4.png>
+Package pdftex.def Info: 1a_hist_2_4.png  used on input line 143.
+(pdftex.def)             Requested size: 385.72124pt x 248.87195pt.
+<1a_hist_2_5.png, id=38, 1216.545pt x 784.9325pt>
+File: 1a_hist_2_5.png Graphic file (type png)
+<use 1a_hist_2_5.png>
+Package pdftex.def Info: 1a_hist_2_5.png  used on input line 148.
+(pdftex.def)             Requested size: 385.72124pt x 248.87195pt.
+
+
+[6 <./1a_hist_2_2.png> <./1a_hist_2_4.png>]
+<1a_hist_3_6.png, id=44, 1216.545pt x 784.9325pt>
+File: 1a_hist_3_6.png Graphic file (type png)
+<use 1a_hist_3_6.png>
+Package pdftex.def Info: 1a_hist_3_6.png  used on input line 153.
+(pdftex.def)             Requested size: 385.72124pt x 248.87195pt.
+
+
+[7 <./1a_hist_2_5.png> <./1a_hist_3_6.png>]
+Overfull \hbox (26.63416pt too wide) in paragraph at lines 272--272
+[]\OT1/cmtt/m/n/14.4 >[] met_hastings_truncated_beta[] =[] function(n,[] c,[] d,[] prop_function[] =[] "beta")[]
+ []
+
+
+
+[8]
+Overfull \hbox (63.6841pt too wide) in paragraph at lines 272--272
+[]\OT1/cmtt/m/n/14.4 +[] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] prop_function,[] prop_alpha,[] prop_beta)[] 
+ []
+
+
+
+[9]
+Overfull \hbox (26.63416pt too wide) in paragraph at lines 272--272
+[]\OT1/cmtt/m/n/14.4 +[] [] [] [] [] [] [] [] main[] =[] paste("Truncated[] Beta(2.7,[] 6.3)[] on[] (",[] c,[] ",",[] d,[] [] ")[] -",[]
+ []
+
+
+Overfull \hbox (34.04414pt too wide) in paragraph at lines 272--272
+[]\OT1/cmtt/m/n/14.4 +[] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] prop_function,[] prop_alpha,[] prop_beta)[]
+ []
+
+
+Overfull \hbox (19.22417pt too wide) in paragraph at lines 272--272
+[]\OT1/cmtt/m/n/14.4 +[] [] [] [] [] g_candidate_given_former[] =[] dbeta(candidate,[] prop_alpha,[] prop_beta)[] 
+ []
+
+
+Overfull \hbox (19.22417pt too wide) in paragraph at lines 272--272
+[]\OT1/cmtt/m/n/14.4 +[] [] [] [] [] #[] We[] can[] simplify[] for[] uniform,[] as[] it[] is[] symmetric:[] g(x|y)[] =[] g(y|x)[] 
+ []
+
+
+
+[10]
+<1b_hist_1_9_beta.png, id=61, 1252.68pt x 933.4875pt>
+File: 1b_hist_1_9_beta.png Graphic file (type png)
+<use 1b_hist_1_9_beta.png>
+Package pdftex.def Info: 1b_hist_1_9_beta.png  used on input line 276.
+(pdftex.def)             Requested size: 385.72124pt x 287.44096pt.
+
+
+[11]
+<1b_hist_1_9_uniform.png, id=65, 1252.68pt x 933.4875pt>
+File: 1b_hist_1_9_uniform.png Graphic file (type png)
+<use 1b_hist_1_9_uniform.png>
+Package pdftex.def Info: 1b_hist_1_9_uniform.png  used on input line 281.
+(pdftex.def)             Requested size: 385.72124pt x 287.44096pt.
+<1b_hist_25_75_beta.png, id=66, 1252.68pt x 933.4875pt>
+File: 1b_hist_25_75_beta.png Graphic file (type png)
+<use 1b_hist_25_75_beta.png>
+Package pdftex.def Info: 1b_hist_25_75_beta.png  used on input line 286.
+(pdftex.def)             Requested size: 385.72124pt x 287.44096pt.
+
+
+[12 <./1b_hist_1_9_beta.png> <./1b_hist_1_9_uniform.png>]
+<1b_hist_25_75_uniform.png, id=72, 1252.68pt x 933.4875pt>
+File: 1b_hist_25_75_uniform.png Graphic file (type png)
+<use 1b_hist_25_75_uniform.png>
+Package pdftex.def Info: 1b_hist_25_75_uniform.png  used on input line 291.
+(pdftex.def)             Requested size: 385.72124pt x 287.44096pt.
+
+
+[13 <./1b_hist_25_75_beta.png> <./1b_hist_25_75_uniform.png>]
+<Exercise6.9.png, id=79, 538.01pt x 109.40875pt>
+File: Exercise6.9.png Graphic file (type png)
+<use Exercise6.9.png>
+Package pdftex.def Info: Exercise6.9.png  used on input line 303.
+(pdftex.def)             Requested size: 514.295pt x 104.58711pt.
+
+Overfull \hbox (11.81418pt too wide) in paragraph at lines 417--417
+[]\OT1/cmtt/m/n/14.4 >[] ratios[] <-[] dgamma(x_seq,[] shape=4.3,[] rate=6.2)[] /[] dgamma(x_seq,[] shape=4,[]
+ []
+
+
+Overfull \hbox (4.40419pt too wide) in paragraph at lines 417--417
+[][] [] \OT1/cmtt/m/n/14.4 [1][] 1.825208e-01[] 5.361883e-01[] 7.703168e-01[] 1.019992e+00[] 1.305276e+00[]
+ []
+
+
+Overfull \hbox (4.40419pt too wide) in paragraph at lines 417--417
+[][] [] \OT1/cmtt/m/n/14.4 [7][] 2.033787e+00[] 2.502597e+00[] 3.060751e+00[] 3.725963e+00[] 4.519063e+00[]
+ []
+
+
+
+[14 <./Exercise6.9.png>]
+Overfull \hbox (4.40419pt too wide) in paragraph at lines 417--417
+[][] \OT1/cmtt/m/n/14.4 [13][] 6.591792e+00[] 7.934962e+00[] 9.534960e+00[] 1.144013e+01[] 1.370777e+01[]
+ []
+
+
+Overfull \hbox (4.40419pt too wide) in paragraph at lines 417--417
+[][] \OT1/cmtt/m/n/14.4 [19][] 1.961443e+01[] 2.342908e+01[] 2.796244e+01[] 3.334805e+01[] 3.974399e+01[]
+ []
+
+
+Overfull \hbox (4.40419pt too wide) in paragraph at lines 417--417
+[][] \OT1/cmtt/m/n/14.4 [25][] 5.634968e+01[] 6.704297e+01[] 7.972734e+01[] 9.476962e+01[] 1.126037e+02[]
+ []
+
+
+Overfull \hbox (4.40419pt too wide) in paragraph at lines 417--417
+[][] \OT1/cmtt/m/n/14.4 [31][] 1.587941e+02[] 1.884748e+02[] 2.236337e+02[] 2.652737e+02[] 3.145806e+02[]
+ []
+
+
+Overfull \hbox (4.40419pt too wide) in paragraph at lines 417--417
+[][] \OT1/cmtt/m/n/14.4 [37][] 4.420550e+02[] 5.238358e+02[] 6.206104e+02[] 7.351110e+02[] 8.705652e+02[]
+ []
+
+
+Overfull \hbox (4.40419pt too wide) in paragraph at lines 417--417
+[][] \OT1/cmtt/m/n/14.4 [43][] 1.220276e+03[] 1.444356e+03[] 1.709307e+03[] 2.022547e+03[] 2.392837e+03[]
+ []
+
+
+Overfull \hbox (4.40419pt too wide) in paragraph at lines 417--417
+[][] \OT1/cmtt/m/n/14.4 [49][] 3.347805e+03[] 3.959112e+03[] 4.681459e+03[] 5.534937e+03[] 6.543258e+03[]
+ []
+
+
+Overfull \hbox (4.40419pt too wide) in paragraph at lines 417--417
+[][] \OT1/cmtt/m/n/14.4 [55][] 9.141436e+03[] 1.080331e+04[] 1.276604e+04[] 1.508392e+04[] 1.782100e+04[]
+ []
+
+
+Overfull \hbox (4.40419pt too wide) in paragraph at lines 417--417
+[][] \OT1/cmtt/m/n/14.4 [61][] 2.486871e+04[] 2.937372e+04[] 3.469203e+04[] 4.097006e+04[] 4.838055e+04[]
+ []
+
+
+Overfull \hbox (4.40419pt too wide) in paragraph at lines 417--417
+[][] \OT1/cmtt/m/n/14.4 [67][] 6.745043e+04[] 7.963362e+04[] 9.401111e+04[] 1.109772e+05[] 1.309969e+05[]
+ []
+
+
+Overfull \hbox (4.40419pt too wide) in paragraph at lines 417--417
+[][] \OT1/cmtt/m/n/14.4 [73][] 1.824890e+05[] 2.153706e+05[] 2.541627e+05[] 2.999255e+05[] 3.539092e+05[]
+ []
+
+
+Overfull \hbox (4.40419pt too wide) in paragraph at lines 417--417
+[][] \OT1/cmtt/m/n/14.4 [79][] 4.926992e+05[] 5.812922e+05[] 6.857822e+05[] 8.090170e+05[] 9.543534e+05[]
+ []
+
+
+Overfull \hbox (4.40419pt too wide) in paragraph at lines 417--417
+[][] \OT1/cmtt/m/n/14.4 [85][] 1.327868e+06[] 1.566209e+06[] 1.847254e+06[] 2.178642e+06[] 2.569378e+06[]
+ []
+
+
+Overfull \hbox (4.40419pt too wide) in paragraph at lines 417--417
+[][] \OT1/cmtt/m/n/14.4 [91][] 3.573240e+06[] 4.213616e+06[] 4.968577e+06[] 5.858598e+06[] 6.907810e+06[]
+ []
+
+
+
+[15]
+Overfull \hbox (11.81418pt too wide) in paragraph at lines 417--417
+[]\OT1/cmtt/m/n/14.4 >[] ratios[] <-[] dgamma(x_seq,[] shape=4.3,[] rate=6.2)[] /[] dgamma(x_seq,[] shape=4,[]
+ []
+
+
+Overfull \hbox (11.81418pt too wide) in paragraph at lines 417--417
+[][] [] \OT1/cmtt/m/n/14.4 [1][] 0.33477770[] 0.80365403[] 0.94347152[] 1.02085489[] 1.06752266[] 1.09545000[]
+ []
+
+
+Overfull \hbox (11.81418pt too wide) in paragraph at lines 417--417
+[][] [] \OT1/cmtt/m/n/14.4 [8][] 1.11683343[] 1.11617694[] 1.11032784[] 1.10044584[] 1.08740073[] 1.07186240[]
+ []
+
+
+Overfull \hbox (11.81418pt too wide) in paragraph at lines 417--417
+[][] \OT1/cmtt/m/n/14.4 [15][] 1.03530806[] 1.01505474[] 0.99387737[] 0.97200691[] 0.94963546[] 0.92692364[]
+ []
+
+
+Overfull \hbox (11.81418pt too wide) in paragraph at lines 417--417
+[][] \OT1/cmtt/m/n/14.4 [22][] 0.88099703[] 0.85799163[] 0.83507098[] 0.81230340[] 0.78974647[] 0.76744862[]
+ []
+
+
+Overfull \hbox (11.81418pt too wide) in paragraph at lines 417--417
+[][] \OT1/cmtt/m/n/14.4 [29][] 0.72378581[] 0.70248271[] 0.68156415[] 0.66104871[] 0.64095122[] 0.62128316[]
+ []
+
+
+Overfull \hbox (11.81418pt too wide) in paragraph at lines 417--417
+[][] \OT1/cmtt/m/n/14.4 [36][] 0.58326740[] 0.56492975[] 0.54704229[] 0.52960539[] 0.51261803[] 0.49607790[]
+ []
+
+
+Overfull \hbox (11.81418pt too wide) in paragraph at lines 417--417
+[][] \OT1/cmtt/m/n/14.4 [43][] 0.46432497[] 0.44910278[] 0.43430930[] 0.41993816[] 0.40598253[] 0.39243515[]
+ []
+
+
+Overfull \hbox (11.81418pt too wide) in paragraph at lines 417--417
+[][] \OT1/cmtt/m/n/14.4 [50][] 0.36653446[] 0.35416519[] 0.34217236[] 0.33054757[] 0.31928235[] 0.30836817[]
+ []
+
+
+Overfull \hbox (11.81418pt too wide) in paragraph at lines 417--417
+[][] \OT1/cmtt/m/n/14.4 [57][] 0.28755876[] 0.27764647[] 0.26805114[] 0.25876439[] 0.24977788[] 0.24108341[]
+ []
+
+
+Overfull \hbox (11.81418pt too wide) in paragraph at lines 417--417
+[][] \OT1/cmtt/m/n/14.4 [64][] 0.22453819[] 0.21667159[] 0.20906530[] 0.20171173[] 0.19460342[] 0.18773308[]
+ []
+
+
+Overfull \hbox (11.81418pt too wide) in paragraph at lines 417--417
+[][] \OT1/cmtt/m/n/14.4 [71][] 0.17467787[] 0.16847917[] 0.16249077[] 0.15670618[] 0.15111901[] 0.14572307[]
+ []
+
+
+
+[16]
+Overfull \hbox (11.81418pt too wide) in paragraph at lines 417--417
+[][] \OT1/cmtt/m/n/14.4 [78][] 0.13548087[] 0.13062298[] 0.12593307[] 0.12140573[] 0.11703566[] 0.11281774[]
+ []
+
+
+Overfull \hbox (11.81418pt too wide) in paragraph at lines 417--417
+[][] \OT1/cmtt/m/n/14.4 [85][] 0.10481857[] 0.10102776[] 0.09737001[] 0.09384089[] 0.09043610[] 0.08715147[]
+ []
+
+
+Overfull \hbox (11.81418pt too wide) in paragraph at lines 417--417
+[][] \OT1/cmtt/m/n/14.4 [92][] 0.08092666[] 0.07797875[] 0.07513557[] 0.07239354[] 0.06974922[] 0.06719926[]
+ []
+
+
+
+[17]
+Overfull \hbox (85.91406pt too wide) in paragraph at lines 417--417
+[]\OT1/cmtt/m/n/14.4 +[] [] [] [] [] uniform[] =[] runif(1,[] 0,[] M[] *[] dgamma(x_cand,[] shape=cand_shape,[] rate=cand_rate))[] 
+ []
+
+
+Overfull \hbox (26.63416pt too wide) in paragraph at lines 417--417
+[]\OT1/cmtt/m/n/14.4 +[] [] [] [] [] if[] (uniform[] <[] dgamma(x_cand,[] shape=target_shape,[] rate=target_rate))[]
+ []
+
+
+Overfull \hbox (19.22417pt too wide) in paragraph at lines 417--417
+[]\OT1/cmtt/m/n/14.4 +[] [] [] [] [] [] [] print(paste("mean[] after",[] simulated_trials,[] "simulated_trials:",[]
+ []
+
+
+Overfull \hbox (115.55402pt too wide) in paragraph at lines 417--417
+[]\OT1/cmtt/m/n/14.4 +[] [] [] hist(simulated_values,[] density[] =[] 50,[] breaks[] =[] 50,[] main[] =[] "2.[] (a):[] Accept-Reject")[] 
+ []
+
+
+
+[18]
+<2a_hist.png, id=96, 957.5775pt x 933.4875pt>
+File: 2a_hist.png Graphic file (type png)
+<use 2a_hist.png>
+Package pdftex.def Info: 2a_hist.png  used on input line 421.
+(pdftex.def)             Requested size: 385.72124pt x 376.00926pt.
+
+
+[19 <./2a_hist.png>]
+Overfull \hbox (26.63416pt too wide) in paragraph at lines 505--505
+[]\OT1/cmtt/m/n/14.4 +[] [] [] [] [] acc_prob[] =[] acc_prob_calc_gamma(x_cand,[] x[j],[] prop_shape,[] prop_rate)[] 
+ []
+
+
+
+[20]
+Overfull \hbox (4.40419pt too wide) in paragraph at lines 505--505
+[]\OT1/cmtt/m/n/14.4 +[] [] [] [] [] "2.[] Metropolis-Hastings[] for[] Gamma(",[] prop_shape,[] ",",[] prop_rate,[]
+ []
+
+
+Overfull \hbox (34.04414pt too wide) in paragraph at lines 505--505
+[]\OT1/cmtt/m/n/14.4 >[] acc_prob_calc_gamma[] =[] function(candidate,[] former,[] prop_shape,[] prop_rate)[]
+ []
+
+
+Overfull \hbox (19.22417pt too wide) in paragraph at lines 505--505
+[]\OT1/cmtt/m/n/14.4 +[] [] [] [] [] g_former_given_candidate[] =[] dgamma(former,[] shape[] =[] prop_shape,[] rate[]
+ []
+
+
+Overfull \hbox (4.40419pt too wide) in paragraph at lines 505--505
+[]\OT1/cmtt/m/n/14.4 +[] [] [] [] [] g_candidate_given_former[] =[] dgamma(candidate,[] shape[] =[] prop_shape,[]
+ []
+
+
+Overfull \hbox (93.32405pt too wide) in paragraph at lines 505--505
+[]\OT1/cmtt/m/n/14.4 +[] [] [] [] [] acc_probability[] =[] (dens_candidate[] *[] g_former_given_candidate)[] /[] (dens_former[]
+ []
+
+
+
+[21]
+<2b_hist.png, id=108, 957.5775pt x 933.4875pt>
+File: 2b_hist.png Graphic file (type png)
+<use 2b_hist.png>
+Package pdftex.def Info: 2b_hist.png  used on input line 510.
+(pdftex.def)             Requested size: 385.72124pt x 376.00926pt.
+
+
+[22]
+
+[23 <./2b_hist.png>]
+<2c_hist.png, id=116, 957.5775pt x 933.4875pt>
+File: 2c_hist.png Graphic file (type png)
+<use 2c_hist.png>
+Package pdftex.def Info: 2c_hist.png  used on input line 536.
+(pdftex.def)             Requested size: 385.72124pt x 376.00926pt.
+
+
+[24 <./2c_hist.png>]
+
+[25]
+
+[26]
+
+[27] (./mhuang_hw6.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
@@ -483,18 +891,18 @@ LaTeX Font Warning: Size substitutions with differences
 
  ) 
 Here is how much of TeX's memory you used:
- 14493 strings out of 473190
- 286875 string characters out of 5715801
- 656425 words of memory out of 5000000
- 37504 multiletter control sequences out of 15000+600000
- 562701 words of font info for 51 fonts, out of 8000000 for 9000
+ 14604 strings out of 473190
+ 289474 string characters out of 5715801
+ 665438 words of memory out of 5000000
+ 37616 multiletter control sequences out of 15000+600000
+ 562870 words of font info for 52 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 102i,13n,107p,496b,405s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on template.pdf (1 page, 41912 bytes).
+ 102i,13n,107p,755b,546s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on mhuang_hw6.pdf (27 pages, 1623092 bytes).
 PDF statistics:
- 31 PDF objects out of 1000 (max. 8388607)
- 19 compressed objects within 1 object stream
+ 180 PDF objects out of 1000 (max. 8388607)
+ 98 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 13 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 88 words of extra memory for PDF output out of 10000 (max. 10000000)
 
