@@ -37,7 +37,7 @@ met_hastings_gamma = function(n, prop_shape, prop_rate) {
   print(paste("Estimated mean:", mean(mean(x[1:n]))))
   hist(x, breaks = 50, density = 50, main = paste(
     "2. Metropolis-Hastings for Gamma(", prop_shape, ",", prop_rate, ")")
-    );
+  );
 }
 
 acc_prob_calc_gamma = function(candidate, former, prop_shape, prop_rate) {

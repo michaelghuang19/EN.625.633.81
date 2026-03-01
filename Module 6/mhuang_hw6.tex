@@ -1,7 +1,7 @@
 \documentclass{article}
 \linespread{1.3}
 \usepackage[margin=50pt]{geometry}
-\usepackage{amsmath, amsthm, amssymb, amsthm, tikz, fancyhdr, graphicx, spverbatim, systeme}
+\usepackage{amsmath, amsthm, amssymb, amsthm, tikz, fancyhdr, float, graphicx, spverbatim, systeme}
 \pagestyle{fancy}
 \renewcommand{\headrulewidth}{0pt}
 \newcommand{\changefont}{\fontsize{15}{15}\selectfont}
@@ -24,19 +24,136 @@
 
 \section*{1.}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{Example2.7.png}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{Exercise6.7.png}
 \end{figure}
 
+We are generating based on a beta \(Be(2.7, 6.3)\) target density.
+
 \subsection*{(a)} 
 
+Using the problem statement, we know that the target distributions' variance is \(\frac{2.7 \cdot 6.3}{(2.7 + 6.3)^2 \cdot (2.7 + 6.3 + 1)} =  \frac{17.01}{810} = 0.021\). We'll test using the following beta candidates: \\
+- \(Be(1,1)\): given, variance = \(\frac{1 \cdot 1}{(1 + 1)^2 \cdot (1 + 1 + 1)} = \frac{1}{12} = 0.08333333333\) \\
+- \(Be(2,2)\): given, variance = \(\frac{2 \cdot 2}{(2 + 2)^2 \cdot (2 + 2 + 1)} = \frac{4}{80} = \frac{1}{20} = 0.05\), lower than \(Be(1,1)\) \\
+- \(Be(2,4)\): given, variance = \(\frac{2 \cdot 4}{(2 + 4)^2 \cdot (2 + 4 + 1)} = \frac{8}{252} = 0.03174603174\), even lower  \\
+- \(Be(2,5)\): given, variance = \(\frac{2 \cdot 5}{(2 + 5)^2 \cdot (2 + 5 + 1)} = \frac{10}{392} = 0.02551020408\), even lower \\
+- \(Be(3,6)\): given, variance = \(\frac{3 \cdot 6}{(3 + 6)^2 \cdot (3 + 6 + 1)} = \frac{18}{810} = 0.02222222222\), even lower \\
 
+\begin{spverbatim}
+> met_hastings_beta = function(n, prop_alpha, prop_beta) {
++   
++   x = rep(0, n)
++   j = 1
++   acc = 0
++   # Due to the nature of the beta distribution
++   x[1] = 0.5
++   
++   while (j < n) {
++     
++     # Sample candidate value
++     x_cand = rbeta(1, prop_alpha, prop_beta)
++     
++     # Calculate acceptance probability
++     acc_prob = acc_prob_calc_beta(x_cand, x[j], prop_alpha, prop_beta)
++     
++     # Decide whether to accept or not
++     acc_or_not = rbinom(1, 1, acc_prob)
++     
++     # if accept or not
++     if (acc_or_not == 1) {
++       acc = acc + 1
++       j = j + 1
++       x[j] = x_cand
++     }
++     else {
++       j = j + 1
++       x[j] = x[j-1]
++     }	
++   }
++   
++   acc_probability = acc/n
++   print(paste("Acceptance probability:", acc_probability))
++   hist(x, breaks = 50, density = 50, main = paste(
++     "1. Metropolis-Hastings for Beta(", prop_alpha, ",", prop_beta, ")")
++   );
++ }
+> 
+> acc_prob_calc_beta = function(candidate, former, prop_alpha, prop_beta) {
++   
++   if (candidate <= 0 || candidate >= 1) {
++     acc_probability = 0
++   }
++   else {
++     # Target densities
++     dens_candidate = dbeta(candidate, 2.7, 6.3)
++     dens_former = dbeta(former, 2.7, 6.3)
++     
++     # Proposal densities
++     g_former_given_candidate = dbeta(former, prop_alpha, prop_beta)
++     g_candidate_given_former = dbeta(candidate, prop_alpha, prop_beta)
++     
++     acc_probability = (dens_candidate * g_former_given_candidate) / (dens_former * g_candidate_given_former);
++   }
++   
++   acc_probability = min(1, acc_probability);
++   return(acc_probability)
++ }
+> 
+> # 1. (a)
+> 
+> # Using Beta(1, 1)
+> met_hastings_beta(100, 1, 1)
+[1] "Acceptance probability: 0.44"
+> 
+> # Using Beta(2, 2)
+> met_hastings_beta(100, 2, 2)
+[1] "Acceptance probability: 0.57"
+> 
+> # Using Beta(2, 4)
+> met_hastings_beta(100, 2, 4)
+[1] "Acceptance probability: 0.85"
+> 
+> # Using Beta(2, 5)
+> met_hastings_beta(100, 2, 5)
+[1] "Acceptance probability: 0.91"
+> 
+> # Using Beta(3, 6)
+> met_hastings_beta(100, 3, 6)
+[1] "Acceptance probability: 0.87"
+\end{spverbatim}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{1a_hist_1_1.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{1a_hist_2_2.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{1a_hist_2_4.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{1a_hist_2_5.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{1a_hist_3_6.png}
+\end{figure}
+
+Compared with the accept/reject method, the acceptance rate of the Metropolis-Hastings algorithm is consistently higher (compared with the stated acceptance rate of 37\% of values in the example mentioned in the exercise). In addition, we see the progression of increased acceptance rate as expected here, with higher acceptance rates as we get lower variances for proposed distributions, with the sole exception of Beta(3, 6). Looking at a graph, it seems that this distribution is more right-skewed and has higher concentrations of densities on the left than the target or Beta(2, 5) which seems to hit this slightly better.
 
 \subsection*{(b)}
 
@@ -47,7 +164,7 @@
 
 \section*{2.}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{Exercise6.9.png}
 \end{figure}
@@ -165,7 +282,7 @@ which we can use code to try and investigate, and then proceed:
 [1] "Estimated mean: 0.664852717498268"
 \end{spverbatim}
 With the new candidate gamma \(G(4, 6)\), it converges very well. We can see the above means getting better over time.
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.75\textwidth]{2a_hist.png}
 \end{figure}
@@ -253,7 +370,8 @@ Metropolis-Hastings with a gamma \(G(4,7)\) candidate:
 [1] "Estimated mean: 0.60192485306117"
 \end{spverbatim}
 Using \(G(4, 7)\), it converges well, but not as good. We can see the above means getting better over time, although it slightly underestimates.
-\begin{figure}[h]
+
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.75\textwidth]{2b_hist.png}
 \end{figure}
@@ -278,7 +396,8 @@ Metropolis-Hastings with a gamma \(G(5, 6)\) candidate:
 [1] "Estimated mean: 0.742317336251595"
 \end{spverbatim}
 Using \(G(4, 7)\), it also converges very well. We can see the above means getting better over time, and it is slightly closer than using \(G(4, 7)\), although it slightly overestimates now.
-\begin{figure}[h]
+
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.75\textwidth]{2c_hist.png}
 \end{figure}
