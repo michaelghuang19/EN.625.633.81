@@ -3,7 +3,7 @@ met_hastings_beta = function(n, prop_alpha, prop_beta) {
   x = rep(0, n)
   j = 1
   acc = 0
-  # Due to the nature of the beta distribution
+  # Due to the nature of the beta distribution only being valid from [0, 1]
   x[1] = 0.5
   
   while (j < n) {
@@ -50,7 +50,8 @@ acc_prob_calc_beta = function(candidate, former, prop_alpha, prop_beta) {
     g_former_given_candidate = dbeta(former, prop_alpha, prop_beta)
     g_candidate_given_former = dbeta(candidate, prop_alpha, prop_beta)
     
-    acc_probability = (dens_candidate * g_former_given_candidate) / (dens_former * g_candidate_given_former);
+    acc_probability = ((dens_candidate * g_former_given_candidate) / 
+      (dens_former * g_candidate_given_former));
   }
   
   acc_probability = min(1, acc_probability);
@@ -73,3 +74,5 @@ met_hastings_beta(100, 2, 5)
 
 # Using Beta(3, 6)
 met_hastings_beta(100, 3, 6)
+
+
