@@ -1,0 +1,747 @@
+\documentclass{article}
+\linespread{1.3}
+\usepackage[margin=50pt]{geometry}
+\usepackage{amsmath, amsthm, amssymb, amsthm, tikz, fancyhdr, float, graphicx, spverbatim, systeme}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\newcommand{\changefont}{\fontsize{15}{15}\selectfont}
+
+\fancypagestyle{firstpageheader}{
+  \fancyhead[R]{
+    \changefont
+    \parbox[t]{4cm}{ % Adjust width as needed
+      Michael Huang\\
+      EN.625.633.81\\
+      Homework N
+    }
+  }
+}
+
+\begin{document}
+
+\thispagestyle{firstpageheader}
+{\Large 
+
+\section*{1.}
+
+\subsection*{(a)} 
+
+We are given \(X\) and \(Y\) with joint probability density function \(f(x, y) = 2 \exp\{-(x + 2y)\}\), given \(0 < x < \infty, 0 < y < \infty\). \\ \\
+To find \(P(X < Y)\), we can take the integral of the pdf over the range where \(x < y\), so we would integrate from \(0 < x < y\):
+\[
+  P(X < Y) = \int_{y=0}^{\infty} \int_{x=0}^{y} f(x, y) dx dy
+\]
+\[
+  = \int_{y=0}^{\infty} \int_{x=0}^{y} 2 \exp\{-(x + 2y)\} dx dy
+\]
+\[
+  = \int_{y=0}^{\infty} \int_{x=0}^{y} 2 e^{-x} \cdot  e^{-2y} dx dy
+\]
+\[
+  = \int_{y=0}^{\infty} 2e^{-2y} \int_{x=0}^{y} e^{-x} dx dy
+\]
+\[
+  = \int_{y=0}^{\infty} 2e^{-2y} \cdot -e^{-x}|_{x=0}^{y} dy
+\]
+\[
+  = \int_{y=0}^{\infty} 2e^{-2y} \cdot (-e^{-y} - (-e^{0})) dy
+\]
+\[
+  = \int_{y=0}^{\infty} 2e^{-2y} \cdot (-e^{-y} + 1) dy
+\]
+\[
+  = \int_{y=0}^{\infty} 2e^{-2y} - 2e^{-3y} dy
+\]
+\[
+  = 2 \cdot \frac{e^{-2y}}{-2} - 2 \cdot \frac{e^{-3y}}{-3} |_{y=0}^{\infty}
+\]
+\[
+  = -e^{-2y} - \frac{2e^{-3y}}{-3} |_{y=0}^{\infty}
+\]
+\[
+  = 0 - (-e^0) - (0 - \frac{2e^{0}}{-3})
+\]
+\[
+  P(X < Y) = 0 + 1 - 0 - \frac{2}{3} = 1 - \frac{2}{3} = \boxed{\frac{1}{3}}
+\]
+
+\subsection*{(b)}
+
+To find \(P(X > \frac{1}{2})\), we need to first find the marginal of \(f(x, y)\) by integrating out \(y\):
+\[
+  f(x) = \int_{y=0}^{\infty} f(x, y) dy
+\]
+\[
+  = \int_{y=0}^{\infty} 2 \exp\{-(x + 2y)\} dy = \int_{y=0}^{\infty} 2 e^{(-x - 2y)} dy
+\]
+\[
+  = 2e^{-x} \int_{y=0}^{\infty} e^{-2y} dy
+\]
+\[
+  = 2e^{-x} \cdot -\frac{e^{-2y}}{2} |_{y=0}^{\infty}
+\]
+\[
+  = 2e^{-x} \cdot (-\frac{e^{-\infty}}{2}-(-\frac{e^0}{2}))
+\]
+\[
+  = 2e^{-x} \cdot (0 + \frac{1}{2})
+\]
+\[
+  f(x) = e^{-x}
+\]
+
+Now, we can properly integrate the marginal pdf over \(\frac{1}{2} < x < \infty\)
+\[
+  P(X > \frac{1}{2}) = \int_{x=\frac{1}{2}}^{\infty} f(x) dx
+\]
+\[
+  = \int_{x=\frac{1}{2}}^{\infty} e^{-x} dx
+\]
+\[
+  = -e^{-x} |_{x=\frac{1}{2}}^{\infty}
+\]
+\[
+  = -e^{-\infty} - (-e^{-\frac{1}{2}}) 
+\]
+\[
+  P(X > \frac{1}{2}) = 0 + e^{-\frac{1}{2}} = \boxed{e^{-\frac{1}{2}}}
+\]
+
+
+
+}
+{\Large 
+
+\section*{2.}
+
+\subsection*{(a)} 
+
+We are given \(f_X(x) = \frac{3}{16}x^2\) with \(-2 < x < 2\), and \(S = X_1 + X_2 + \dots + X_{24} + X_{25}\), with \(X_i\) all being independent with density \(f\). We can try to estimate using the Central Limit Theorem with the \(i\) independent random variables composing \(S\). To apply this, we would apply \(Z = \frac{S - E[S]}{\text{Std}(S)}\), so let's do some calculations for expectation and variance accordingly:
+\[
+  E[X] = \int_{-2}^{2} x \cdot f_X(x) dx
+\]
+\[
+  = \int_{-2}^{2} x \cdot \frac{3}{16}x^2 dx
+\]
+\[
+  = \int_{-2}^{2} \frac{3}{16}x^3 dx
+\]
+\[
+  = \frac{3}{16 \cdot 4}x^4 |_{-2}^{2}
+\]
+\[
+  = \frac{3 \cdot 2^4}{64} - \frac{3 \cdot -2^4}{64}
+\]
+\[
+  E[X] = 0
+\]
+\[
+  E[X^2] = \int_{-2}^{2} x^2 \cdot f_X(x) dx
+\]
+\[
+  = \int_{-2}^{2} x^2 \cdot \frac{3}{16}x^2 dx
+\]
+\[
+  = \int_{-2}^{2} \frac{3}{16}x^4 dx
+\]
+\[
+  = \frac{3x^5}{16 \cdot 5} |_{-2}^{2}
+\]
+\[
+  = \frac{3 \cdot 2^1}{5} - \frac{3 \cdot -2^1}{5}
+\]
+\[
+  = \frac{6}{5} - \frac{-6}{5} 
+\]
+\[
+  E[X^2] = \frac{12}{5}
+\]
+\[
+  \text{Var}(X) = E[X^2] - (E[X])^2
+\]
+\[
+  = \frac{12}{5} - 0^2
+\]
+\[
+  \text{Var}(X) = \frac{12}{5}
+\]
+So for \(S\), we can accordingly say that 
+\[
+  E[S] = 25 \cdot 0 = 0
+\]
+\[
+  \text{Std}(S) = \sqrt{25 \cdot \frac{12}{5}} = \sqrt{60} = 2\sqrt{15}
+\]
+To find \(P(\frac{1}{25} \geq .05) = P(S \geq 1.25)\): 
+\[
+  P(Z \geq \frac{S - E[S]}{\text{Std}(S)})
+\]
+\[
+  = P(Z \geq \frac{1.25 - 0}{2\sqrt{15}})
+\]
+\[
+  = P(Z \geq \frac{1.25}{2\sqrt{15}}) = P(Z \geq 0.16137430609)
+\]
+\[
+  = 1 - \Phi(0.16137430609)
+\]
+\[
+  P(\frac{1}{25} \geq .05) \approx 1 - 0.56356 = \boxed{0.43644}
+\]
+
+\subsection*{(b)}
+
+To evaluate the quality of the approximation, let's first evaluate the actual variables. \(f_X(x)\) is symmetric about 0, with the expectation being exactly that, as \(S\) is the sum of all these \(X_i\). The approximation is about the mean / average \(X_i\), with \(\frac{S}{25}\) being this with \(n = 25\). So we are determining the probability of the mean \(X_i\) being greater than 0.05. The range is from \([-2, 2]\), with 0.05 being a relatively small value and the distribution having lighter distribution toward the edges of the parabola distribution, with the probability being slightly lower than 0.5 makes sense, as we are only slightly in the positive side of the distribution. So the approximation seems to generally be in the right area, and isn't egregiously bad by any means.
+
+}
+{\Large 
+
+\section*{3.}
+
+\subsection*{(a)} 
+
+We find the density function by differentiating \(F(x)\):
+\[
+  f(x) = \frac{d}{dx} F(x)
+\]
+\[
+  = \frac{d}{dx} (1 - \text{exp}\{- (\frac{x}{\alpha})^\beta\})
+\]
+\[
+  = 0 - \frac{d}{dx} \text{exp}\{- (\frac{x}{\alpha})^\beta\}
+\]
+We integrate the rest of this using the chain rule, with \(u = - (\frac{x}{\alpha})^\beta\):
+\[
+  = - \frac{d}{dx} (\text{exp}\{u\})
+\]
+\[
+  = - \text{exp}\{u\} \cdot \frac{du}{dx}
+\]
+\[
+  = - \text{exp}\{u\} \cdot -\beta(\frac{x}{\alpha})^{\beta - 1} \cdot \frac{1}{\alpha}
+\]
+\[
+  = - \text{exp}\{-(\frac{x}{\alpha})^\beta\} \cdot -\beta(\frac{x}{\alpha})^{\beta - 1} \cdot \frac{1}{\alpha}
+\]
+\[
+  f(x) = \boxed{\frac{\beta}{\alpha} (\frac{x}{\alpha})^{\beta - 1} \text{exp}\{-(\frac{x}{\alpha})^\beta\}}
+\]
+
+\subsection*{(b)}
+
+We are given \(X = (\frac{W}{\alpha})^\beta\). To determine the distribution, let's calculate the cdf by definition:
+\[
+  F_X(x) = P(X \leq x)
+\]
+\[
+  = P((\frac{W}{\alpha})^\beta \leq x)
+\]
+\[
+  = P(\frac{W}{\alpha} \leq x^{\frac{1}{\beta}})
+\]
+\[
+  = P(W \leq \alpha x^{\frac{1}{\beta}})
+\]
+Which is equivalent of taking the Weibull cdf of \(\alpha x^{\frac{1}{\beta}}\); let's substitute:
+\[
+  = F(\alpha x^{\frac{1}{\beta}})
+\]
+\[
+  = 1 - \text{exp}\{- (\frac{\alpha x^{\frac{1}{\beta}}}{\alpha})^\beta\}
+\]
+\[
+  = 1 - \text{exp}\{- (x^{\frac{1}{\beta}})^\beta\}
+\]
+\[
+  = 1 - \text{exp}\{-x\}
+\]
+which is nothing but the cdf for an exponential distribution with \(\lambda = 1\).
+
+\subsection*{(c)}
+
+Given part (b), we can therefore use the exponential distribution \(\text{Exp}(1)\) to easily generate values \(x\), and then transform these into \(W\):
+\[
+  X = (\frac{W}{\alpha})^\beta
+\]
+\[
+  X^\frac{1}{\beta} = \frac{W}{\alpha}
+\]
+\[
+  W = \alpha X^\frac{1}{\beta}
+\]
+To make this all work for sampling, we just need to first do the standard generation from uniform. So the algorithm would be \\ 
+- Generate \(U \sim \text{Unif}(0,1)\) \\
+- Calculate the corresponding intermediate value \(Y\) on \(\text{Exp}(1)\) using \(U\) \\
+- Finally, get the corresponding \(X\) sample value by taking \(X = \alpha Y ^ \frac{1}{\beta}\)
+
+}
+{\Large 
+
+\section*{4.}
+
+\subsection*{(a)} 
+
+We are given a Poisson process with \(\lambda = 10\), and that two customers arrived in the first 5 minutes. As the arrival times are uniformly distributed, we have \(N(t) = n \) in time \([0, s]\) follows the Binomial with \(p = \frac{s}{t} = \frac{2}{5}\). We can easily calculate to calculate the probability that both arrived in the first 2 minutes as 
+\[
+  P(N(s) = l | N(t) = k) = \binom{k}{l}(\frac{s}{t})^l(1 - \frac{s}{t})^{k-l}
+\]
+\[
+  P(N(s) = 2 | N(5) = 2) = \binom{2}{2}(\frac{2}{5})^2(1 - \frac{2}{5})^{2-2}
+\]
+\[
+  = 1 \cdot \frac{4}{25} \cdot \frac{3}{5}^0
+\]
+\[
+  P(N(s) = 2 | N(5) = 2) = \boxed{\frac{4}{25}}
+\]
+
+\subsection*{(b)}
+
+To determine the probability that at least one arrived in the first two minutes, we can determine this by first determining the probability that no customers arrived in the first two minutes:
+\[
+  P(N(s) = l | N(t) = k) = \binom{k}{l}(\frac{s}{t})^l(1 - \frac{s}{t})^{k-l}
+\]
+\[
+  P(N(2) = 0 | N(5) = 2) = \binom{2}{0}(\frac{2}{5})^0(1 - \frac{2}{5})^{2-0}
+\]
+\[
+  = 1 \cdot 1 \cdot \frac{3}{5}^2
+\]
+\[
+  P(N(2) = 0 | N(5) = 2) = \frac{9}{25}
+\]
+Now that we've found the probability that no customers arrived in the first two minutes, we can take the complement to determine the probability of having at least one customer arriving:
+\[
+  1 - \frac{9}{25} = \boxed{\frac{16}{25}}
+\]
+
+}
+{\Large 
+
+\section*{5.}
+
+\subsection*{(a)} 
+
+Let's set up the transition matrix accordingly:
+\[
+  P = 
+  \begin{pmatrix}
+    0.7 & 0.3 \\
+    0.2 & 0.8 
+  \end{pmatrix}
+\]
+and solve for the limiting distribution by solving \(\pi = \pi P\):
+\begin{align*}
+  \pi_A &= 0.7\pi_A + 0.2\pi_B \\
+  \pi_B &= 0.3\pi_A + 0.8\pi_B
+\end{align*}
+\begin{align*}
+  0.3\pi_A &= 0.2\pi_B \\
+  \pi_B &= 0.3\pi_A + 0.8\pi_B
+\end{align*}
+\begin{align*}
+  1.5\pi_A &= \pi_B \\
+  \pi_B &= 0.3\pi_A + 0.8\pi_B
+\end{align*}
+\begin{align*}
+  1.5\pi_A &= \pi_B
+\end{align*}
+\begin{align*}
+  1.5\pi_A &= \pi_B \\
+  \pi_A + \pi_B &= 1
+\end{align*}
+\[
+  \pi_A + 1.5\pi_A = 1
+\]
+\[
+  2.5\pi_A = 1
+\]
+\[
+  \pi_A = \frac{2}{5}
+\]
+\[
+  \pi_B = 1 - \frac{2}{5} = \frac{3}{5}
+\]
+So we have the limiting market shares as \(\boxed{A = 0.4, B = 0.6}\)
+
+\subsection*{(b)}
+
+We perform the same process with the new matrix: 
+\[
+  P = 
+  \begin{pmatrix}
+    0.7 & 0.15 & 0.15 \\
+    0.1 & 0.8 & 0.1 \\
+    0.05 & 0.05 & 0.9 \\
+  \end{pmatrix}
+\]
+And now solving \(\pi = \pi P\):
+\begin{align*}
+  \pi_A &= 0.7\pi_A + 0.1\pi_B + 0.05\pi_C \\
+  \pi_B &= 0.15\pi_A + 0.8\pi_B + 0.05\pi_C \\
+  \pi_C &= 0.15\pi_A + 0.1\pi_B + 0.9\pi_C
+\end{align*}
+\[
+  \pi_C - \pi_B = 0.15\pi_A + 0.1\pi_B + 0.9\pi_C - (0.15\pi_A + 0.8\pi_B + 0.05\pi_C)
+\]
+\[
+  \pi_C - \pi_B = -0.7\pi_B + 0.85\pi_C
+\]
+\[
+  0.15\pi_C = 0.3\pi_B
+\]
+\[
+  \pi_C = 2\pi_B
+\]
+\[
+  \pi_A - \pi_B = 0.7\pi_A + 0.1\pi_B + 0.05\pi_C - (0.15\pi_A + 0.8\pi_B + 0.05\pi_C)
+\]
+\[
+  \pi_A - \pi_B = 0.55\pi_A - 0.7\pi_B 
+\]
+\[
+  0.45\pi_A = 0.3\pi_B
+\]
+\[
+  3\pi_A = 2\pi_B
+\]
+\[
+  \pi_A + \pi_B + \pi_C = 1
+\]
+\[
+  \frac{2}{3}\pi_B + \pi_B + 2\pi_B = 1
+\]
+\[
+  \frac{11}{3}\pi_B = 1
+\]
+\[
+  \pi_B = \frac{3}{11}
+\]
+\[
+  \pi_C = 2\pi_B = 2 \cdot \frac{3}{11} = \frac{6}{11}
+\]
+\[
+  3\pi_A = 2 \cdot \frac{3}{11}
+\]
+\[
+  \pi_A = 2 \cdot \frac{1}{11} = \frac{2}{11}
+\]
+So the limiting market shares are \(\boxed{A = \frac{2}{11}, B = \frac{3}{11}, C = \frac{6}{11}}\)
+
+}
+{\Large 
+
+\section*{6.}
+
+\subsection*{(a)} 
+
+Let's construct the probability matrix first based on whether we can go left or right, and if so, the probability of doing so \(\frac{1}{3}\) left and \(\frac{2}{3}\) right: 
+\[
+  P = 
+  \begin{pmatrix}
+    \frac{1}{3} & \frac{2}{3} & 0 & 0 \\
+    \frac{1}{3} & 0 & \frac{2}{3} & 0 \\
+    0 & \frac{1}{3} & 0 & \frac{2}{3} \\
+    0 & 0 & \frac{1}{3} & \frac{2}{3}
+  \end{pmatrix}
+\]
+
+\subsection*{(b)}
+
+Let's solve to find the limiting amount of time the chain spends at each site, solving \(\pi = \pi P\):
+\begin{align*}
+  \pi_1 &= \frac{1}{3}\pi_1 + \frac{1}{3}\pi_2 \\
+  \pi_2 &= \frac{2}{3}\pi_1 + \frac{1}{3}\pi_3 \\
+  \pi_3 &= \frac{2}{3}\pi_2 + \frac{1}{3}\pi_4 \\
+  \pi_4 &= \frac{2}{3}\pi_3 + \frac{2}{3}\pi_4
+\end{align*}
+\begin{align*}
+  \pi_1 &= \frac{1}{3}\pi_1 + \frac{1}{3}\pi_2 \\
+  \pi_2 &= \frac{2}{3}\pi_1 + \frac{1}{3}\pi_3 \\
+  \pi_3 &= \frac{2}{3}\pi_2 + \frac{1}{3}\pi_4 \\
+  \pi_4 &= \frac{2}{3}\pi_3 + \frac{2}{3}\pi_4
+\end{align*}
+\begin{align*}
+  \frac{2}{3}\pi_1 &= \frac{1}{3}\pi_2 \\
+  \pi_2 &= \frac{2}{3}\pi_1 + \frac{1}{3}\pi_3 \\
+  \pi_3 &= \frac{2}{3}\pi_2 + \frac{1}{3}\pi_4 \\
+  \frac{1}{3}\pi_4 &= \frac{2}{3}\pi_3
+\end{align*}
+\begin{align*}
+  \pi_2 &= 2\pi_1 \\
+  \pi_2 &= \frac{2}{3}\pi_1 + \frac{1}{3}\pi_3 \\
+  \pi_3 &= \frac{2}{3}\pi_2 + \frac{1}{3}\pi_4 \\
+  \pi_4 &= 2\pi_3
+\end{align*}
+Substituting into the third equation:
+\[
+  \pi_3 = \frac{2}{3}\pi_2 + \frac{2}{3}\pi_3
+\]
+\[
+  \frac{1}{3}\pi_3 = \frac{2}{3}\pi_2
+\]
+\[
+  \pi_3 = 2\pi_2
+\]
+Putting it together:
+\[
+  \pi_1 + \pi_2 + \pi_3 + \pi_4 = 1
+\]
+\[
+  \frac{1}{2}\pi_2 + \pi_2 + 2\pi_2 + 2\pi_3 = 1
+\]
+\[
+  \frac{1}{2}\pi_2 + \pi_2 + 2\pi_2 + 4\pi_2 = 1
+\]
+\[
+  \frac{15}{2}\pi_2 = 1
+\]
+\[
+  \pi_2 = \frac{2}{15}
+\]
+We can determine the rest of the limiting amounts by the final simplified equation in the form of \(\pi_2\), which gives us that the limiting shares of time at each position are \(\boxed{\frac{1}{15} \text{ at } 1, \frac{2}{15} \text{ at } 2, \frac{4}{15} \text{ at } 3, \frac{8}{15} \text{ at } 4}\).
+
+
+}
+{\Large 
+
+\section*{7.}
+
+These functions seem very invertible, so let's use the inverse-transform method. This would mean that this is incredibly efficient with no rejected values. We start by taking the CDFs piecewise, starting with \(x < 0\):
+\[
+  F_X(x) = \int_{-\infty}^x f_X(x) dx
+\]
+\[
+  = \int_{-\infty}^x \text{exp}(2x) dx
+\]
+\[
+  = \frac{\text{exp}(2x)}{2} |_{-\infty}^x
+\]
+\[
+  F_X(x) = \frac{\text{exp}(2x)}{2} - 0 = \frac{\text{exp}(2x)}{2}
+\]
+And now for \(x > 0\):
+\[
+  = \int_{-\infty}^0 f_X(x) dx + \int_{0}^{x} f_X(x) dx
+\]
+\[
+  = \int_{-\infty}^0 \text{exp}(2x) dx + \int_{0}^{x} \text{exp}(-2x) dx
+\]
+\[
+  = \frac{\text{exp}(2x)}{2} |_{-\infty}^0 + \frac{\text{exp}(-2x)}{-2} |_{0}^{x}
+\]
+\[
+  = \frac{\text{exp}(0)}{2} - 0 + \frac{\text{exp}(-2x)}{-2} - \frac{\text{exp}(0)}{-2}
+\]
+\[
+  = \frac{1}{2} + \frac{\text{exp}(-2x)}{-2} + \frac{1}{2}
+\]
+\[
+  F_X(x) = 1 - \frac{\text{exp}(-2x)}{2}
+\]
+And now to take the inversions for each of these, starting with \(x < 0\), or equivalently \(0 < U_i < \frac{1}{2}\) due to our calculated \(F_X(x)\):
+\[
+  U_i = \frac{\text{exp}(2x)}{2}
+\]
+\[
+  2U_i = \text{exp}(2x)
+\]
+\[
+  \ln(2U_i) = 2x
+\]
+\[
+  x = \frac{\ln(2U_i)}{2} 
+\]
+And for \(x > 0\), or equivalently \(\frac{1}{2} < U_i < 1\) due to our calculated \(F_X(x)\):
+\[
+  U_i = 1 - \frac{\text{exp}(-2x)}{2}
+\]
+\[
+  \frac{\text{exp}(-2x)}{2} = 1 - U_i 
+\]
+\[
+  \text{exp}(-2x) = 2 - 2U_i 
+\]
+\[
+  -2x = \ln(2 - 2U_i)
+\]
+\[
+  x = -\frac{\ln(2 - 2U_i)}{2}
+\]
+So we apply this to our algorithm: \\ 
+- Generate \(U_i \sim \text{Unif}(0,1)\) \\
+- For each \(U_i\), calculate the appropriate \(x\) using the inverted function. For \(0 < U_i < \frac{1}{2}\), return \(\frac{\ln(2U_i)}{2}\); for \(\frac{1}{2} < U_i < 1\), return \(-\frac{\ln(2 - 2U_i)}{2}\). 
+\begin{spverbatim}
+> problem_7_inverse_transform = function(n) {
++   
++   X = rep(0, n)
++   i = 0
++ 
++   while (i < n) {
++     
++     # Generate uniform
++     U = runif(1)
++     
++     # Generate X-values based on U, using inverted CDF
++     if (U < 0.5) {
++       X[i] = log(2 * U) / 2
++     } else {
++       X[i] = -log(2 * (1 - U)) / 2
++     }
++     
++     i = i + 1
++   }
++ 
++   hist(X, breaks = 50, density = 50, 
++        main=paste(n, "Generated Values using Inverse-Transform"));
++ }
+> 
+> problem_7_inverse_transform(10000)
+\end{spverbatim}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{problem_7_hist.png}
+\end{figure}
+
+}
+{\Large 
+
+\section*{8.}
+
+This \(f_X(x)\) with \(x^4\), taking the CDF yields a fifth-degree polynomial with other terms which makes it look a bit difficult to invert directly. I had initially tried this using the accept-reject method and found an appropriate \(M\) (where \(M = \frac{7}{2}\) by setting \(g(x)\) as the uniform distribution and maximizing the ratio with \(g(x) = 1\) and maximizing \(f_X(x)\) \(x = 1\) with \(f_X(1) = \frac{7}{2}\), which is greater than the values at critical points of \(x=0\) -- yielding \(\frac{1}{2}\) -- and \(x=-\frac{6}{5}\), which is out of the \(0 < x < 1\) range), but the rate of acceptance was quite low when applied. \\ \\
+After doing problem 9, it becomes clear that we actually can still use that special variant of the inverse-transform method using the weighted probabilities, which has no rejections at all: we take the weighted probabilities of each of the functions and apply them to the respective sub-functions summed together in \(f_X(x)\), finding their CDFs and inversions. This works in the same way as \(F_j(x)\) is easy to generate and invert. Let's start by rewriting \(f_X(x)\) in \(p_j \cdot F_j(x)\) form:
+\[
+  f_X(x) = \frac{1}{4} \cdot 1 + \frac{1}{2} \cdot 4x^3 + \frac{1}{4} \cdot 5x^4
+\]
+We clearly see that the \(p_j\) values add up to 1 as required. Let's now take the cdfs to find \(F_j(x)\):
+\[
+  F_0(x) = \int_0^x f_0(x) dx
+\]
+\[
+  = \int_0^x 1 dx
+\]
+\[
+  = x |_0^x
+\]
+\[
+  F_0(x) = x - 0 = x
+\]
+\[
+  F_1(x) = \int_0^x f_1(x) dx
+\]
+\[
+  = \int_0^x 4x^3 dx
+\]
+\[
+  = x^4 |_0^x
+\]
+\[
+  F_1(x) = x^4 - 0 = x^4
+\]
+\[
+  F_2(x) = \int_0^x f_2(x) dx
+\]
+\[
+  = \int_0^x 5x^4 dx
+\]
+\[
+  = x^5 |_0^x
+\]
+\[
+  F_2(x) = x^5 - 0 = x^5
+\]
+and now the inversions. For \(f_0(x)\), which we assign to \([0, 0 + \frac{1}{4} = \frac{1}{4}]\) on the uniform distribution:
+\[
+  U_i = x
+\]
+For \(f_1(x)\), which we assign to \([\frac{1}{4}, \frac{1}{4} + \frac{1}{2} = \frac{3}{4}]\) on the uniform distribution:
+\[
+  U_i = x^4
+\]
+\[
+  U_i^{\frac{1}{4}} = x
+\]
+For \(f_2(x)\), which we assign to \([\frac{3}{4}, 1]\) on the uniform distribution:
+\[
+  U_i = x^5
+\]
+\[
+  U_i^{\frac{1}{5}} = x
+\]
+So our algorithm is as follows: \\ 
+- Generate \(U_i \sim \text{Unif}(0,1)\) \\
+- Generate \(V_i \sim \text{Unif}(0,1)\) \\
+- For each \(U_i\), find the appropriate inverted function depending on the range and then find our final value \(X\) using the generated \(V_i\). For \(0 < U_i < \frac{1}{4}\), return \(V_i\); for \(\frac{1}{4} < U_i < \frac{3}{4}\), return \(V_i^{\frac{1}{4}}\); for \(\frac{3}{4} < U_i < 1\), return \(V_i^{\frac{1}{5}}\). 
+\begin{spverbatim}
+> problem_8_inverse_transform = function(n) {
++   
++   X = rep(0, n)
++   i = 0
++   
++   while (i < n) {
++     
++     # Generate uniform for selecting distribution
++     U = runif(1)
++     # Generate uniform for generating variable
++     V = runif(1)
++     
++     # Generate X-values based on V, using inverted CDF
++     if (U < 0.25) {
++       X[i] = V
++     } else if (U >= 0.25 & U < 0.75) {
++       X[i] = V^(1/4)
++     } else {
++       X[i] = V^(1/5)
++     }
++     
++     i = i + 1
++   }
++   
++   hist(X, breaks = 50, density = 50, 
++        main=paste(n, "Generated Values using Weighted Inverse-Transform"));
++ }
+> 
+> problem_8_inverse_transform(10000)
+\end{spverbatim}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{problem_8_hist.png}
+\end{figure}
+
+% Let's therefore try this using the accept-reject method. By definition, we need to find \(M\) such that \( M \geq sup_x[\frac{f(x)}{g(x)}]\). We can use arbitrary \(g(x)\) as the uniform distribution, for which we can then see to minimize the right-hand side we can set \(g(x) = 1\). To maximize \(f(x)\):
+% \[
+%   f_X(x) = \frac{1}{4} + 2x^3 + \frac{5}{4}x^4
+% \]
+% \[
+%   f'_X(x) = 6x^2 + 5x^3
+% \]
+% \[
+%   0 = 6x^2 + 5x^3
+% \]
+% \[
+%   0 = x^2(6 + 5x)
+% \]
+% \[
+%   x = 0, -\frac{6}{5}
+% \]
+% Let's check these values. We easily see that \(f_X(0) = \frac{1}{4}\), and \(-\frac{6}{5}\) is not in the range given (\(0 < x < 1\)). We check the edges of the range given in addition to the critical points to get a picture of the function. We already found \(f_X(0) = \frac{1}{4}\), and we see that \(f_X(1) = \frac{1}{4} + 2 + \frac{5}{4} = \frac{7}{2}\), so this is our max value. So we find that \(M = \frac{\frac{7}{2}}{1} = \frac{7}{2}\). 
+
+}
+{\Large 
+
+\section*{9.}
+
+We have \(m\) cumulative distribution functions \(F_1(x), F_2(x), \dots, F_m(x)\), with each \(F_j(x)\) easily generatable. We aim to generate a random variable with the cdf \(F(x) = \sum_{j=1}^{m} p_j F_j(x)\) where \(\sum_{j=1}^{m} p_j = 1\). Essentially, we have a function \(F(x)\) which consists of finding of the weighted probability of each of the \(F_j(x)\) values. Intuitively, we need to distribute the values according to the probabilities \(p_j\), which we know they represent accordingly as they sum up to 1. We can easily see that this matches up with the law of total probability, i.e. that 
+\[
+  P(X \leq x) = \sum_{j=1}^{m} P(X \leq x | j=i) \cdot P(j=i)
+\]
+This is essentially equivalent to an event contingent on selecting some \(j = i\). So naturally, we would want to find a way to randomly generate the variable based on \(j\) and find \(p_j\) accordingly in order to find the corresponding \(F_j(x)\). Conveniently, an intuitive way to distribute this is to, as we've learned, randomly generate a value from the Uniform function on range \([0, 1]\), and then determine the corresponding \(j\) value based on the probability \(p_j\) accordingly, which we'll divide the range into accordingly, and then easily generate the corresponding value \(F_j(x)\). So putting this together, we'd do the following: \\
+- Divide up the range \([0, 1]\) into different segments based on the \(p\)-values \([0, p_1, p_1 + p_2, p_1 + p_2 + p_3, \dots, \sum_{j=1}^m p_j]\) \\ 
+- Generate value \(U \sim \text{Unif}(0, 1)\) \\
+- Determine with where \(U\) falls on the range of values to determine the corresponding \(p_j\) value, where \(j\) represents the last \(p\)-value added to the upper bound of the \(p\)-value ranges. \\
+- Using the corresponding \(j\), then generate the random variable \(X\) according to \(F_j(x)\). For this, we can then use the inverse-transform method, specifically, first generate some other \(U' \sim \text{Unif}(0, 1)\) and use that \(U'\) to determine the final \(X = F_j^{-1} (U')\).
+
+}
+
+\end{document}
