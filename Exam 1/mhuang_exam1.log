@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  4 MAR 2026 00:00
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  5 MAR 2026 00:25
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -492,7 +492,46 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [8]
 
-[9] (./mhuang_exam1.aux)
+[9]
+
+[10]
+
+[11]
+
+[12]
+<problem_7_hist.png, id=53, 1003.75pt x 784.9325pt>
+File: problem_7_hist.png Graphic file (type png)
+<use problem_7_hist.png>
+Package pdftex.def Info: problem_7_hist.png  used on input line 604.
+(pdftex.def)             Requested size: 514.295pt x 402.20265pt.
+
+
+[13]
+Underfull \hbox (badness 10000) in paragraph at lines 612--614
+
+ []
+
+
+
+[14 <./problem_7_hist.png>]
+
+[15]
+
+[16]
+Overfull \hbox (56.27411pt too wide) in paragraph at lines 706--706
+[]\OT1/cmtt/m/n/14.4 +[] [] [] [] [] [] [] [] main=paste(n,[] "Generated[] Values[] using[] Weighted[] Inverse-Transform"));[] 
+ []
+
+<problem_8_hist.png, id=69, 1003.75pt x 784.9325pt>
+File: problem_8_hist.png Graphic file (type png)
+<use problem_8_hist.png>
+Package pdftex.def Info: problem_8_hist.png  used on input line 709.
+(pdftex.def)             Requested size: 514.295pt x 402.20265pt.
+
+
+[17 <./problem_8_hist.png>]
+
+[18] (./mhuang_exam1.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
@@ -504,18 +543,18 @@ LaTeX Font Warning: Size substitutions with differences
 
  ) 
 Here is how much of TeX's memory you used:
- 14499 strings out of 473190
- 287096 string characters out of 5715801
- 663427 words of memory out of 5000000
- 37510 multiletter control sequences out of 15000+600000
- 562701 words of font info for 51 fonts, out of 8000000 for 9000
+ 14520 strings out of 473190
+ 287597 string characters out of 5715801
+ 668433 words of memory out of 5000000
+ 37530 multiletter control sequences out of 15000+600000
+ 562870 words of font info for 52 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 102i,14n,107p,919b,472s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on mhuang_exam1.pdf (9 pages, 115134 bytes).
+ 102i,14n,107p,919b,545s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on mhuang_exam1.pdf (18 pages, 265145 bytes).
 PDF statistics:
- 77 PDF objects out of 1000 (max. 8388607)
- 49 compressed objects within 1 object stream
+ 120 PDF objects out of 1000 (max. 8388607)
+ 75 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 13 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 23 words of extra memory for PDF output out of 10000 (max. 10000000)
 

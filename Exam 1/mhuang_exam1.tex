@@ -200,15 +200,79 @@ To evaluate the quality of the approximation, let's first evaluate the actual va
 
 \subsection*{(a)} 
 
-
+We find the density function by differentiating \(F(x)\):
+\[
+  f(x) = \frac{d}{dx} F(x)
+\]
+\[
+  = \frac{d}{dx} (1 - \text{exp}\{- (\frac{x}{\alpha})^\beta\})
+\]
+\[
+  = 0 - \frac{d}{dx} \text{exp}\{- (\frac{x}{\alpha})^\beta\}
+\]
+We integrate the rest of this using the chain rule, with \(u = - (\frac{x}{\alpha})^\beta\):
+\[
+  = - \frac{d}{dx} (\text{exp}\{u\})
+\]
+\[
+  = - \text{exp}\{u\} \cdot \frac{du}{dx}
+\]
+\[
+  = - \text{exp}\{u\} \cdot -\beta(\frac{x}{\alpha})^{\beta - 1} \cdot \frac{1}{\alpha}
+\]
+\[
+  = - \text{exp}\{-(\frac{x}{\alpha})^\beta\} \cdot -\beta(\frac{x}{\alpha})^{\beta - 1} \cdot \frac{1}{\alpha}
+\]
+\[
+  f(x) = \boxed{\frac{\beta}{\alpha} (\frac{x}{\alpha})^{\beta - 1} \text{exp}\{-(\frac{x}{\alpha})^\beta\}}
+\]
 
 \subsection*{(b)}
 
-
+We are given \(X = (\frac{W}{\alpha})^\beta\). To determine the distribution, let's calculate the cdf by definition:
+\[
+  F_X(x) = P(X \leq x)
+\]
+\[
+  = P((\frac{W}{\alpha})^\beta \leq x)
+\]
+\[
+  = P(\frac{W}{\alpha} \leq x^{\frac{1}{\beta}})
+\]
+\[
+  = P(W \leq \alpha x^{\frac{1}{\beta}})
+\]
+Which is equivalent of taking the Weibull cdf of \(\alpha x^{\frac{1}{\beta}}\); let's substitute:
+\[
+  = F(\alpha x^{\frac{1}{\beta}})
+\]
+\[
+  = 1 - \text{exp}\{- (\frac{\alpha x^{\frac{1}{\beta}}}{\alpha})^\beta\}
+\]
+\[
+  = 1 - \text{exp}\{- (x^{\frac{1}{\beta}})^\beta\}
+\]
+\[
+  = 1 - \text{exp}\{-x\}
+\]
+which is nothing but the cdf for an exponential distribution with \(\lambda = 1\).
 
 \subsection*{(c)}
 
-
+Given part (b), we can therefore use the exponential distribution \(\text{Exp}(1)\) to easily generate values \(x\), and then transform these into \(W\):
+\[
+  X = (\frac{W}{\alpha})^\beta
+\]
+\[
+  X^\frac{1}{\beta} = \frac{W}{\alpha}
+\]
+\[
+  W = \alpha X^\frac{1}{\beta}
+\]
+To make this all work for sampling, we just need to first do the standard generation from uniform. So the algorithm would be \\ 
+- Generate \(U \sim \text{Unif}(0,1)\) \\
+- Calculate the corresponding intermediate value \(Y\) on \(\text{Exp}(1)\) using \(U\) \\
+- Finally, get the corresponding \(X\) sample value by taking \(X = \alpha Y ^ \frac{1}{\beta}\)
 
 }
 {\Large 
@@ -371,10 +435,71 @@ So the limiting market shares are \(\boxed{A = \frac{2}{11}, B = \frac{3}{11}, C
 
 \subsection*{(a)} 
 
-
+Let's construct the probability matrix first based on whether we can go left or right, and if so, the probability of doing so \(\frac{1}{3}\) left and \(\frac{2}{3}\) right: 
+\[
+  P = 
+  \begin{pmatrix}
+    \frac{1}{3} & \frac{2}{3} & 0 & 0 \\
+    \frac{1}{3} & 0 & \frac{2}{3} & 0 \\
+    0 & \frac{1}{3} & 0 & \frac{2}{3} \\
+    0 & 0 & \frac{1}{3} & \frac{2}{3}
+  \end{pmatrix}
+\]
 
 \subsection*{(b)}
 
+Let's solve to find the limiting amount of time the chain spends at each site, solving \(\pi = \pi P\):
+\begin{align*}
+  \pi_1 &= \frac{1}{3}\pi_1 + \frac{1}{3}\pi_2 \\
+  \pi_2 &= \frac{2}{3}\pi_1 + \frac{1}{3}\pi_3 \\
+  \pi_3 &= \frac{2}{3}\pi_2 + \frac{1}{3}\pi_4 \\
+  \pi_4 &= \frac{2}{3}\pi_3 + \frac{2}{3}\pi_4
+\end{align*}
+\begin{align*}
+  \pi_1 &= \frac{1}{3}\pi_1 + \frac{1}{3}\pi_2 \\
+  \pi_2 &= \frac{2}{3}\pi_1 + \frac{1}{3}\pi_3 \\
+  \pi_3 &= \frac{2}{3}\pi_2 + \frac{1}{3}\pi_4 \\
+  \pi_4 &= \frac{2}{3}\pi_3 + \frac{2}{3}\pi_4
+\end{align*}
+\begin{align*}
+  \frac{2}{3}\pi_1 &= \frac{1}{3}\pi_2 \\
+  \pi_2 &= \frac{2}{3}\pi_1 + \frac{1}{3}\pi_3 \\
+  \pi_3 &= \frac{2}{3}\pi_2 + \frac{1}{3}\pi_4 \\
+  \frac{1}{3}\pi_4 &= \frac{2}{3}\pi_3
+\end{align*}
+\begin{align*}
+  \pi_2 &= 2\pi_1 \\
+  \pi_2 &= \frac{2}{3}\pi_1 + \frac{1}{3}\pi_3 \\
+  \pi_3 &= \frac{2}{3}\pi_2 + \frac{1}{3}\pi_4 \\
+  \pi_4 &= 2\pi_3
+\end{align*}
+Substituting into the third equation:
+\[
+  \pi_3 = \frac{2}{3}\pi_2 + \frac{2}{3}\pi_3
+\]
+\[
+  \frac{1}{3}\pi_3 = \frac{2}{3}\pi_2
+\]
+\[
+  \pi_3 = 2\pi_2
+\]
+Putting it together:
+\[
+  \pi_1 + \pi_2 + \pi_3 + \pi_4 = 1
+\]
+\[
+  \frac{1}{2}\pi_2 + \pi_2 + 2\pi_2 + 2\pi_3 = 1
+\]
+\[
+  \frac{1}{2}\pi_2 + \pi_2 + 2\pi_2 + 4\pi_2 = 1
+\]
+\[
+  \frac{15}{2}\pi_2 = 1
+\]
+\[
+  \pi_2 = \frac{2}{15}
+\]
+We can determine the rest of the limiting amounts by the final simplified equation in the form of \(\pi_2\), which gives us that the limiting shares of time at each position are \(\boxed{\frac{1}{15} \text{ at } 1, \frac{2}{15} \text{ at } 2, \frac{4}{15} \text{ at } 3, \frac{8}{15} \text{ at } 4}\).
 
 
 }
@@ -382,14 +507,225 @@ So the limiting market shares are \(\boxed{A = \frac{2}{11}, B = \frac{3}{11}, C
 
 \section*{7.}
 
+These functions seem very invertible, so let's use the inverse-transform method. This would mean that this is incredibly efficient with no rejected values. We start by taking the CDFs piecewise, starting with \(x < 0\):
+\[
+  F_X(x) = \int_{-\infty}^x f_X(x) dx
+\]
+\[
+  = \int_{-\infty}^x \text{exp}(2x) dx
+\]
+\[
+  = \frac{\text{exp}(2x)}{2} |_{-\infty}^x
+\]
+\[
+  F_X(x) = \frac{\text{exp}(2x)}{2} - 0 = \frac{\text{exp}(2x)}{2}
+\]
+And now for \(x > 0\):
+\[
+  = \int_{-\infty}^0 f_X(x) dx + \int_{0}^{x} f_X(x) dx
+\]
+\[
+  = \int_{-\infty}^0 \text{exp}(2x) dx + \int_{0}^{x} \text{exp}(-2x) dx
+\]
+\[
+  = \frac{\text{exp}(2x)}{2} |_{-\infty}^0 + \frac{\text{exp}(-2x)}{-2} |_{0}^{x}
+\]
+\[
+  = \frac{\text{exp}(0)}{2} - 0 + \frac{\text{exp}(-2x)}{-2} - \frac{\text{exp}(0)}{-2}
+\]
+\[
+  = \frac{1}{2} + \frac{\text{exp}(-2x)}{-2} + \frac{1}{2}
+\]
+\[
+  F_X(x) = 1 - \frac{\text{exp}(-2x)}{2}
+\]
+And now to take the inversions for each of these, starting with \(x < 0\), or equivalently \(0 < U_i < \frac{1}{2}\) due to our calculated \(F_X(x)\):
+\[
+  U_i = \frac{\text{exp}(2x)}{2}
+\]
+\[
+  2U_i = \text{exp}(2x)
+\]
+\[
+  \ln(2U_i) = 2x
+\]
+\[
+  x = \frac{\ln(2U_i)}{2} 
+\]
+And for \(x > 0\), or equivalently \(\frac{1}{2} < U_i < 1\) due to our calculated \(F_X(x)\):
+\[
+  U_i = 1 - \frac{\text{exp}(-2x)}{2}
+\]
+\[
+  \frac{\text{exp}(-2x)}{2} = 1 - U_i 
+\]
+\[
+  \text{exp}(-2x) = 2 - 2U_i 
+\]
+\[
+  -2x = \ln(2 - 2U_i)
+\]
+\[
+  x = -\frac{\ln(2 - 2U_i)}{2}
+\]
+So we apply this to our algorithm: \\ 
+- Generate \(U_i \sim \text{Unif}(0,1)\) \\
+- For each \(U_i\), calculate the appropriate \(x\) using the inverted function. For \(0 < U_i < \frac{1}{2}\), return \(\frac{\ln(2U_i)}{2}\); for \(\frac{1}{2} < U_i < 1\), return \(-\frac{\ln(2 - 2U_i)}{2}\). 
+\begin{spverbatim}
+> problem_7_inverse_transform = function(n) {
++   
++   X = rep(0, n)
++   i = 0
++ 
++   while (i < n) {
++     
++     # Generate uniform
++     U = runif(1)
++     
++     # Generate X-values based on U, using inverted CDF
++     if (U < 0.5) {
++       X[i] = log(2 * U) / 2
++     } else {
++       X[i] = -log(2 * (1 - U)) / 2
++     }
++     
++     i = i + 1
++   }
++ 
++   hist(X, breaks = 50, density = 50, 
++        main=paste(n, "Generated Values using Inverse-Transform"));
++ }
+> 
+> problem_7_inverse_transform(10000)
+\end{spverbatim}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{problem_7_hist.png}
+\end{figure}
 
 }
 {\Large 
 
 \section*{8.}
 
+This \(f_X(x)\) with \(x^4\), taking the CDF yields a fifth-degree polynomial with other terms which makes it look a bit difficult to invert directly. I had initially tried this using the accept-reject method and found an appropriate \(M\) (where \(M = \frac{7}{2}\) by setting \(g(x)\) as the uniform distribution and maximizing the ratio with \(g(x) = 1\) and maximizing \(f_X(x)\) \(x = 1\) with \(f_X(1) = \frac{7}{2}\), which is greater than the values at critical points of \(x=0\) -- yielding \(\frac{1}{2}\) -- and \(x=-\frac{6}{5}\), which is out of the \(0 < x < 1\) range), but the rate of acceptance was quite low when applied. \\ \\
+After doing problem 9, it becomes clear that we actually can still use that special variant of the inverse-transform method using the weighted probabilities, which has no rejections at all: we take the weighted probabilities of each of the functions and apply them to the respective sub-functions summed together in \(f_X(x)\), finding their CDFs and inversions. This works in the same way as \(F_j(x)\) is easy to generate and invert. Let's start by rewriting \(f_X(x)\) in \(p_j \cdot F_j(x)\) form:
+\[
+  f_X(x) = \frac{1}{4} \cdot 1 + \frac{1}{2} \cdot 4x^3 + \frac{1}{4} \cdot 5x^4
+\]
+We clearly see that the \(p_j\) values add up to 1 as required. Let's now take the cdfs to find \(F_j(x)\):
+\[
+  F_0(x) = \int_0^x f_0(x) dx
+\]
+\[
+  = \int_0^x 1 dx
+\]
+\[
+  = x |_0^x
+\]
+\[
+  F_0(x) = x - 0 = x
+\]
+\[
+  F_1(x) = \int_0^x f_1(x) dx
+\]
+\[
+  = \int_0^x 4x^3 dx
+\]
+\[
+  = x^4 |_0^x
+\]
+\[
+  F_1(x) = x^4 - 0 = x^4
+\]
+\[
+  F_2(x) = \int_0^x f_2(x) dx
+\]
+\[
+  = \int_0^x 5x^4 dx
+\]
+\[
+  = x^5 |_0^x
+\]
+\[
+  F_2(x) = x^5 - 0 = x^5
+\]
+and now the inversions. For \(f_0(x)\), which we assign to \([0, 0 + \frac{1}{4} = \frac{1}{4}]\) on the uniform distribution:
+\[
+  U_i = x
+\]
+For \(f_1(x)\), which we assign to \([\frac{1}{4}, \frac{1}{4} + \frac{1}{2} = \frac{3}{4}]\) on the uniform distribution:
+\[
+  U_i = x^4
+\]
+\[
+  U_i^{\frac{1}{4}} = x
+\]
+For \(f_2(x)\), which we assign to \([\frac{3}{4}, 1]\) on the uniform distribution:
+\[
+  U_i = x^5
+\]
+\[
+  U_i^{\frac{1}{5}} = x
+\]
+So our algorithm is as follows: \\ 
+- Generate \(U_i \sim \text{Unif}(0,1)\) \\
+- Generate \(V_i \sim \text{Unif}(0,1)\) \\
+- For each \(U_i\), find the appropriate inverted function depending on the range and then find our final value \(X\) using the generated \(V_i\). For \(0 < U_i < \frac{1}{4}\), return \(V_i\); for \(\frac{1}{4} < U_i < \frac{3}{4}\), return \(V_i^{\frac{1}{4}}\); for \(\frac{3}{4} < U_i < 1\), return \(V_i^{\frac{1}{5}}\). 
+\begin{spverbatim}
+> problem_8_inverse_transform = function(n) {
++   
++   X = rep(0, n)
++   i = 0
++   
++   while (i < n) {
++     
++     # Generate uniform for selecting distribution
++     U = runif(1)
++     # Generate uniform for generating variable
++     V = runif(1)
++     
++     # Generate X-values based on V, using inverted CDF
++     if (U < 0.25) {
++       X[i] = V
++     } else if (U >= 0.25 & U < 0.75) {
++       X[i] = V^(1/4)
++     } else {
++       X[i] = V^(1/5)
++     }
++     
++     i = i + 1
++   }
++   
++   hist(X, breaks = 50, density = 50, 
++        main=paste(n, "Generated Values using Weighted Inverse-Transform"));
++ }
+> 
+> problem_8_inverse_transform(10000)
+\end{spverbatim}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{problem_8_hist.png}
+\end{figure}
 
+% Let's therefore try this using the accept-reject method. By definition, we need to find \(M\) such that \( M \geq sup_x[\frac{f(x)}{g(x)}]\). We can use arbitrary \(g(x)\) as the uniform distribution, for which we can then see to minimize the right-hand side we can set \(g(x) = 1\). To maximize \(f(x)\):
+% \[
+%   f_X(x) = \frac{1}{4} + 2x^3 + \frac{5}{4}x^4
+% \]
+% \[
+%   f'_X(x) = 6x^2 + 5x^3
+% \]
+% \[
+%   0 = 6x^2 + 5x^3
+% \]
+% \[
+%   0 = x^2(6 + 5x)
+% \]
+% \[
+%   x = 0, -\frac{6}{5}
+% \]
+% Let's check these values. We easily see that \(f_X(0) = \frac{1}{4}\), and \(-\frac{6}{5}\) is not in the range given (\(0 < x < 1\)). We check the edges of the range given in addition to the critical points to get a picture of the function. We already found \(f_X(0) = \frac{1}{4}\), and we see that \(f_X(1) = \frac{1}{4} + 2 + \frac{5}{4} = \frac{7}{2}\), so this is our max value. So we find that \(M = \frac{\frac{7}{2}}{1} = \frac{7}{2}\). 
 
 }
 {\Large 
