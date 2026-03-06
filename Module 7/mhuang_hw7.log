@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  28 FEB 2026 23:24
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  5 MAR 2026 22:16
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**"/Users/mhuang19/Documents/edu/jhu/Monte Carlo Methods (EN.625.633.81)/EN.625.633.81/samples/template"
-(/Users/mhuang19/Documents/edu/jhu/Monte Carlo Methods (EN.625.633.81)/EN.625.633.81/samples/template.tex
+**"/Users/mhuang19/Documents/edu/jhu/Monte Carlo Methods (EN.625.633.81)/EN.625.633.81/Module 7/mhuang_hw7"
+(/Users/mhuang19/Documents/edu/jhu/Monte Carlo Methods (EN.625.633.81)/EN.625.633.81/Module 7/mhuang_hw7.tex
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
 (/usr/local/texlive/2025/texmf-dist/tex/latex/base/article.cls
@@ -378,8 +378,9 @@ Package: systeme 2025/02/16 v0.35 Mise en forme de systemes d'equations (CT)
 File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count310
 \l__pdf_internal_box=\box67
-) (./template.aux)
-\openout1 = `template.aux'.
+)
+No file mhuang_hw7.aux.
+\openout1 = `mhuang_hw7.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 20.
 LaTeX Font Info:    ... okay on input line 20.
@@ -395,7 +396,6 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 20.
 LaTeX Font Info:    ... okay on input line 20.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 20.
 LaTeX Font Info:    ... okay on input line 20.
-
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -449,18 +449,21 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
  (/usr/local/texlive/2025/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-LaTeX Font Info:    Trying to load font information for U+msa on input line 29.
- (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-)
-LaTeX Font Info:    Trying to load font information for U+msb on input line 29.
- (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
+<Example7.4.png, id=4, 409.53pt x 545.03625pt>
+File: Example7.4.png Graphic file (type png)
+<use Example7.4.png>
+Package pdftex.def Info: Example7.4.png  used on input line 29.
+(pdftex.def)             Requested size: 385.72124pt x 513.38205pt.
+<Exercise7.5.png, id=6, 543.02875pt x 220.825pt>
+File: Exercise7.5.png Graphic file (type png)
+<use Exercise7.5.png>
+Package pdftex.def Info: Exercise7.5.png  used on input line 34.
+(pdftex.def)             Requested size: 385.72124pt x 156.86096pt.
+
 
 
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <15> not available
-(Font)              size <14.4> substituted on input line 38.
+(Font)              size <14.4> substituted on input line 36.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -471,7 +474,45 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [1{/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
-] (./template.aux)
+ <./Example7.4.png>]
+LaTeX Font Info:    Trying to load font information for U+msa on input line 39.
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 39.
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+Overfull \hbox (26.63416pt too wide) in paragraph at lines 75--75
+[]\OT1/cmtt/m/n/14.4 +[] [] [] #[] Precomputed[] constants[] for[] conditional[] distribution[] from[] Example[] 7.4[] 
+ []
+
+
+Overfull \hbox (19.22417pt too wide) in paragraph at lines 75--75
+[]\OT1/cmtt/m/n/14.4 +[] [] [] sigma_squared[] =[] (1[] +[] ((p[] -[] 2)[] *[] rho)[] -[] ((p[] -[] 1)[] *[] rho^2))[] /[] (1[] +[] ((p[]
+ []
+
+
+
+[2 <./Exercise7.5.png>]
+Overfull \hbox (19.22417pt too wide) in paragraph at lines 75--75
+[]\OT1/cmtt/m/n/14.4 +[] [] [] [] [] [] [] x[i][] =[] rnorm(1,[] mean[] =[] conditional_mean_coeff[] *[] x_mean_minus,[] sd[]
+ []
+
+<1a_hist_comp.png, id=24, 1003.75pt x 784.9325pt>
+File: 1a_hist_comp.png Graphic file (type png)
+<use 1a_hist_comp.png>
+Package pdftex.def Info: 1a_hist_comp.png  used on input line 78.
+(pdftex.def)             Requested size: 514.295pt x 402.20265pt.
+
+
+[3]
+
+[4 <./1a_hist_comp.png>]
+
+[5]
+
+[6] (./mhuang_hw7.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
@@ -483,18 +524,18 @@ LaTeX Font Warning: Size substitutions with differences
 
  ) 
 Here is how much of TeX's memory you used:
- 14493 strings out of 473190
- 286875 string characters out of 5715801
- 656425 words of memory out of 5000000
- 37504 multiletter control sequences out of 15000+600000
- 562701 words of font info for 51 fonts, out of 8000000 for 9000
+ 14525 strings out of 473190
+ 287632 string characters out of 5715801
+ 664429 words of memory out of 5000000
+ 37535 multiletter control sequences out of 15000+600000
+ 562870 words of font info for 52 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 102i,13n,107p,496b,405s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on template.pdf (1 page, 41912 bytes).
+ 102i,13n,107p,499b,542s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on mhuang_hw7.pdf (6 pages, 545384 bytes).
 PDF statistics:
- 31 PDF objects out of 1000 (max. 8388607)
- 19 compressed objects within 1 object stream
+ 83 PDF objects out of 1000 (max. 8388607)
+ 48 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 13 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 28 words of extra memory for PDF output out of 10000 (max. 10000000)
 
