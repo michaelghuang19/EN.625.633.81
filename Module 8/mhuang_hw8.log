@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  10 MAR 2026 20:32
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  10 MAR 2026 21:39
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -449,16 +449,18 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
  (/usr/local/texlive/2025/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-<Exercise3.14.png, id=4, 531.9875pt x 131.49126pt>
-File: Exercise3.14.png Graphic file (type png)
-<use Exercise3.14.png>
-Package pdftex.def Info: Exercise3.14.png  used on input line 56.
-(pdftex.def)             Requested size: 385.72124pt x 95.34175pt.
-
+LaTeX Font Info:    Trying to load font information for U+msa on input line 29.
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 29.
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
 
 
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <15> not available
-(Font)              size <14.4> substituted on input line 69.
+(Font)              size <14.4> substituted on input line 68.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -469,7 +471,44 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [1{/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
- <./Exercise3.14.png>] (./mhuang_hw8.aux)
+]
+
+[2]
+Overfull \hbox (19.22417pt too wide) in paragraph at lines 128--128
+[]\OT1/cmtt/m/n/14.4 +[] [] [] [] [] [] [] [] main[] =[] paste("Monte[] Carlo[] Verification[] (sigma[] =",[] sigma,[] ")"));[] 
+ []
+
+<1b_graph_sigma_1.png, id=23, 1124.2pt x 909.3975pt>
+File: 1b_graph_sigma_1.png Graphic file (type png)
+<use 1b_graph_sigma_1.png>
+Package pdftex.def Info: 1b_graph_sigma_1.png  used on input line 132.
+(pdftex.def)             Requested size: 385.72124pt x 312.02182pt.
+<1b_graph_sigma_5.png, id=25, 1124.2pt x 909.3975pt>
+File: 1b_graph_sigma_5.png Graphic file (type png)
+<use 1b_graph_sigma_5.png>
+Package pdftex.def Info: 1b_graph_sigma_5.png  used on input line 136.
+(pdftex.def)             Requested size: 385.72124pt x 312.02182pt.
+
+
+[3]
+<1b_graph_sigma_10.png, id=29, 1124.2pt x 909.3975pt>
+File: 1b_graph_sigma_10.png Graphic file (type png)
+<use 1b_graph_sigma_10.png>
+Package pdftex.def Info: 1b_graph_sigma_10.png  used on input line 140.
+(pdftex.def)             Requested size: 385.72124pt x 312.02182pt.
+
+
+[4 <./1b_graph_sigma_1.png> <./1b_graph_sigma_5.png>]
+<Exercise3.14.png, id=35, 531.9875pt x 131.49126pt>
+File: Exercise3.14.png Graphic file (type png)
+<use Exercise3.14.png>
+Package pdftex.def Info: Exercise3.14.png  used on input line 166.
+(pdftex.def)             Requested size: 514.295pt x 127.12901pt.
+
+
+[5 <./1b_graph_sigma_10.png> <./Exercise3.14.png>]
+
+[6] (./mhuang_hw8.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
@@ -481,18 +520,18 @@ LaTeX Font Warning: Size substitutions with differences
 
  ) 
 Here is how much of TeX's memory you used:
- 14469 strings out of 473190
- 286522 string characters out of 5715801
- 656429 words of memory out of 5000000
- 37492 multiletter control sequences out of 15000+600000
- 560400 words of font info for 41 fonts, out of 8000000 for 9000
+ 14530 strings out of 473190
+ 287848 string characters out of 5715801
+ 666429 words of memory out of 5000000
+ 37540 multiletter control sequences out of 15000+600000
+ 562870 words of font info for 52 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 102i,13n,107p,499b,405s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb>
-Output written on mhuang_hw8.pdf (1 page, 124839 bytes).
+ 102i,14n,107p,499b,540s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on mhuang_hw8.pdf (6 pages, 657726 bytes).
 PDF statistics:
- 29 PDF objects out of 1000 (max. 8388607)
- 17 compressed objects within 1 object stream
+ 90 PDF objects out of 1000 (max. 8388607)
+ 51 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 18 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 33 words of extra memory for PDF output out of 10000 (max. 10000000)
 
