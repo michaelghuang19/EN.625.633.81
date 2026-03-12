@@ -168,11 +168,85 @@ The plots seem to show that this works pretty well, with the red values convergi
 
 \subsection*{(a)} 
 
-
+Given the situation where \(1 - F(x) \propto x^{-\alpha}\) for \(x\) large enough, we aim to show that \(E[X | X > K] = K \alpha / (\alpha - 1)\) for \(K\) large enough. Wec an essentially evaluate the first statement as 
+\[
+  1 - F(x) = cx^{-\alpha}
+\]
+\[
+  F(x) = 1 - cx^{-\alpha}
+\] 
+By definition, we can then differentiate cdf to show that 
+\[
+  f(x) = 0 - cx^{-\alpha - 1} \cdot -\alpha
+\]
+\[
+  f(x) = \alpha cx^{-\alpha - 1}
+\]
+By definition, for a continuous RV, we know that we can define the conditional expectation \(E[X | X > K]\) as 
+\[
+  E[X | X > K] = \frac{\int_{K}^{\infty} x \cdot f(x) dx }{P(X > K)}
+\]
+i.e. the weighted average of the values over \(X\). Continuing onwards:
+\[
+   = \frac{\int_{K}^{\infty} x \cdot \alpha cx^{-\alpha - 1} dx }{P(X > K)} 
+\]
+\[
+   = \frac{\int_{K}^{\infty} x \cdot \alpha cx^{-\alpha - 1} dx }{F(X > K)} 
+\]
+\[
+   = \frac{\int_{K}^{\infty} x \cdot \alpha cx^{-\alpha - 1} dx }{1 - (1 - cK^{-\alpha})} 
+\]
+\[
+   = \frac{\int_{K}^{\infty} x \cdot \alpha cx^{-\alpha - 1} dx }{cK^{-\alpha}} 
+\]
+\[
+   = \frac{\int_{K}^{\infty} \alpha cx^{-\alpha} dx }{cK^{-\alpha}} 
+\]
+\[
+   = \frac{\alpha c \int_{K}^{\infty} x^{-\alpha} dx }{cK^{-\alpha}} 
+\]
+\[
+   = \frac{\alpha c \cdot \frac{x^{-\alpha + 1}}{-\alpha + 1} |_{K}^{\infty} }{cK^{-\alpha}} 
+\]
+\[
+   = \frac{\alpha c \cdot (0 - \frac{K^{-\alpha + 1}}{-\alpha + 1}) }{cK^{-\alpha}} 
+\]
+\[
+   = \frac{-\alpha c K^{-\alpha + 1}}{cK^{-\alpha} \cdot (-\alpha + 1)} 
+\]
+\[
+   = \frac{-\alpha K}{ -\alpha + 1} 
+\]
+\[
+  E[X | X > K] = \frac{\alpha K}{\alpha - 1} 
+\]
+Looking at the calculation of this expectation, we see clearly that it is undefined at \(\alpha = 1\) due to the denominator, and with the original integral \(\frac{x^{-\alpha + 1}}{-\alpha + 1}\), we see that as \(\alpha\) becomes more negative toward negative infinity, the value becomes infinity and therefore diverges, while this converges toward 0 as the \(\alpha\) approaches positive infinity.
 
 \subsection*{(b)}
 
-
+We want to derive an estimate of \(E[X | X > K]\) based on a sample from \(F\).
+By definition as we stated and calculated previously, we know that
+\[
+  E[X | X > K] = \frac{\int_K^{\infty}x \cdot f(x) dx}{P(X > K)}
+\]
+So to approximate using Monte Carlo methods, we first generate \(X_1, X_2, \dots, X_n\) from \(f(x)\). For the denominator, we know that we can estimate \(P(X > K)\) using \(\frac{1}{n} \sum_{j=1}^{n} I(X_j > K)\). For the numerator, we can estimate similarily with 
+\[
+  \int_K^{\infty}x \cdot f(x) dx \approx \frac{1}{n} \sum_{j=1}^{n} X_j \cdot I(X_j > K)
+\]
+which essentially represents the sum of \(X_j\) values which exceed \(K\), which is similar to the way in which the original numerator which took the CDF area above \(K\). Substituting in:
+\[
+  \frac{\int_K^{\infty}x \cdot f(x) dx}{P(X > K)}
+\]
+\[
+  = \frac{\int_K^{\infty}x \cdot f(x) dx}{\frac{1}{n} \sum_{j=1}^{n} I(X_j > K)}
+\]
+\[
+  = \frac{\frac{1}{n} \sum_{j=1}^{n} X_j \cdot I(X_j > K)}{\frac{1}{n} \sum_{j=1}^{n} I(X_j > K)}
+\]
+\[
+  \boxed{E[\widehat{X | X > K}] = \frac{\sum_{j=1}^{n} X_j \cdot I(X_j > K)}{\sum_{j=1}^{n} I(X_j > K)}}
+\]
+which essentially represents the average of all sampled \(X_j\) values that exceed \(K\).
 
 }
 
