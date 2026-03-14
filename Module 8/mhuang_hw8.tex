@@ -147,14 +147,116 @@ The plots seem to show that this works pretty well, with the red values convergi
 
 \section*{2.}
 
-
+Given \(f(x) = 3.852985 \cdot \exp(-x^2 \sqrt{x} [\sin(x)]^2)\), we want to estimate the mean and variance of the distribution, using Monte Carlo methods. Looking at \(f(x)\), there's no good way to exactly sample this in the naive way required for basic Monte Carlo integration, as we did previously; it doesn't fit something nice like an exponential or normal function. Let's turn to the importance sampling method. With \(x > 0\), we can just simply set \(g(x) = e^{-(x)}\) and generate accordingly, with \(h(x) = X\) and \(h(x) = X^2\), since we have
+\[
+  E[X] = E[X \frac{f(X)}{g(X)}]
+\]
+\[
+  E[X^2] = E[X^2 \frac{f(X)}{g(X)}].
+\]
+which we can then use to calculate the variance estimate:
+\[
+  \widehat{E[X]} = \frac{1}{n} \sum_{j=1}^{n} X_j \frac{f(X_j)}{g(X_j)}
+\]
+\[
+  \widehat{\text{Var}(X)} = \widehat{E[X]^2} - (\widehat{E[X]})^2
+\]
+Let's implement accordingly:
+\begin{spverbatim}
+> problem_2_importance_sampling <- function(Nsim) {
++   f = function(x) { 3.852985 * exp(-x^2 / sqrt(x)) * (sin(x))^2 }
++   g = function(x) { exp(-x) }
++   
++   x = rexp(Nsim)
++   weight = f(x) / g(x)
++   
++   # E[X] = X * weight
++   # For E[X^2] = X^2 * weight
++   weighted_x = x * weight
++   weighted_x2 = x^2 * weight
++   
++   # Importance sampler is just the mean of the weights
++   E_X = mean(weighted_x)
++   E_X2 = mean(weighted_x2)
++   Var_X = E_X2 - E_X^2
++   
++   par(mfrow=c(2,1))
++   
++   # Plot 1: Convergence of E[X] estimate
++   plot(cumsum(weighted_x)/1:Nsim,
++        main=paste("E[X] estimate over time with n=", Nsim))
++   abline(h=E_X, col="red")
++   
++   # Plot 2: Convergence of Var(X) estimate
++   cumsum_EX = cumsum(weighted_x)/1:Nsim
++   cumsum_EX2 = cumsum(weighted_x2)/1:Nsim
++   cumsum_Var = cumsum_EX2 - (cumsum_EX^2)
++   
++   plot(cumsum_Var,
++        main=paste("Var(X) estimate over time with n=", Nsim))
++   abline(h=Var_X, col="red")
++   
++   par(mfrow=c(1,1))
++   
++   print(paste("Estimated E[X]:", E_X))
++   print(paste("Estimated Var(X):", Var_X))
++ }
+> 
+> problem_2_importance_sampling(100)
+[1] "Estimated E[X]: 1.42927508952464"
+[1] "Estimated Var(X): -0.0203562040825269"
+> problem_2_importance_sampling(10000)
+[1] "Estimated E[X]: 1.32498587889261"
+[1] "Estimated Var(X): -0.0300497224816776"
+\end{spverbatim}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{problem_2_n_100.png}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{problem_2_n_10000.png}
+\end{figure}
+The plots are a bit hard to read, but do generally show the convergence.
 
 }
 {\Large 
 
 \section*{3.}
 
-
+Following the example for importance sampling, we set \(g(x)\) to be an exponential defined for all \(X > 3\) as we are given in the problem. So we would have \(g(x) = e^{-(x - 3)} \) with \(x > 3\), and generate samples using \(X_j = 3 + E_j \sim \exp(1) \). Our importance sampling estimator ends up being \(\widehat{P(X>3)} = \frac{1}{n} \sum_{j=1}^{n} \frac{f(X_j)}{g(X_j)}\). Let's implement and see:
+\begin{spverbatim}
+> problem_3_importance_sampling <- function(Nsim) {
++   f = function(x) { 3.852985 * exp(-x^2 * sqrt(x)) * (sin(x))^2 }
++   g = function(x) { exp(-(x - 3)) }
++   
++   x = rexp(Nsim) + 3
++   weight = f(x) / g(x)
++   
++   # Importance sampler is just the mean of the weights
++   P_hat = mean(weight)
++   
++   plot(cumsum(weight)/1:Nsim, 
++        main=paste("Importance sampling estimate over time with n=", Nsim))
++   abline(h=P_hat, col="red")
++   
++   print(paste("Importance sampling estimate of P(X>3):", P_hat))
++ }
+> 
+> problem_3_importance_sampling(100)
+[1] "Importance sampling estimate of P(X>3): 4.0528695623546e-10"
+> problem_3_importance_sampling(10000)
+[1] "Importance sampling estimate of P(X>3): 4.68437257965219e-10"
+\end{spverbatim}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{problem_3_n_100.png}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{problem_3_n_10000.png}
+\end{figure}
+It's very interesting to see the contrast given the different number of samples.
 
 }
 {\Large 
