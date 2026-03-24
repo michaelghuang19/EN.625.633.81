@@ -1,0 +1,355 @@
+\documentclass{article}
+\linespread{1.3}
+\usepackage[margin=50pt]{geometry}
+\usepackage{amsmath, amsthm, amssymb, amsthm, tikz, fancyhdr, float, graphicx, spverbatim, systeme}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\newcommand{\changefont}{\fontsize{15}{15}\selectfont}
+
+\fancypagestyle{firstpageheader}{
+  \fancyhead[R]{
+    \changefont
+    \parbox[t]{4cm}{ % Adjust width as needed
+      Michael Huang\\
+      EN.625.633.81\\
+      Homework 8
+    }
+  }
+}
+
+\begin{document}
+
+\thispagestyle{firstpageheader}
+{\Large 
+
+\section*{1.}
+
+\subsection*{(a)} 
+
+Assuming that \(X \sim N(0, \sigma^2)\), we aim to prove that \(E(\exp(-X^2)) = \frac{1}{\sqrt{2\sigma^2 + 1}}\):
+\[
+  E(\exp(-X^2)) = \int_{-\infty}^{\infty} e^{(-X^2)} \cdot f(x) dx
+\]
+By definition, we can substitute the pdf of the normal distribution (i.e. \(f(x) = \frac{1}{\sigma\sqrt{2\pi}} \cdot e^{-\frac{1}{2}(\frac{X - \mu}{\sigma})^2}\)):
+\[
+  = \int_{-\infty}^{\infty} e^{(-X^2)} \cdot \frac{1}{\sigma\sqrt{2\pi}} \cdot e^{-\frac{1}{2}(\frac{X - 0}{\sigma})^2}
+\]
+\[
+  = \int_{-\infty}^{\infty} e^{-X^2} \cdot \frac{1}{\sigma\sqrt{2\pi}} \cdot e^{-\frac{X^2}{2\sigma^2}}
+\]
+\[
+  = \frac{1}{\sigma\sqrt{2\pi}} \int_{-\infty}^{\infty} e^{-X^2} \cdot e^{-\frac{X^2}{2\sigma^2}}
+\]
+\[
+  = \frac{1}{\sigma\sqrt{2\pi}} \int_{-\infty}^{\infty} e^{-X^2 - \frac{X^2}{2\sigma^2}}
+\]
+\[
+  = \frac{1}{\sigma\sqrt{2\pi}} \int_{-\infty}^{\infty} e^{-X^2 (1 + \frac{1}{2\sigma^2})}
+\]
+\[
+  = \frac{1}{\sigma\sqrt{2\pi}} \int_{-\infty}^{\infty} e^{-X^2 (\frac{2\sigma^2 + 1}{2\sigma^2})}
+\]
+This looks suspiciously close to the form of the pdf of the normal distribution which we just stated above, with the \(\frac{1}{\sigma^2}\) terms, and with this specific transformation: 
+\[
+  = \int_{-\infty}^{\infty} \frac{1}{\sigma\sqrt{2\pi}} \cdot e^{\frac{-X^2}{\frac{2\sigma^2}{2\sigma^2 + 1}}}
+\]
+So now we have a normal-ish distribution again. To simplify, we can try to remove the exponential by using the property that integral of the pdf of the normal distribution (or any valid pdf for that matter) = 1. Generally, for \(N(0, \sigma^2)\):
+\[
+  1 = \int_{-\infty}^{\infty} \frac{1}{\sigma\sqrt{2\pi}} \cdot e^{-\frac{1}{2}(\frac{x}{\sigma})^2}
+\]
+\[
+  \sigma\sqrt{2\pi} = \int_{-\infty}^{\infty} e^{-\frac{1}{2}(\frac{x}{\sigma})^2}
+\]
+\[
+  \sigma\sqrt{2\pi} = \int_{-\infty}^{\infty} e^{-\frac{x^2}{2\sigma^2}}
+\]
+\[
+  \sqrt{2\pi\sigma^2} = \int_{-\infty}^{\infty} e^{-\frac{x^2}{2\sigma^2}}
+\]
+which we can extend to any SD = \(\sigma\) and variance = \(\sigma^2\). Using this, we can continue to solve:
+\[
+  = \int_{-\infty}^{\infty} \frac{1}{\sigma\sqrt{2\pi}} \cdot e^{\frac{-X^2}{\frac{2\sigma^2}{2\sigma^2 + 1}}}
+\]
+\[
+  = \frac{1}{\sigma\sqrt{2\pi}} \sqrt{2\pi \cdot \frac{2\sigma^2}{2\sigma^2 + 1}} 
+\]
+\[
+  = \frac{\sqrt{2\pi \cdot \frac{2\sigma^2}{2\sigma^2 + 1}} }{\sigma\sqrt{2\pi}}
+\]
+\[
+  = \frac{\sqrt{2\pi \cdot \frac{2\sigma^2}{2\sigma^2 + 1}} }{\sqrt{2\pi\sigma^2}}
+\]
+\[
+  = \sqrt{\frac{2\pi \cdot \frac{2\sigma^2}{2\sigma^2 + 1} }{2\pi\sigma^2}}
+\]
+\[
+  = \sqrt{\frac{\frac{2\sigma^2}{2\sigma^2 + 1} }{\sigma^2}}
+\]
+\[
+  = \sqrt{\frac{1}{2\sigma^2 + 1} }
+\]
+\[
+  = \frac{1}{\sqrt{2\sigma^2 + 1}}
+\]
+exactly as we sought to find.
+
+\subsection*{(b)}
+
+\begin{spverbatim}
+> basicMonteCarloInt_normal = function(n, sigma) {
++   
++   E_hat_vec = rep(0, (n-1));
++   upperConfBound_vec = rep(0, (n-1));
++   lowerConfBound_vec = rep(0, (n-1));
++   
++   actual_expectation = 1/sqrt(2*sigma^2 + 1);
++   
++   for (j in 1:(n-1)) {
++     normSample = rnorm((j+1), mean = 0, sd = sigma);
++     E_hat_vec[j] = mean(exp(-normSample^2));
++     estVar = mean((exp(-normSample^2) - E_hat_vec[j])^2)/j;
++     upperConfBound_vec[j] = E_hat_vec[j] + 1.96*sqrt(estVar);
++     lowerConfBound_vec[j] = E_hat_vec[j] - 1.96*sqrt(estVar);
++   }
++   
++   xValues = seq(1, (n-1), 1);
++   plot(xValues, E_hat_vec, type = "l",
++        main = paste("Monte Carlo Verification (sigma =", sigma, ")"));
++   lines(xValues, upperConfBound_vec, col = "red", lty = 4);
++   lines(xValues, lowerConfBound_vec, col = "red", lty = 4);
++   abline(h = actual_expectation, col = "blue", lwd = 2);
++   
++   
++ }
+> 
+> basicMonteCarloInt_normal(1000, 1)
+> basicMonteCarloInt_normal(1000, 5)
+> basicMonteCarloInt_normal(1000, 10)
+\end{spverbatim}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{1b_graph_sigma_1.png}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{1b_graph_sigma_5.png}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{1b_graph_sigma_10.png}
+\end{figure}
+
+The plots seem to show that this works pretty well, with the red values converging very closely to the blue actual/theoretical value.
+
+}
+{\Large 
+
+\section*{2.}
+
+Given \(f(x) = 3.852985 \cdot \exp(-x^2 \sqrt{x} [\sin(x)]^2)\), we want to estimate the mean and variance of the distribution, using Monte Carlo methods. Looking at \(f(x)\), there's no good way to exactly sample this in the naive way required for basic Monte Carlo integration, as we did previously; it doesn't fit something nice like an exponential or normal function. Let's turn to the importance sampling method. With \(x > 0\), we can just simply set \(g(x) = e^{-(x)}\) and generate accordingly, with \(h(x) = X\) and \(h(x) = X^2\), since we have
+\[
+  E[X] = E[X \frac{f(X)}{g(X)}]
+\]
+\[
+  E[X^2] = E[X^2 \frac{f(X)}{g(X)}].
+\]
+which we can then use to calculate the variance estimate:
+\[
+  \widehat{E[X]} = \frac{1}{n} \sum_{j=1}^{n} X_j \frac{f(X_j)}{g(X_j)}
+\]
+\[
+  \widehat{\text{Var}(X)} = \widehat{E[X]^2} - (\widehat{E[X]})^2
+\]
+Let's implement accordingly:
+\begin{spverbatim}
+> problem_2_importance_sampling <- function(Nsim) {
++   f = function(x) { 3.852985 * exp(-x^2 / sqrt(x)) * (sin(x))^2 }
++   g = function(x) { exp(-x) }
++   
++   x = rexp(Nsim)
++   weight = f(x) / g(x)
++   
++   # E[X] = X * weight
++   # For E[X^2] = X^2 * weight
++   weighted_x = x * weight
++   weighted_x2 = x^2 * weight
++   
++   # Importance sampler is just the mean of the weights
++   E_X = mean(weighted_x)
++   E_X2 = mean(weighted_x2)
++   Var_X = E_X2 - E_X^2
++   
++   par(mfrow=c(2,1))
++   
++   # Plot 1: Convergence of E[X] estimate
++   plot(cumsum(weighted_x)/1:Nsim,
++        main=paste("E[X] estimate over time with n=", Nsim))
++   abline(h=E_X, col="red")
++   
++   # Plot 2: Convergence of Var(X) estimate
++   cumsum_EX = cumsum(weighted_x)/1:Nsim
++   cumsum_EX2 = cumsum(weighted_x2)/1:Nsim
++   cumsum_Var = cumsum_EX2 - (cumsum_EX^2)
++   
++   plot(cumsum_Var,
++        main=paste("Var(X) estimate over time with n=", Nsim))
++   abline(h=Var_X, col="red")
++   
++   par(mfrow=c(1,1))
++   
++   print(paste("Estimated E[X]:", E_X))
++   print(paste("Estimated Var(X):", Var_X))
++ }
+> 
+> problem_2_importance_sampling(100)
+[1] "Estimated E[X]: 1.42927508952464"
+[1] "Estimated Var(X): -0.0203562040825269"
+> problem_2_importance_sampling(10000)
+[1] "Estimated E[X]: 1.32498587889261"
+[1] "Estimated Var(X): -0.0300497224816776"
+\end{spverbatim}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{problem_2_n_100.png}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{problem_2_n_10000.png}
+\end{figure}
+The plots are a bit hard to read, but do generally show the convergence.
+
+}
+{\Large 
+
+\section*{3.}
+
+Following the example for importance sampling, we set \(g(x)\) to be an exponential defined for all \(X > 3\) as we are given in the problem. So we would have \(g(x) = e^{-(x - 3)} \) with \(x > 3\), and generate samples using \(X_j = 3 + E_j \sim \exp(1) \). Our importance sampling estimator ends up being \(\widehat{P(X>3)} = \frac{1}{n} \sum_{j=1}^{n} \frac{f(X_j)}{g(X_j)}\). Let's implement and see:
+\begin{spverbatim}
+> problem_3_importance_sampling <- function(Nsim) {
++   f = function(x) { 3.852985 * exp(-x^2 * sqrt(x)) * (sin(x))^2 }
++   g = function(x) { exp(-(x - 3)) }
++   
++   x = rexp(Nsim) + 3
++   weight = f(x) / g(x)
++   
++   # Importance sampler is just the mean of the weights
++   P_hat = mean(weight)
++   
++   plot(cumsum(weight)/1:Nsim, 
++        main=paste("Importance sampling estimate over time with n=", Nsim))
++   abline(h=P_hat, col="red")
++   
++   print(paste("Importance sampling estimate of P(X>3):", P_hat))
++ }
+> 
+> problem_3_importance_sampling(100)
+[1] "Importance sampling estimate of P(X>3): 4.0528695623546e-10"
+> problem_3_importance_sampling(10000)
+[1] "Importance sampling estimate of P(X>3): 4.68437257965219e-10"
+\end{spverbatim}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{problem_3_n_100.png}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{problem_3_n_10000.png}
+\end{figure}
+It's very interesting to see the contrast given the different number of samples.
+
+}
+{\Large 
+
+\section*{4.}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{Exercise3.14.png}
+\end{figure}
+
+\subsection*{(a)} 
+
+Given the situation where \(1 - F(x) \propto x^{-\alpha}\) for \(x\) large enough, we aim to show that \(E[X | X > K] = K \alpha / (\alpha - 1)\) for \(K\) large enough. Wec an essentially evaluate the first statement as 
+\[
+  1 - F(x) = cx^{-\alpha}
+\]
+\[
+  F(x) = 1 - cx^{-\alpha}
+\] 
+By definition, we can then differentiate cdf to show that 
+\[
+  f(x) = 0 - cx^{-\alpha - 1} \cdot -\alpha
+\]
+\[
+  f(x) = \alpha cx^{-\alpha - 1}
+\]
+By definition, for a continuous RV, we know that we can define the conditional expectation \(E[X | X > K]\) as 
+\[
+  E[X | X > K] = \frac{\int_{K}^{\infty} x \cdot f(x) dx }{P(X > K)}
+\]
+i.e. the weighted average of the values over \(X\). Continuing onwards:
+\[
+   = \frac{\int_{K}^{\infty} x \cdot \alpha cx^{-\alpha - 1} dx }{P(X > K)} 
+\]
+\[
+   = \frac{\int_{K}^{\infty} x \cdot \alpha cx^{-\alpha - 1} dx }{F(X > K)} 
+\]
+\[
+   = \frac{\int_{K}^{\infty} x \cdot \alpha cx^{-\alpha - 1} dx }{1 - (1 - cK^{-\alpha})} 
+\]
+\[
+   = \frac{\int_{K}^{\infty} x \cdot \alpha cx^{-\alpha - 1} dx }{cK^{-\alpha}} 
+\]
+\[
+   = \frac{\int_{K}^{\infty} \alpha cx^{-\alpha} dx }{cK^{-\alpha}} 
+\]
+\[
+   = \frac{\alpha c \int_{K}^{\infty} x^{-\alpha} dx }{cK^{-\alpha}} 
+\]
+\[
+   = \frac{\alpha c \cdot \frac{x^{-\alpha + 1}}{-\alpha + 1} |_{K}^{\infty} }{cK^{-\alpha}} 
+\]
+\[
+   = \frac{\alpha c \cdot (0 - \frac{K^{-\alpha + 1}}{-\alpha + 1}) }{cK^{-\alpha}} 
+\]
+\[
+   = \frac{-\alpha c K^{-\alpha + 1}}{cK^{-\alpha} \cdot (-\alpha + 1)} 
+\]
+\[
+   = \frac{-\alpha K}{ -\alpha + 1} 
+\]
+\[
+  E[X | X > K] = \frac{\alpha K}{\alpha - 1} 
+\]
+Looking at the calculation of this expectation, we see clearly that it is undefined at \(\alpha = 1\) due to the denominator, and with the original integral \(\frac{x^{-\alpha + 1}}{-\alpha + 1}\), we see that as \(\alpha\) becomes more negative toward negative infinity, the value becomes infinity and therefore diverges, while this converges toward 0 as the \(\alpha\) approaches positive infinity.
+
+\subsection*{(b)}
+
+We want to derive an estimate of \(E[X | X > K]\) based on a sample from \(F\).
+By definition as we stated and calculated previously, we know that
+\[
+  E[X | X > K] = \frac{\int_K^{\infty}x \cdot f(x) dx}{P(X > K)}
+\]
+So to approximate using Monte Carlo methods, we first generate \(X_1, X_2, \dots, X_n\) from \(f(x)\). For the denominator, we know that we can estimate \(P(X > K)\) using \(\frac{1}{n} \sum_{j=1}^{n} I(X_j > K)\). For the numerator, we can estimate similarily with 
+\[
+  \int_K^{\infty}x \cdot f(x) dx \approx \frac{1}{n} \sum_{j=1}^{n} X_j \cdot I(X_j > K)
+\]
+which essentially represents the sum of \(X_j\) values which exceed \(K\), which is similar to the way in which the original numerator which took the CDF area above \(K\). Substituting in:
+\[
+  \frac{\int_K^{\infty}x \cdot f(x) dx}{P(X > K)}
+\]
+\[
+  = \frac{\int_K^{\infty}x \cdot f(x) dx}{\frac{1}{n} \sum_{j=1}^{n} I(X_j > K)}
+\]
+\[
+  = \frac{\frac{1}{n} \sum_{j=1}^{n} X_j \cdot I(X_j > K)}{\frac{1}{n} \sum_{j=1}^{n} I(X_j > K)}
+\]
+\[
+  \boxed{E[\widehat{X | X > K}] = \frac{\sum_{j=1}^{n} X_j \cdot I(X_j > K)}{\sum_{j=1}^{n} I(X_j > K)}}
+\]
+which essentially represents the average of all sampled \(X_j\) values that exceed \(K\).
+
+}
+
+\end{document}
