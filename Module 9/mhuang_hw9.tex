@@ -26,7 +26,7 @@
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\textwidth]{Exercise4.9.png}
+    \includegraphics[width=1\textwidth]{Exercise4.9.png}
 \end{figure}
 
 We start with 
@@ -134,7 +134,7 @@ exactly as we sought to show in the corrected version of the problem.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\textwidth]{Exercise4.10.png}
+    \includegraphics[width=1\textwidth]{Exercise4.10.png}
 \end{figure}
 
 \subsection*{(a)} 
@@ -152,16 +152,167 @@ exactly as we sought to show in the corrected version of the problem.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\textwidth]{Exercise4.15.png}
+    \includegraphics[width=1\textwidth]{Exercise4.15.png}
 \end{figure}
+
+We aim to generate random variables \(X_i\) and \(Y_i\) and compare the empirical average and Rao-Blackwellized estimator of \(E_f(X)\) and \(\text{Var}_f(X)\):
 
 \subsection*{(b)} 
 
-
+\(X | y \sim N(0, y), Y \sim \text{Gamma}(a, b)\), i.e. \(X\) is a generalized \(t\):
+\begin{spverbatim}
+> nmbSimulations = 1000
+> n = 1000
+> a = 5
+> b = 1
+> 
+> bruteForce_3b = function(nmbSimulations, n, a, b) {
++   
++   # Need to keep mean and mean^2 for calculating variance
++   means = rep(0, nmbSimulations)
++   means_squared = rep(0, nmbSimulations)
++   
++   for (i in 1:nmbSimulations) {
++     
++     # Simulate n values of Y from Gamma(a,b)
++     y = rgamma(n, shape = a, scale = b)
++     
++     # For each Y value, simulate X|Y ~ N(0, y)
++     x = rnorm(n, mean = 0, sd = sqrt(y))
++     
++     means[i] = mean(x)
++     means_squared[i] = mean(x^2)
++   }
++   
++   variance = mean(means_squared) - (mean(means))^2
++   
++   print(paste("Empirical results with", 
++               "nmbSimulations =", nmbSimulations,
++               ", n =", n,
++               ", a =", a,
++               ", b =", b
++               ))
++   print(paste("mean =", mean(means), "and variance =", variance))
++ }
+> 
+> rao_blackwell_3b = function(nmbSimulations, n, a, b) {
++   
++   # Need to keep mean and mean^2 for calculating variance
++   means = rep(0, nmbSimulations)
++   means_squared = rep(0, nmbSimulations)
++   
++   for (i in 1:nmbSimulations) {
++     
++     # Simulate n values of Y from Gamma(a,b)
++     y = rgamma(n, shape = a, scale = b)
++     
++     # Calculate conditional expectation E(X|Y)
++     # Since X|Y ~ N(0, y), we have E(X|Y) = 0
++     condExpectation = rep(0, n)
++     
++     means[i] = mean(condExpectation)
++     means_squared[i] = mean(condExpectation^2)
++   }
++   
++   variance = mean(means_squared) - (mean(means))^2
++   
++   print(paste("Rao-Blackwellized results with", 
++               "nmbSimulations =", nmbSimulations,
++               ", n =", n,
++               ", a =", a,
++               ", b =", b
++   ))
++   print(paste("mean =", mean(means), "and variance =", variance))
++ }
+> 
+> bruteForce_3b(nmbSimulations, n, a, b)
+[1] "Empirical results with nmbSimulations = 1000 , n = 1000 , a = 5 , b = 1"
+[1] "mean = 0.00101562111045003 and variance = 5.01758577452203"
+> rao_blackwell_3b(nmbSimulations, n, a, b)
+[1] "Rao-Blackwellized results with nmbSimulations = 1000 , n = 1000 , a = 5 , b = 1"
+[1] "mean = 0 and variance = 0"
+\end{spverbatim}
+We see that the variance is set to 0 in the Rao-Blackwellized estimator. The variability in the variable generation was completely removed by using the conditional expectation instead of actually simulating X values from the normal distribution, which introduces actual variance.
 
 \subsection*{(c)}
 
-
+\(X | y \sim Bin(y), Y \sim \text{Beta}(a, b)\), i.e. \(X\) is a beta-binomial \(t\):
+\begin{spverbatim}
+asdf> nmbSimulations = 1000
+> n = 1000
+> m = 10
+> a = 2
+> b = 2
+> 
+> bruteForce_3c = function(nmbSimulations, n, m, a, b) {
++   
++   # Need to keep mean and mean^2 for calculating variance
++   means = rep(0, nmbSimulations)
++   means_squared = rep(0, nmbSimulations)
++   
++   for (i in 1:nmbSimulations) {
++     
++     # Simulate n values of Y from Beta(a,b)
++     y = rbeta(n, shape1 = a, shape2 = b);
++     
++     # For each Y value, simulate X|Y ~ Binomial(m, y)
++     x = rbinom(n, size = m, prob = y);
++     
++     means[i] = mean(x)
++     means_squared[i] = mean(x^2)
++   }
++   
++   variance = mean(means_squared) - (mean(means))^2
++   
++   print(paste("Empirical results with", 
++               "nmbSimulations =", nmbSimulations,
++               ", n =", n,
++               ", m =", m,
++               ", a =", a,
++               ", b =", b
++   ))
++   print(paste("mean =", mean(means), "and variance =", variance))
++ }
+> 
+> rao_blackwell_3c = function(nmbSimulations, n, m, a, b) {
++   
++   # Need to keep mean and mean^2 for calculating variance
++   means = rep(0, nmbSimulations)
++   means_squared = rep(0, nmbSimulations)
++   
++   for (i in 1:nmbSimulations) {
++     
++     # Simulate n values of Y from Beta(a,b)
++     y = rbeta(n, shape1 = a, shape2 = b);    
++     
++     # Calculate conditional expectation E(X|Y)
++     # Since X|Y ~ Binomial(m, y), we have E(X|Y) = m * y
++     condExpectation = m * y;
++     
++     means[i] = mean(condExpectation)
++     means_squared[i] = mean(condExpectation^2)
++   }
++ 
++   variance = mean(means_squared) - (mean(means))^2
++   
++   print(paste("Rao-Blackwellized results with", 
++               "nmbSimulations =", nmbSimulations,
++               ", n =", n,
++               ", m =", m,
++               ", a =", a,
++               ", b =", b
++   ))
++   print(paste("mean =", mean(means), "and variance =", variance))
++ }
+> 
+> bruteForce_3c(nmbSimulations, n, m, a, b)
+[1] "Empirical results with nmbSimulations = 1000 , n = 1000 , m = 10 , a = 2 , b = 2"
+[1] "mean = 5.001012 and variance = 6.998882975856"
+> rao_blackwell_3c(nmbSimulations, n, m, a, b)
+[1] "Rao-Blackwellized results with nmbSimulations = 1000 , n = 1000 , m = 10 , a = 2 , b = 2"
+[1] "mean = 5.00453563874706 and variance = 4.99710120693035"
+\end{spverbatim}
+We see that the variance is reduced by a significant amount (\(\frac{2}{7} = ~28\%\) or so).
 
 }
 {\Large 
@@ -170,7 +321,7 @@ exactly as we sought to show in the corrected version of the problem.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\textwidth]{Exercise4.18.png}
+    \includegraphics[width=1\textwidth]{Exercise4.18.png}
 \end{figure}
 
 \subsection*{(i)} 
