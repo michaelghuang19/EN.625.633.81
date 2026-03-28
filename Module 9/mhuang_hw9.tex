@@ -137,13 +137,25 @@ exactly as we sought to show in the corrected version of the problem.
     \includegraphics[width=1\textwidth]{Exercise4.10.png}
 \end{figure}
 
+We start with considering the accept-reject method for the target desntiy \(f\) based on the instrumental distribution \(g\). 
+
 \subsection*{(a)} 
 
-
+We aim to show that the Accept-Reject sample \((X_1, \dots, X_n)\) can be associated with two iid samples, \((U_1, \dots, U_N)\) and \((Y_1, \dots, Y_N)\) with corresponding distributions \(\text{Unif}_{[0,1]}\) and \(g\), where \(N\) is the stopping time associated with the acceptance of \(n\) variables \(Y_j\). \\ \\
+For generating samples for a target \(f\) using \(g\), given we determine some value \(M\) such that \(M \cdot g(x) \geq f(x)\) for all \(x\), we know that the accept-reject method consists of the following steps: \\
+- Generate \(Y \sim g\) \\
+- Generate \(U \sim \text{Unif}_{[0, 1]}\) \\
+- If \(M \cdot U \leq \frac{f(Y)}{g(Y)}\), accept \(Y\) as a draw from \(f(x)\). \\
+So from looking at this, our final sample \((X_1, \dots, X_n)\), by definition, we are repeating this process of generating the initial \(Y_i\) and \(U_i\) \(N\) times, which is when we stop generating. Additionally, we see that by definition, we are looking to stop only when we accept \(n\) values of \(X_i\), so we see that by definition, we can see that the sequence of \(n\) accepted values of \(X\) can indeed by associated with those independently drawn series of \(N\) \(U\) and \(Y\) values, as we sought to show.
 
 \subsection*{(b)}
 
-
+We aim to deduce that the corresponding estimator of \(E_f[h(X)]\) based on \((X_1, \dots, X_n)\) can be written as 
+\[
+  \delta_1 = \frac{1}{n} \sum_{i=1}^{n} h(X_i) = \frac{1}{n} \sum_{j=1}^{N} h(Y_j) I_{U_j \leq w_j}
+\]
+with \(w_j = \frac{f(Y_j)}{Mg(Y_j)}\). \\ \\
+We start with the standard estimator \(\frac{1}{n} \sum_{i=1}^{n} h(X_i)\). We know that the \(X\) values in this expectation are the same as those \(Y\) values that we decided to accept in the accept-reject algorithm steps. The indicator for \(U_j \leq w_j\), with the definition of \(w_j\), is literally the same as the criteria that is used to determine whether we accept the \(Y\) value as part of the sample or not; i.e. we are taking the value and multiplying by 1 as part of our estimator if it fulfills the condition or multiplying by 0 and discarding it as part of our estimator, but still taking the sum of all values up to all \(N\) values, which was the number of values that we generated. So we took the equivalent values, but just have excess terms in the summation since we're incorporating all the rejected values but zeroing them out. Finally, we divide by \(n\) to make this a true estimator and take the average of all the accepted values as we did in the first form. These two forms are therefore equivalent.
 
 }
 {\Large 

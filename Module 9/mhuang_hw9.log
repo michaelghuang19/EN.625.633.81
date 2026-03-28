@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  26 MAR 2026 13:49
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  27 MAR 2026 22:11
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -487,58 +487,74 @@ Package pdftex.def Info: Exercise4.10.png  used on input line 137.
 
 
 [3]
-<Exercise4.15.png, id=27, 532.99126pt x 113.42375pt>
+Underfull \hbox (badness 10000) in paragraph at lines 144--150
+
+ []
+
+
+
+[4 <./Exercise4.10.png>]
+Overfull \hbox (5.16266pt too wide) in paragraph at lines 153--154
+\OT1/cmr/m/n/14.4 We aim to de-duce that the cor-re-spond-ing es-ti-ma-tor of $\OML/cmm/m/it/14.4 E[]\OT1/cmr/m/n/14.4 [\OML/cmm/m/it/14.4 h\OT1/cmr/m/n/14.4 (\OML/cmm/m/it/14.4 X\OT1/cmr/m/n/14.4 )]$ based on $(\OML/cmm/m/it/14.4 X[]; [] ; X[]\OT1/cmr/m/n/14.4 )$
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 156--159
+
+ []
+
+<Exercise4.15.png, id=31, 532.99126pt x 113.42375pt>
 File: Exercise4.15.png Graphic file (type png)
 <use Exercise4.15.png>
-Package pdftex.def Info: Exercise4.15.png  used on input line 155.
+Package pdftex.def Info: Exercise4.15.png  used on input line 167.
 (pdftex.def)             Requested size: 514.295pt x 109.45496pt.
 
 
-[4 <./Exercise4.10.png> <./Exercise4.15.png>]
-
 [5]
 
-[6]
-Overfull \hbox (4.40419pt too wide) in paragraph at lines 234--234
+[6 <./Exercise4.15.png>]
+
+[7]
+Overfull \hbox (4.40419pt too wide) in paragraph at lines 246--246
 []\OT1/cmtt/m/n/14.4 [1][] "Empirical[] results[] with[] nmbSimulations[] =[] 1000[] ,[] n[] =[] 1000[] ,[] a[] =[] 5[] ,[]
  []
 
 
-Overfull \hbox (4.40419pt too wide) in paragraph at lines 234--234
+Overfull \hbox (4.40419pt too wide) in paragraph at lines 246--246
 []\OT1/cmtt/m/n/14.4 [1][] "Rao-Blackwellized[] results[] with[] nmbSimulations[] =[] 1000[] ,[] n[] =[] 1000[] ,[]
  []
 
 
 
-[7]
-
 [8]
-Overfull \hbox (11.81418pt too wide) in paragraph at lines 314--314
+
+[9]
+
+[10]
+Overfull \hbox (11.81418pt too wide) in paragraph at lines 326--326
 []\OT1/cmtt/m/n/14.4 [1][] "Empirical[] results[] with[] nmbSimulations[] =[] 1000[] ,[] n[] =[] 1000[] ,[] m[] =[] 10[] ,[]
  []
 
 
-
-[9]
-Overfull \hbox (4.40419pt too wide) in paragraph at lines 314--314
+Overfull \hbox (4.40419pt too wide) in paragraph at lines 326--326
 []\OT1/cmtt/m/n/14.4 [1][] "Rao-Blackwellized[] results[] with[] nmbSimulations[] =[] 1000[] ,[] n[] =[] 1000[] ,[]
  []
 
-<Exercise4.18.png, id=50, 528.97626pt x 187.70125pt>
+<Exercise4.18.png, id=54, 528.97626pt x 187.70125pt>
 File: Exercise4.18.png Graphic file (type png)
 <use Exercise4.18.png>
-Package pdftex.def Info: Exercise4.18.png  used on input line 324.
+Package pdftex.def Info: Exercise4.18.png  used on input line 336.
 (pdftex.def)             Requested size: 514.295pt x 182.50247pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 344--346
+Underfull \hbox (badness 10000) in paragraph at lines 356--358
 
  []
 
 
 
-[10 <./Exercise4.18.png>]
+[11 <./Exercise4.18.png>]
 
-[11] (./mhuang_hw9.aux)
+[12] (./mhuang_hw9.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
@@ -556,12 +572,12 @@ Here is how much of TeX's memory you used:
  37540 multiletter control sequences out of 15000+600000
  562870 words of font info for 52 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 102i,14n,107p,499b,541s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on mhuang_hw9.pdf (11 pages, 578184 bytes).
+ 102i,14n,107p,1136b,541s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on mhuang_hw9.pdf (12 pages, 595410 bytes).
 PDF statistics:
- 97 PDF objects out of 1000 (max. 8388607)
- 57 compressed objects within 1 object stream
+ 105 PDF objects out of 1000 (max. 8388607)
+ 62 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  33 words of extra memory for PDF output out of 10000 (max. 10000000)
 
