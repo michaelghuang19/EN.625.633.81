@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  27 MAR 2026 22:11
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  29 MAR 2026 01:11
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -546,15 +546,52 @@ File: Exercise4.18.png Graphic file (type png)
 Package pdftex.def Info: Exercise4.18.png  used on input line 336.
 (pdftex.def)             Requested size: 514.295pt x 182.50247pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 356--358
+Underfull \hbox (badness 10000) in paragraph at lines 339--345
 
  []
 
 
 
 [11 <./Exercise4.18.png>]
+Overfull \hbox (41.45413pt too wide) in paragraph at lines 379--379
+[]\OT1/cmtt/m/n/14.4 >[] generate_antithetic_comparison[] =[] function(nmbSimulations,[] n,[] inverse_cdf)[]
+ []
 
-[12] (./mhuang_hw9.aux)
+
+
+[12]
+Overfull \hbox (4.40419pt too wide) in paragraph at lines 379--379
+[]\OT1/cmtt/m/n/14.4 +[] [] [] print(paste("Results[] for",[] deparse(substitute(inverse_cdf)),[] ":"))[] 
+ []
+
+
+Overfull \hbox (4.40419pt too wide) in paragraph at lines 379--379
+[]\OT1/cmtt/m/n/14.4 +[] [] [] print(paste("Average[] of[] medians[] with[] X[] and[] Y:",[] mean(medians_XY)))[] 
+ []
+
+
+Overfull \hbox (4.40419pt too wide) in paragraph at lines 379--379
+[]\OT1/cmtt/m/n/14.4 +[] [] [] print(paste("Variance[] of[] medians[] with[] X[] and[] Y:",[] var(medians_XY)))[] 
+ []
+
+
+
+[13]
+
+[14]
+
+[15]
+
+[16]
+Underfull \hbox (badness 10000) in paragraph at lines 556--558
+
+ []
+
+
+
+[17]
+
+[18] (./mhuang_hw9.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
@@ -568,16 +605,16 @@ LaTeX Font Warning: Size substitutions with differences
 Here is how much of TeX's memory you used:
  14530 strings out of 473190
  287750 string characters out of 5715801
- 669431 words of memory out of 5000000
+ 669430 words of memory out of 5000000
  37540 multiletter control sequences out of 15000+600000
  562870 words of font info for 52 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 102i,14n,107p,1136b,541s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 102i,14n,107p,1136b,544s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on mhuang_hw9.pdf (12 pages, 595410 bytes).
+Output written on mhuang_hw9.pdf (18 pages, 609168 bytes).
 PDF statistics:
- 105 PDF objects out of 1000 (max. 8388607)
- 62 compressed objects within 1 object stream
+ 124 PDF objects out of 1000 (max. 8388607)
+ 75 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  33 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -336,17 +336,217 @@ We see that the variance is reduced by a significant amount (\(\frac{2}{7} = ~28
     \includegraphics[width=1\textwidth]{Exercise4.18.png}
 \end{figure}
 
+For each of the distributions, we examine the variance reductions of only the mean and median, where we are calculating \(E(X)\) and the median. The strategy described is to use the inverse transform method and generate pairs of samples. So given \(f(x)\): \\
+- Generate \(U_1, U_2, \dots, U_n \sim \text{Unif}(0, 1)\) \\
+- Generate \(X_j = F^{-1}_X(U_j)\) \\
+- Generate \(Y_j = F^{-1}_X(1 - U_j)\) \\
+which in the text is mentioned to work as \(1-U_j\) is also uniform so \(Y\) still follow sthe distribution function of interest. \\ \\ 
+This is the general framework of the R method I'm using for this, with the different inverse CDFs passed in and their outputs pasted below each respective section:
+\begin{spverbatim}
+> generate_antithetic_comparison = function(nmbSimulations, n, inverse_cdf) {
++   means_X = rep(0, nmbSimulations)
++   medians_X = rep(0, nmbSimulations)
++   means_XY = rep(0, nmbSimulations)
++   medians_XY = rep(0, nmbSimulations)
++   
++   for (i in 1:nmbSimulations) {
++     U = runif(n, 0, 1)
++     X = inverse_cdf(U)
++     Y = inverse_cdf(1 - U)
++     XY = (X + Y) / 2
++     
++     # Using X only
++     means_X[i] = mean(X)
++     medians_X[i] = median(X)
++       
++     # Using both X and Y
++     means_XY[i] = mean(XY)
++     medians_XY[i] = median(XY)
++   }
++   
++   print(paste("Results for", deparse(substitute(inverse_cdf)), ":"))
++   print("Means:")
++   print(paste("Average of means with X only:", mean(means_X)))
++   print(paste("Variance of means with X only:", var(means_X)))
++   print(paste("Average of means with X and Y:", mean(means_XY)))
++   print(paste("Variance of means with X and Y:", var(means_XY)))
++   print("Medians:")
++   print(paste("Average of medians with X only:", mean(medians_X)))
++   print(paste("Variance of medians with X only:", var(medians_X)))
++   print(paste("Average of medians with X and Y:", mean(medians_XY)))
++   print(paste("Variance of medians with X and Y:", var(medians_XY)))
++ }
+\end{spverbatim}
+
 \subsection*{(i)} 
 
-
+For the distribution \(f_1(x) = \frac{1}{\pi(1+x^2)}\):
+\[
+  F(x) = \int_{-\infty}^{x} \frac{1}{\pi(1+x^2)} dt
+\]
+As \(\int \frac{1}{\pi(1+x^2)} = \arctan(x)\),
+\[
+  = \frac{1}{\pi} \arctan(t) |_{-\infty}^{x}
+\]
+\[
+  = \frac{1}{\pi} (\arctan(x) - \arctan(-\infty))
+\]
+\[
+  = \frac{1}{\pi} (\arctan(x) - (-\frac{\pi}{2}))
+\]
+\[
+  F(x) = \frac{\arctan(x)}{\pi} + \frac{1}{2}
+\]
+And now inverting:
+\[
+  u = \frac{\arctan(x)}{\pi} + \frac{1}{2}
+\]
+\[
+  u - \frac{1}{2} = \frac{\arctan(x)}{\pi}
+\]
+\[
+  \pi(u - \frac{1}{2}) = \arctan(x)
+\]
+\[
+  x = \tan(\pi(u - \frac{1}{2}))
+\]
+which is our inverse CDF. Let's now move on to generation:
+\begin{spverbatim}
+> inverse_cdf_f1 <- function(u) {
++   tan(pi * (u - 0.5))
++ }
+> 
+> generate_antithetic_comparison(nmbSimulations, n, inverse_cdf_f1)
+[1] "Results for inverse_cdf_f1 :"
+[1] "Means:"
+[1] "Average of means with X only: 1.73679111959869"
+[1] "Variance of means with X only: 1379.81535900746"
+[1] "Average of means with X and Y: 0"
+[1] "Variance of means with X and Y: 0"
+[1] "Medians:"
+[1] "Average of medians with X only: 0.00116540319035601"
+[1] "Variance of medians with X only: 0.00238900258474329"
+[1] "Average of medians with X and Y: 0"
+[1] "Variance of medians with X and Y: 0"
+\end{spverbatim}
+We see that the mean is not as close to 0, and with a much larger variance as compared to with the antithetic variables, which have the variance and mean as exactly 0.
 
 \subsection*{(ii)}
 
-
+For the distribution \(f_2(x) = \frac{1}{2}e^{-|x|}\): \\
+- Case 1: For \(x < 0\), \(f_2(x) = \frac{1}{2}e^{x}\) 
+\[
+  F(x) = \int_{-\infty}^{x} \frac{1}{2}e^{t} dt
+\]
+\[
+  = \frac{1}{2}e^{t} |_{-\infty}^{x}
+\]
+\[
+  = \frac{1}{2}e^{x} - \frac{1}{2}e^{-\infty}
+\]
+\[
+  F(x) = \frac{1}{2}e^{x}
+\]
+And now inverting:
+\[
+  u = \frac{1}{2}e^{x}
+\]
+\[
+  2u = e^{x}
+\]
+\[
+  x = \ln(2u)
+\]
+which matches for \(u < \frac{1}{2}\). \\
+- Case 2: For \(x \geq 0\), \(f_2(x) = \frac{1}{2}e^{-x}\)
+\[
+  F(x) = \int_{-\infty}^{0} \frac{1}{2}e^{t} dt + \int_{0}^{x} \frac{1}{2}e^{-t} dt
+\]
+\[
+  = \frac{1}{2}e^{t} |_{-\infty}^{0} + \frac{1}{2}e^{-t} |_{0}^{x}
+\]
+\[
+  = \frac{1}{2}e^{0} - \frac{1}{2}e^{-\infty} - \frac{1}{2}e^{-x} - (-\frac{1}{2}e^{0}) 
+\]
+\[
+  = \frac{1}{2} - 0 - \frac{1}{2}e^{-x} + \frac{1}{2}
+\]
+\[
+  F(x) = 1 - \frac{1}{2}e^{-x}
+\]
+And now inverting:
+\[
+  u = 1 - \frac{1}{2}e^{-x}
+\]
+\[
+  u - 1 = - \frac{1}{2}e^{-x}
+\]
+\[
+  1 - u = \frac{1}{2}e^{-x}
+\]
+\[
+  2 - 2u = e^{-x}
+\]
+\[
+  \ln(2 - 2u) = -x
+\]
+\[
+  x = -\ln(2 - 2u)
+\]
+which matches for \(u > \frac{1}{2}\).
+With our inverse CDFs, let's now move on to generation:
+\begin{spverbatim}
+> inverse_cdf_f2 <- function(u) {
++   ifelse(u < 0.5, log(2 * u), -log(2 - (2 * u)))
++ }
+> 
+> generate_antithetic_comparison(nmbSimulations, n, inverse_cdf_f2)
+[1] "Results for inverse_cdf_f2 :"
+[1] "Means:"
+[1] "Average of means with X only: 0.00177025055115529"
+[1] "Variance of means with X only: 0.00204950708494339"
+[1] "Average of means with X and Y: 0"
+[1] "Variance of means with X and Y: 0"
+[1] "Medians:"
+[1] "Average of medians with X only: 0.00135299494178831"
+[1] "Variance of medians with X only: 0.00104570134793778"
+[1] "Average of medians with X and Y: 0"
+[1] "Variance of medians with X and Y: 0"
+\end{spverbatim}
+Here as well, we see that the average and variance of both means and medians are reduced completely to 0 as well, but the difference isn't as large here.
 
 \subsection*{(iv)}
 
-
+For the distribution \(f_4(x) = \frac{2}{\pi\sqrt{3}}(1 + \frac{x^2}{3})^{-2}\), we notice that the distribution itself is in the form of the student's t-distribution \(f(x) = \frac{\Gamma (\frac{\nu + 1}{2})}{\sqrt{\nu \pi} \Gamma (\frac{\nu}{2})} (1 + \frac{x^2}{\nu})^{-\frac{\nu + 1}{2}} \), for which we notice that degrees of freedom \(\nu = 3\). So we have
+\[
+  f(x) = \frac{\Gamma (\frac{3 + 1}{2})}{\sqrt{3 \pi} \Gamma (\frac{3}{2})} (1 + \frac{x^2}{3})^{-\frac{3 + 1}{2}}
+\]
+\[
+  f(x) = \frac{1}{\sqrt{3 \pi} \frac{\sqrt{\pi}}{2}} (1 + \frac{x^2}{3})^{-2}
+\]
+\[
+  f(x) = \frac{2}{\pi\sqrt{3}} (1 + \frac{x^2}{3})^{-2}
+\]
+which exactly matches up! We could look up the CDF and take the inverse, but I prefer to let R take care of this using qt(p, df = 3) to take the inverse CDF given the input value \(p\). With our inverse CDF, let's now generate values:
+\begin{spverbatim}
+> inverse_cdf_f4 <- function(u) {
++   qt(u, df = 3)
++ }
+> 
+> generate_antithetic_comparison(nmbSimulations, n, inverse_cdf_f4)
+[1] "Results for inverse_cdf_f4 :"
+[1] "Means:"
+[1] "Average of means with X only: -0.00318363452736336"
+[1] "Variance of means with X only: 0.00295726086143605"
+[1] "Average of means with X and Y: 0"
+[1] "Variance of means with X and Y: 0"
+[1] "Medians:"
+[1] "Average of medians with X only: -0.00174285915858053"
+[1] "Variance of medians with X only: 0.00180608465300137"
+[1] "Average of medians with X and Y: 0"
+[1] "Variance of medians with X and Y: 0"
+\end{spverbatim}
+Again, we see that the variance of the means and medians were reduced to 0, with slightly greater effect than \(f_2\) but significantly lower than \(f_1\).
 
 }
 {\Large 
