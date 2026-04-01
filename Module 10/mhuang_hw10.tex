@@ -49,7 +49,7 @@ Finally, take the sample variance of all the bootstrap trimmed means.
 +   trimmed_means = rep(0, B)
 +   for (i in 1:B) {
 +     x_star = sample(data, length(data), replace = TRUE)
-+     trimmed_means[i] <- trimmed_mean(x_star)
++     trimmed_means[i] = trimmed_mean(x_star)
 +   }
 +   return(var(trimmed_means))
 + }
@@ -77,20 +77,91 @@ From these values, we see the bootstrapped variance seemingly converging over ti
 
 \subsection*{(b)}
 
+\begin{spverbatim}
+> var_matrix = matrix(0, 10, length(B_values))
+> colnames(var_matrix) = paste("B =", B_values)
+> rownames(var_matrix) = paste("Seed:", 1:10)
+> 
+> for (seed in 1:10) {
++   set.seed(seed)
++   for (i in seq_along(B_values)) {
++     var_matrix[seed, i] = bootstrap_var(data, B_values[i])
++   }
++ }
+> 
+> print(var_matrix)
+           B = 25  B = 100  B = 200  B = 500 B = 1000 B = 2000
+Seed: 1  7.692591 5.757477 5.882572 5.439486 5.887858 5.738432
+Seed: 2  5.597464 5.942779 5.207258 5.964130 5.927652 5.828690
+Seed: 3  7.760063 5.743219 5.962934 5.179331 5.742400 5.575341
+Seed: 4  7.356543 5.200233 5.078323 6.461797 5.832083 5.729788
+Seed: 5  6.201857 5.897733 5.864792 5.581496 5.645491 5.861559
+Seed: 6  3.908644 6.184501 5.669486 5.607120 5.810382 5.787169
+Seed: 7  5.751484 4.902938 6.196312 5.674117 5.970202 6.142431
+Seed: 8  6.398837 4.684469 5.931928 6.011030 5.858387 5.592168
+Seed: 9  6.078629 5.305497 5.410795 5.938086 5.929707 5.898271
+Seed: 10 3.804436 5.775220 5.928629 5.691426 5.899181 5.593988
+\end{spverbatim}
 
+Looking across the values in the table, we see that most values seem to really converge around \(B = 1000\) and \(B = 2000\), so it seems that generally \(B = 1000\) would be a good threshold to provide satisfactory accuracy.
 
 }
 {\Large 
 
-\section*{1.}
+\section*{2.}
+
+We are given 
+\begin{spverbatim}
+Survival = c(25, 42, 45, 46, 51, 103, 124, 146, 340, 396, 412, 879, 1112)
+\end{spverbatim}
 
 \subsection*{(a)} 
 
-
+\begin{spverbatim}
+> survival = c(25, 42, 45, 46, 51, 103, 124, 146, 340, 396, 412, 879, 1112)
+> 
+> B = 1000
+> 
+> log_survival = log(survival)
+> boot_means_log = rep(0, B)
+> 
+> for (i in 1:B) {
++   sample_log_survival = sample(log_survival, length(log_survival), replace = TRUE)
++   boot_means_log[i] = mean(sample_log_survival)
++ }
+> 
+> # Taking the 95% CI means 2.5% on either side
+> ci_log = quantile(boot_means_log, c(0.025, 0.975))
+> # Exponentiate after taking log
+> ci_original_scale = exp(ci_log)
+> 
+> print("95% CI for log/exponentiated bootstrap:")
+[1] "95% CI for log/exponentiated bootstrap:"
+> print(ci_original_scale)
+     2.5%     97.5% 
+ 74.85874 277.46767 
+\end{spverbatim}
 
 \subsection*{(b)}
 
+\begin{spverbatim}
+> boot_means_original = rep(0, B)
+> 
+> for (i in 1:B) {
++   sample_survival = sample(survival, length(survival), replace = TRUE)
++   boot_means_original[i] = mean(sample_survival)
++ }
+> 
+> ci_raw = quantile(boot_means_original, c(0.025, 0.975))
+> 
+> print("95% CI for original scale bootstrap:")
+[1] "95% CI for original scale bootstrap:"
+> print(ci_raw)
+    2.5%    97.5% 
+130.7442 485.9481 
+\end{spverbatim}
 
+Using the bootstrap on the logged data, the 95\% confidence interval for mean survival time was \([74.85874, 277.46767]\) compared to \([130.7442, 485.9481]\) using the normal data. We see that the logged data confidence interval has a much smaller range and is also lower. This suggests that it is more accurate for this dataset, which we note has a considerable right skew, with very few data points on the higher end compared to the lower end. So the logged approach seems to work better for data with the more extreme outliers and skewness. The transformation seems to work better compared to the simple arithmetic mean, which is likely more affected by the outlier points.
 
 }
 {\Large 
