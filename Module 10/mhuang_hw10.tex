@@ -181,7 +181,51 @@ Using the bootstrap on the logged data, the 95\% confidence interval for mean su
 
 \section*{4.}
 
-
+We aim to show that the probability that any particular value of \(x\) is in the bootstrap sample \(x^*\) \(k\) times is \(\binom{n}{k}(\frac{1}{n})^k(\frac{n-1}{n})^{n-k}\). \\ \\
+We know that each bootstrap sample draw draws \(n\) values with replacement from the original \(n\) observations, so effectively we have \(P(\text{draw } x_i) = \frac{1}{n}\), and conversely \(P(\text{not draw } x_i) = \frac{n-1}{n}\). In addition, we know that each draw is independent, as implied by the procedure of sampling with replacement. We could therefore model this probability of drawing \(x_i\) in the overall number of draws as essentially counting the number of successful draws of \(x_i\) in \(n\) independent trials, which is nothing but a binomial random variable. This takes the form
+\[
+  P(X = k) = \binom{n}{k}p^k(1-p)^{n-k}
+\]
+which, when substituting in for the probabilities of drawing \(x_i\) that we found above, gives us  
+\[
+  P(x \text{ appears } k \text{ times}) = \binom{n}{k}(\frac{1}{n})^k(\frac{n-1}{n})^{n-k}
+\]
+which is what we sought to show. Illustrating this programmatically, using a simple draw from 1-10:
+\begin{spverbatim}
+> n = 10
+> B = 1000
+> data = 1:n
+> target_value = 5
+> 
+> counts = rep(0, B)
+> for (i in 1:B) {
++   boot_sample = sample(data, length(data), replace = TRUE)
++   counts[i] = sum(boot_sample == target_value)
++ }
+> 
+> empirical_probabilities = table(factor(counts, levels = 0:10)) / B
+> theoretical_probabilities = dbinom(0:10, size = n, prob = 1/n)
+> 
+> probabilities_comparison = data.frame(
++   k = 0:10,
++   Empirical = as.numeric(empirical_probabilities),
++   Theoretical = round(theoretical_probabilities, 3)
++ )
+> print(comparison)
+    k Empirical Theoretical
+1   0     0.356       0.349
+2   1     0.368       0.387
+3   2     0.208       0.194
+4   3     0.059       0.057
+5   4     0.009       0.011
+6   5     0.000       0.001
+7   6     0.000       0.000
+8   7     0.000       0.000
+9   8     0.000       0.000
+10  9     0.000       0.000
+11 10     0.000       0.000
+\end{spverbatim}
+We see that the empirical values very closely match those from the theoretical probability distribution.
 
 }
 {\Large 
