@@ -232,7 +232,93 @@ We see that the empirical values very closely match those from the theoretical p
 
 \section*{5.}
 
-
+We aim to prove that that \(\text{Bias}_{\text{True}(\hat{\theta})} = 0\), \(\hat{\text{Bias}}_{\text{revised}}(\hat{\theta}) = 0\), and also show that it's not necessarily the case that \(\hat{\text{Bias}}(\hat{\theta}) = 0\). \\ \\
+Let's start with \(\text{Bias}_{\text{True}(\hat{\theta})} = 0\), or that the sample mean is an unbiased estimator of the true mean. By definition, we know that 
+\[
+  \text{Bias}_{\text{True}}(\hat{\theta}) = E[\hat{\theta}] - \theta
+\]
+\[
+  = E[\bar{X}] - \theta
+\]
+\[
+  = E(\frac{1}{n}\sum_{i=1}^n X_i) - \theta
+\]
+\[
+  = \frac{1}{n}\sum_{i=1}^n E[X_i] - \theta
+\]
+\[
+  = \frac{1}{n}\sum_{i=1}^n \mu - \theta
+\]
+\[
+  = \frac{1}{n} \cdot n \cdot \mu - \theta
+\]
+\[
+  = \mu - \theta
+\]
+and as \(\theta = \mu\) for real, we find that 
+\[
+  \text{Bias}_{\text{True}}(\hat{\theta}) = \mu - \mu = 0 
+\]
+exactly as we sought to find. \\ \\ \\
+Next, for \(\hat{\text{Bias}}_{\text{revised}}(\hat{\theta}) = 0\), we start with the definition that 
+\[
+  \hat{\text{Bias}}_{\text{revised}}(\hat{\theta}) = \hat{\theta}^*(\cdot) - \hat{\theta}_{\text{revised} \cdot}
+\]
+\[
+  = \hat{\theta}^*(\cdot) - g (\bar{P}^* x^T)
+\]
+For the sample mean, \(g(x) = \frac{1}{n} \sum_{i=1}^n x_i\). We also know that for the average frequency vector, \(\bar{P}^* = \frac{1}{B} \sum_{j=1}^{B} P^*j\). So we can determine that for meaningfully large \(B\), by the law of large numbers, as \(B\) approaches positive infinity, we have \(\bar{P}^* = (\frac{1}{n}, \frac{1}{n}, \dots, \frac{1}{n})\), as each value has an essentially equal probability of being drawn. Plugging this in:
+\[
+  = \hat{\theta}^*(\cdot) - g ((\frac{1}{n}, \frac{1}{n}, \dots, \frac{1}{n}) \cdot x^T)
+\]
+\[
+  = \hat{\theta}^*(\cdot) - (\frac{1}{n}x_1 + \frac{1}{n}x_2 + \dots + \frac{1}{n}x_n)
+\]
+\[
+  = \hat{\theta}^*(\cdot) - \frac{1}{n}\sum_{i=1}^{n} x_i
+\]
+\[
+  = \hat{\theta}^*(\cdot) - \bar{X}
+\]
+\[
+  = \frac{1}{B} \sum_{j=1}^B \hat{\theta}^*_j - \bar{X}
+\]
+For meaningfully large \(B\) as \(B\) approaches positive infinity, we can simplify to 
+\[
+  = \frac{1}{B} \sum_{j=1}^B \bar{X}^* - \bar{X}
+\]
+\[
+  = E^*[\bar{X}^*] - \bar{X}
+\]
+\[
+  = \bar{X} - \bar{X}
+\]
+\[
+  \hat{\text{Bias}}_{\text{revised}}(\hat{\theta}) = 0
+\]
+as we hoped to show. \\ \\ \\ 
+Finally, we want to show that it is not necessarily the case that \(\hat{\text{Bias}}(\hat{\theta}) = 0\). Intuitively, this makes sense because for a normal finite \(B\), there will always be some random fluctuation that leads to variance wherein the bootstrap mean will not be equal to actual \(\bar{X}\), hence the bias will not necessarily be 0. We show this empirically with a simple example in R:
+\begin{spverbatim}
+> data = c(4, 8, 12, 16, 20)
+> B = 1000
+> 
+> bootstrap_means = rep(0, B)
+> for (i in 1:B) {
++   bootstrap_means[i] = mean(sample(data, length(data), replace = TRUE))
++ }
+> 
+> real_mean = mean(data)
+> bootstrap_mean = mean(bootstrap_means)
+> bias = bootstrap_mean - real_mean
+> 
+> print(paste("real_mean:", real_mean))
+[1] "real_mean: 12"
+> print(paste("bootstrap_mean:", bootstrap_mean))
+[1] "bootstrap_mean: 12.0224"
+> print(paste("bias:", bias))
+[1] "bias: 0.0223999999999993"
+\end{spverbatim}
+We can clearly see that the bias, although quite small, is nonzero.
 
 }
 
