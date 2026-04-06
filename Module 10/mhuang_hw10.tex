@@ -1,0 +1,356 @@
+\documentclass{article}
+\linespread{1.3}
+\usepackage[margin=50pt]{geometry}
+\usepackage{amsmath, amsthm, amssymb, amsthm, tikz, fancyhdr, float, graphicx, spverbatim, systeme}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\newcommand{\changefont}{\fontsize{15}{15}\selectfont}
+
+\fancypagestyle{firstpageheader}{
+  \fancyhead[R]{
+    \changefont
+    \parbox[t]{4cm}{ % Adjust width as needed
+      Michael Huang\\
+      EN.625.633.81\\
+      Homework 10
+    }
+  }
+}
+
+\begin{document}
+
+\thispagestyle{firstpageheader}
+{\Large 
+
+\section*{1.}
+
+We have the following data: 
+\begin{spverbatim}
+data = c(1, 2, 3.5, 4, 7.3, 8.6, 12.4, 13.8, 18.1)
+\end{spverbatim}
+
+\subsection*{(a)} 
+
+We use algorithm for calculating the bootstrap variance directly; for each bootstrap iteration: \\
+- Resample \(X\) with replacement to generate the bootstramp sample \\
+- Compute the trimmed mean based on the sample \\
+Finally, take the sample variance of all the bootstrap trimmed means.
+
+\begin{spverbatim}
+> data = c(1, 2, 3.5, 4, 7.3, 8.6, 12.4, 13.8, 18.1)
+> 
+> trimmed_mean = function(data) {
++   sorted = sort(data)
++   trimmed = sorted[3:(length(sorted) - 2)]
++   return(mean(trimmed))
++ }
+> 
+> bootstrap_var = function(data, B) {
++   trimmed_means = rep(0, B)
++   for (i in 1:B) {
++     x_star = sample(data, length(data), replace = TRUE)
++     trimmed_means[i] = trimmed_mean(x_star)
++   }
++   return(var(trimmed_means))
++ }
+> 
+> B_values = c(25, 100, 200, 500, 1000, 2000)
+> for (B in B_values) {
++   print(paste("B =", B))
++   print(bootstrap_var(data, B))
++ }
+[1] "B = 25"
+[1] 3.819356
+[1] "B = 100"
+[1] 6.256274
+[1] "B = 200"
+[1] 5.245836
+[1] "B = 500"
+[1] 5.104036
+[1] "B = 1000"
+[1] 5.835679
+[1] "B = 2000"
+[1] 6.07377
+\end{spverbatim}
+
+From these values, we see the bootstrapped variance seemingly converging over time to be about 6.
+
+\subsection*{(b)}
+
+\begin{spverbatim}
+> var_matrix = matrix(0, 10, length(B_values))
+> colnames(var_matrix) = paste("B =", B_values)
+> rownames(var_matrix) = paste("Seed:", 1:10)
+> 
+> for (seed in 1:10) {
++   set.seed(seed)
++   for (i in seq_along(B_values)) {
++     var_matrix[seed, i] = bootstrap_var(data, B_values[i])
++   }
++ }
+> 
+> print(var_matrix)
+           B = 25  B = 100  B = 200  B = 500 B = 1000 B = 2000
+Seed: 1  7.692591 5.757477 5.882572 5.439486 5.887858 5.738432
+Seed: 2  5.597464 5.942779 5.207258 5.964130 5.927652 5.828690
+Seed: 3  7.760063 5.743219 5.962934 5.179331 5.742400 5.575341
+Seed: 4  7.356543 5.200233 5.078323 6.461797 5.832083 5.729788
+Seed: 5  6.201857 5.897733 5.864792 5.581496 5.645491 5.861559
+Seed: 6  3.908644 6.184501 5.669486 5.607120 5.810382 5.787169
+Seed: 7  5.751484 4.902938 6.196312 5.674117 5.970202 6.142431
+Seed: 8  6.398837 4.684469 5.931928 6.011030 5.858387 5.592168
+Seed: 9  6.078629 5.305497 5.410795 5.938086 5.929707 5.898271
+Seed: 10 3.804436 5.775220 5.928629 5.691426 5.899181 5.593988
+\end{spverbatim}
+
+Looking across the values in the table, we see that most values seem to really converge around \(B = 1000\) and \(B = 2000\), so it seems that generally \(B = 1000\) would be a good threshold to provide satisfactory accuracy.
+
+}
+{\Large 
+
+\section*{2.}
+
+We are given 
+\begin{spverbatim}
+Survival = c(25, 42, 45, 46, 51, 103, 124, 146, 340, 396, 412, 879, 1112)
+\end{spverbatim}
+
+\subsection*{(a)} 
+
+\begin{spverbatim}
+> survival = c(25, 42, 45, 46, 51, 103, 124, 146, 340, 396, 412, 879, 1112)
+> 
+> B = 1000
+> 
+> log_survival = log(survival)
+> boot_means_log = rep(0, B)
+> 
+> for (i in 1:B) {
++   sample_log_survival = sample(log_survival, length(log_survival), replace = TRUE)
++   boot_means_log[i] = mean(sample_log_survival)
++ }
+> 
+> # Taking the 95% CI means 2.5% on either side
+> ci_log = quantile(boot_means_log, c(0.025, 0.975))
+> # Exponentiate after taking log
+> ci_original_scale = exp(ci_log)
+> 
+> print("95% CI for log/exponentiated bootstrap:")
+[1] "95% CI for log/exponentiated bootstrap:"
+> print(ci_original_scale)
+     2.5%     97.5% 
+ 74.85874 277.46767 
+\end{spverbatim}
+
+\subsection*{(b)}
+
+\begin{spverbatim}
+> boot_means_original = rep(0, B)
+> 
+> for (i in 1:B) {
++   sample_survival = sample(survival, length(survival), replace = TRUE)
++   boot_means_original[i] = mean(sample_survival)
++ }
+> 
+> ci_raw = quantile(boot_means_original, c(0.025, 0.975))
+> 
+> print("95% CI for original scale bootstrap:")
+[1] "95% CI for original scale bootstrap:"
+> print(ci_raw)
+    2.5%    97.5% 
+130.7442 485.9481 
+\end{spverbatim}
+
+Using the bootstrap on the logged data, the 95\% confidence interval for mean survival time was \([74.85874, 277.46767]\) compared to \([130.7442, 485.9481]\) using the normal data. We see that the logged data confidence interval has a much smaller range and is also lower. This suggests that it is more accurate for this dataset, which we note has a considerable right skew, with very few data points on the higher end compared to the lower end. So the logged approach seems to work better for data with the more extreme outliers and skewness. The transformation seems to work better compared to the simple arithmetic mean, which is likely more affected by the outlier points.
+
+}
+{\Large 
+
+\section*{3.}
+
+\subsection*{(a)} 
+
+We aim to find the maximum likelihood estimate of \(\theta\) given \(X_1, X_2, \dots, X_n \sim \text{Unif}(0, \theta)\). \\ \\
+To find the likelihood function, we first find the pdf, which we know to be \(f(x) = \frac{1}{\theta}\) for \(0 \leq x \leq \theta\) and 0 otherwise. As the likelihood function is the product of these densities:
+\[
+  L(\theta) = \prod_{i=1}^{n} \frac{1}{\theta} = \frac{1}{\theta^n}
+\]
+for all observations with \(x \leq \theta\). To maximize this likelihood, we need to make \(\theta\) as small as possible. However, given that we must have \(x \leq \theta\), we are restricted to having \(\theta \geq \max(X_1, X_2, \dots, X_n)\), so the minimum \(\theta\) we can get would literally just be \(\max(X_1, X_2, \dots, X_n)\), so \(\hat{\theta}_{MLE} = \max(X_1, X_2, \dots, X_n)\).
+
+\subsection*{(b)}
+
+\begin{spverbatim}
+> n = 100
+> B = 1000
+> theta = 10
+> data = runif(n, 0, theta)
+> theta_hat = max(data)
+> 
+> boot_max = rep(0, B)
+> for (i in 1:B) {
++   boot_sample = sample(data, n, replace = TRUE)
++   boot_max[i] = max(boot_sample)
++ }
+> 
+> print(paste("True theta:", theta))
+[1] "True theta: 10"
+> print(paste("MLE theta:", theta_hat))
+[1] "MLE theta: 9.98842839151621"
+> print(paste("Bootstrap max:", max(boot_max)))
+[1] "Bootstrap max: 9.98842839151621"
+> print(paste("Boostrap max variance:", var(boot_max)))
+[1] "Boostrap max variance: 0.00362464892384886"
+> print("Bootstrap max range:")
+[1] "Bootstrap max range:"
+> print(range(boot_max))
+[1] 9.408018 9.988428
+\end{spverbatim}
+We see that the range of the bootstrap is severely limited and biased and only drifts left. The fundamental issue with bootstrapping here is pretty intuitive: when we are sampling, the maximum value doesn't really change much when we sample from the distribution, with the maximum value never going above the actual maximum value, so we lose a lot of meaningful intended variation in the sampling process, which doesn't give us a great bootstrap result.
+
+}
+{\Large 
+
+\section*{4.}
+
+We aim to show that the probability that any particular value of \(x\) is in the bootstrap sample \(x^*\) \(k\) times is \(\binom{n}{k}(\frac{1}{n})^k(\frac{n-1}{n})^{n-k}\). \\ \\
+We know that each bootstrap sample draw draws \(n\) values with replacement from the original \(n\) observations, so effectively we have \(P(\text{draw } x_i) = \frac{1}{n}\), and conversely \(P(\text{not draw } x_i) = \frac{n-1}{n}\). In addition, we know that each draw is independent, as implied by the procedure of sampling with replacement. We could therefore model this probability of drawing \(x_i\) in the overall number of draws as essentially counting the number of successful draws of \(x_i\) in \(n\) independent trials, which is nothing but a binomial random variable. This takes the form
+\[
+  P(X = k) = \binom{n}{k}p^k(1-p)^{n-k}
+\]
+which, when substituting in for the probabilities of drawing \(x_i\) that we found above, gives us  
+\[
+  P(x \text{ appears } k \text{ times}) = \binom{n}{k}(\frac{1}{n})^k(\frac{n-1}{n})^{n-k}
+\]
+which is what we sought to show. Illustrating this programmatically, using a simple draw from 1-10:
+\begin{spverbatim}
+> n = 10
+> B = 1000
+> data = 1:n
+> target_value = 5
+> 
+> counts = rep(0, B)
+> for (i in 1:B) {
++   boot_sample = sample(data, length(data), replace = TRUE)
++   counts[i] = sum(boot_sample == target_value)
++ }
+> 
+> empirical_probabilities = table(factor(counts, levels = 0:10)) / B
+> theoretical_probabilities = dbinom(0:10, size = n, prob = 1/n)
+> 
+> probabilities_comparison = data.frame(
++   k = 0:10,
++   Empirical = as.numeric(empirical_probabilities),
++   Theoretical = round(theoretical_probabilities, 3)
++ )
+> print(comparison)
+    k Empirical Theoretical
+1   0     0.356       0.349
+2   1     0.368       0.387
+3   2     0.208       0.194
+4   3     0.059       0.057
+5   4     0.009       0.011
+6   5     0.000       0.001
+7   6     0.000       0.000
+8   7     0.000       0.000
+9   8     0.000       0.000
+10  9     0.000       0.000
+11 10     0.000       0.000
+\end{spverbatim}
+We see that the empirical values very closely match those from the theoretical probability distribution.
+
+}
+{\Large 
+
+\section*{5.}
+
+We aim to prove that that \(\text{Bias}_{\text{True}(\hat{\theta})} = 0\), \(\hat{\text{Bias}}_{\text{revised}}(\hat{\theta}) = 0\), and also show that it's not necessarily the case that \(\hat{\text{Bias}}(\hat{\theta}) = 0\). \\ \\
+Let's start with \(\text{Bias}_{\text{True}(\hat{\theta})} = 0\), or that the sample mean is an unbiased estimator of the true mean. By definition, we know that 
+\[
+  \text{Bias}_{\text{True}}(\hat{\theta}) = E[\hat{\theta}] - \theta
+\]
+\[
+  = E[\bar{X}] - \theta
+\]
+\[
+  = E(\frac{1}{n}\sum_{i=1}^n X_i) - \theta
+\]
+\[
+  = \frac{1}{n}\sum_{i=1}^n E[X_i] - \theta
+\]
+\[
+  = \frac{1}{n}\sum_{i=1}^n \mu - \theta
+\]
+\[
+  = \frac{1}{n} \cdot n \cdot \mu - \theta
+\]
+\[
+  = \mu - \theta
+\]
+and as \(\theta = \mu\) for real, we find that 
+\[
+  \text{Bias}_{\text{True}}(\hat{\theta}) = \mu - \mu = 0 
+\]
+exactly as we sought to find. \\ \\ \\
+Next, for \(\hat{\text{Bias}}_{\text{revised}}(\hat{\theta}) = 0\), we start with the definition that 
+\[
+  \hat{\text{Bias}}_{\text{revised}}(\hat{\theta}) = \hat{\theta}^*(\cdot) - \hat{\theta}_{\text{revised} \cdot}
+\]
+\[
+  = \hat{\theta}^*(\cdot) - g (\bar{P}^* x^T)
+\]
+For the sample mean, \(g(x) = \frac{1}{n} \sum_{i=1}^n x_i\). We also know that for the average frequency vector, \(\bar{P}^* = \frac{1}{B} \sum_{j=1}^{B} P^*j\). So we can determine that for meaningfully large \(B\), by the law of large numbers, as \(B\) approaches positive infinity, we have \(\bar{P}^* = (\frac{1}{n}, \frac{1}{n}, \dots, \frac{1}{n})\), as each value has an essentially equal probability of being drawn. Plugging this in:
+\[
+  = \hat{\theta}^*(\cdot) - g ((\frac{1}{n}, \frac{1}{n}, \dots, \frac{1}{n}) \cdot x^T)
+\]
+\[
+  = \hat{\theta}^*(\cdot) - (\frac{1}{n}x_1 + \frac{1}{n}x_2 + \dots + \frac{1}{n}x_n)
+\]
+\[
+  = \hat{\theta}^*(\cdot) - \frac{1}{n}\sum_{i=1}^{n} x_i
+\]
+\[
+  = \hat{\theta}^*(\cdot) - \bar{X}
+\]
+\[
+  = \frac{1}{B} \sum_{j=1}^B \hat{\theta}^*_j - \bar{X}
+\]
+For meaningfully large \(B\) as \(B\) approaches positive infinity, we can simplify to 
+\[
+  = \frac{1}{B} \sum_{j=1}^B \bar{X}^* - \bar{X}
+\]
+\[
+  = E^*[\bar{X}^*] - \bar{X}
+\]
+\[
+  = \bar{X} - \bar{X}
+\]
+\[
+  \hat{\text{Bias}}_{\text{revised}}(\hat{\theta}) = 0
+\]
+as we hoped to show. \\ \\ \\ 
+Finally, we want to show that it is not necessarily the case that \(\hat{\text{Bias}}(\hat{\theta}) = 0\). Intuitively, this makes sense because for a normal finite \(B\), there will always be some random fluctuation that leads to variance wherein the bootstrap mean will not be equal to actual \(\bar{X}\), hence the bias will not necessarily be 0. We show this empirically with a simple example in R:
+\begin{spverbatim}
+> data = c(4, 8, 12, 16, 20)
+> B = 1000
+> 
+> bootstrap_means = rep(0, B)
+> for (i in 1:B) {
++   bootstrap_means[i] = mean(sample(data, length(data), replace = TRUE))
++ }
+> 
+> real_mean = mean(data)
+> bootstrap_mean = mean(bootstrap_means)
+> bias = bootstrap_mean - real_mean
+> 
+> print(paste("real_mean:", real_mean))
+[1] "real_mean: 12"
+> print(paste("bootstrap_mean:", bootstrap_mean))
+[1] "bootstrap_mean: 12.0224"
+> print(paste("bias:", bias))
+[1] "bias: 0.0223999999999993"
+\end{spverbatim}
+We can clearly see that the bias, although quite small, is nonzero.
+
+}
+
+\end{document}
