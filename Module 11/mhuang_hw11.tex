@@ -37,13 +37,100 @@
 
 \section*{2.}
 
+We generate 100 independent samples, each of size \(n = 20\), from
+\(N(\theta, 1)\) with \(\theta = 1\). 
+
 \subsection*{(a)}
 
-
+For each sample, we need to compute the bootstrap and jackknife estimates for the variance \(\hat{\theta} = \bar{X}\), and then compute the mean and standard deviation of these variance estimates over the 100 samples. 
+\begin{spverbatim}
+> num_samples = 100
+> n = 20
+> B = 2500
+> theta = 1
+> 
+> bootstrap_variances_x = rep(0, num_samples)
+> jackknife_variances_x = rep(0, num_samples)
+> 
+> for (i in 1:num_samples) {
++   
++   x = rnorm(n, mean = theta, sd = 1)
++   theta_hat = mean(x)
++   
++   bootstrap_estimates = rep(0, B)
++   for (j in 1:B) {
++     bootstrap_sample = sample(x, n, replace = TRUE)
++     bootstrap_estimates[j] = mean(bootstrap_sample)
++   }
++   bootstrap_variances_x[i] = var(bootstrap_estimates)
++ 
++   jackknife_estimates = rep(0, n)
++   for (k in 1:n) {
++     jackknife_estimates[k] = mean(x[-k])
++   }
++   jackknife_variances_x[i] = (
++     (n - 1) / n) * 
++     sum(
++       (jackknife_estimates - mean(jackknife_estimates)
++     )^2
++   )
++ }
+> 
+> print(paste("Real variance of X:", 1/n))
+[1] "Real variance of X: 0.05"
+> print(paste("Bootstrap Mean for Variance of X:", mean(bootstrap_variances_x)))
+[1] "Bootstrap Mean for Variance of X: 0.0478879366818966"
+> print(paste("Bootstrap SD for Variance of :", sd(bootstrap_variances_x)))
+[1] "Bootstrap SD for Variance of X: 0.0156345979679424"
+> print(paste("Jackknife Mean for Variance of X:", mean(jackknife_variances_x)))
+[1] "Jackknife Mean for Variance of X: 0.0503804853588733"
+> print(paste("Jackknife SD for Variance of X:", sd(jackknife_variances_x)))
+[1] "Jackknife SD for Variance of X: 0.0163058104620382"
+\end{spverbatim}
 
 \subsection*{(b)}
 
+We do the same for \(\hat{\theta} = \bar{X}^2\):
+\begin{spverbatim}
+> bootstrap_variances_x2 = rep(0, num_samples)
+> jackknife_variances_x2 = rep(0, num_samples)
+> 
+> for (i in 1:num_samples) {
++   
++   x = rnorm(n, mean = theta, sd = 1)
++   theta_hat = mean(x)^2
++   
++   bootstrap_estimates = rep(0, B)
++   for (j in 1:B) {
++     bootstrap_sample = sample(x, n, replace = TRUE)
++     bootstrap_estimates[j] = mean(bootstrap_sample)^2
++   }
++   bootstrap_variances_x2[i] = var(bootstrap_estimates)
++   
++   jackknife_estimates = rep(0, n)
++   for (k in 1:n) {
++     jackknife_estimates[k] = mean(x[-k])^2
++   }
++   jackknife_variances_x2[i] = (
++     (n - 1) / n) * 
++     sum(
++       (jackknife_estimates - mean(jackknife_estimates)
++       )^2
++     )
++ }
+>   
+> print(paste("Real variance of X^2:", ((4 * n) + 2) / n^2))
+[1] "Real variance of X^2: 0.205"
+> print(paste("Bootstrap Mean for Variance of X^2:", mean(bootstrap_variances_x2)))
+[1] "Bootstrap Mean for Variance of X^2: 0.223126002866947"
+> print(paste("Bootstrap SD for Variance of X^2:", sd(bootstrap_variances_x2)))
+[1] "Bootstrap SD for Variance of X^2: 0.121789993657577"
+> print(paste("Jackknife Mean for Variance of X^2:", mean(jackknife_variances_x2)))
+[1] "Jackknife Mean for Variance of X^2: 0.229059258981623"
+> print(paste("Jackknife SD for Variance of X^2:", sd(jackknife_variances_x2)))
+[1] "Jackknife SD for Variance of X^2: 0.128986706299355"\end{spverbatim}
 
+Both of the methods are pretty accurate for \(\hat{\theta} = \bar{X}\), with the mean for the variance for both the bootstrap and jackknife methods being very close to the actual variance value, and the standard deviations also being almost equal and still very low. For \(\hat{\theta} = \bar{X}^2\), however, the means for the variance of the value become a little more off, with the jackknife being a bit worse than the bootstrap. We also see that the standard deviations are much higher than with \(\bar{X}\). We can infer this as being since \(\bar{X}^2\) is nonlinear, so the estimates both become worse overall. The jackknife in particular likely does worse than the bootstrap because of the leave-one-out methodology's struggle with the quickly changing and less smooth statistics.
 
 }
 {\Large 
