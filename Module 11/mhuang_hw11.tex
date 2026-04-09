@@ -24,13 +24,49 @@
 
 \section*{1.}
 
+We are given 40 annual counts, in thousands, of recruits \(R\) and spawners \(S\) in a salmon population. We are given The Beverton-Holt model for this relationship: 
+\[
+  R = \frac{1}{\beta_1 + \beta_2 / S}
+\]
+
+To find the stable population level, we substitute \(R = S\):
+\[
+  S = \frac{1}{\beta_1 + \beta_2 / S}
+\]
+\[
+  S(\beta_1 + \beta_2 / S) = 1
+\]
+\[
+  \beta_1S + \beta_2 = 1
+\]
+\[
+  \beta_1S = 1 - \beta_2
+\]
+\[
+  S = \frac{1 - \beta_2}{\beta_1}
+\]
+
 \subsection*{(a)}
 
+We aim to use the bootstrap to obtain the 95\% CI interval and standard error / estimated variance for the estimate, from two methods: \\
+- Bootstrapping the residuals, i.e. resample only the residuals \\
+- Bootstrapping the cases, i.e. resample entire pairs of \(S, R\) values \\
+To bootstrap, we must linearize the model, since it's currently not in a linear form: 
+\[
+  R = \frac{1}{\beta_1 + \beta_2 / S}
+\]
+\[
+  \frac{1}{R} = \beta_1 + {\beta_2}{S} = \beta_1 + \beta_2 \cdot \frac{1}{S} 
+\]
+which is in linear form now, so we take the bootstrap based on this regression that has resulted from transforming the variables into \(\frac{1}{R}\) and \(\frac{1}{S}\).
+\begin{spverbatim}
+
+\end{spverbatim}
 
 
 \subsection*{(b)}
 
-
+To evaluate if there is any bias in the estimate, 
 
 }
 {\Large 
