@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  8 APR 2026 22:39
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  11 APR 2026 17:39
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -457,10 +457,20 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 27.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
+Overfull \hbox (34.04414pt too wide) in paragraph at lines 143--143
+[]\OT1/cmtt/m/n/14.4 >[] R[] =[] c(68,[] 77,[] 299,[] 220,[] 142,[] 287,[] 276,[] 115,[] 64,[] 206,[] 222,[] 205,[] 233,[] 228,[] 
+ []
+
+
+Overfull \hbox (11.81418pt too wide) in paragraph at lines 143--143
+[]\OT1/cmtt/m/n/14.4 +[] [] [] [] [] [] [] 188,[] 132,[] 285,[] 188,[] 224,[] 121,[] 311,[] 166,[] 248,[] 161,[] 226,[] 67,[] 201,[]
+ []
+
+
 
 
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <15> not available
-(Font)              size <14.4> substituted on input line 79.
+(Font)              size <14.4> substituted on input line 143.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -472,161 +482,193 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [1{/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 ]
+Overfull \hbox (11.81418pt too wide) in paragraph at lines 143--143
+[]\OT1/cmtt/m/n/14.4 +[] [] [] [] [] [] [] 266,[] 256,[] 144,[] 447,[] 186,[] 389,[] 113,[] 412,[] 176,[] 313,[] 162,[] 368,[] 54,[] 
+ []
+
+
+Overfull \hbox (19.22417pt too wide) in paragraph at lines 143--143
+[]\OT1/cmtt/m/n/14.4 +[] [] [] [] [] [] [] 214,[] 429,[] 115,[] 407,[] 265,[] 301,[] 234,[] 229,[] 270,[] 478,[] 419,[] 490,[] 430,[]
+ []
+
+
 
 [2]
-Overfull \hbox (78.50407pt too wide) in paragraph at lines 125--125
-[]\OT1/cmtt/m/n/14.4 >[] print(paste("Bootstrap[] Mean[] for[] Variance[] of[] X:",[] mean(bootstrap_variances_x)))[] 
- []
-
-
-Overfull \hbox (41.45413pt too wide) in paragraph at lines 125--125
-[]\OT1/cmtt/m/n/14.4 >[] print(paste("Bootstrap[] SD[] for[] Variance[] of[] :",[] sd(bootstrap_variances_x)))[] 
- []
-
-
-Overfull \hbox (78.50407pt too wide) in paragraph at lines 125--125
-[]\OT1/cmtt/m/n/14.4 >[] print(paste("Jackknife[] Mean[] for[] Variance[] of[] X:",[] mean(jackknife_variances_x)))[] 
- []
-
-
-Overfull \hbox (48.86412pt too wide) in paragraph at lines 125--125
-[]\OT1/cmtt/m/n/14.4 >[] print(paste("Jackknife[] SD[] for[] Variance[] of[] X:",[] sd(jackknife_variances_x)))[] 
+Overfull \hbox (11.81418pt too wide) in paragraph at lines 143--143
+[]\OT1/cmtt/m/n/14.4 +[] [] [] altered_response[] =[] resampled_residuals[] +[] predict(salmon_regression)[] 
  []
 
 
 
 [3]
-Overfull \hbox (100.73404pt too wide) in paragraph at lines 167--167
-[]\OT1/cmtt/m/n/14.4 >[] print(paste("Bootstrap[] Mean[] for[] Variance[] of[] X^2:",[] mean(bootstrap_variances_x2)))[] 
- []
-
-
-Overfull \hbox (71.09409pt too wide) in paragraph at lines 167--167
-[]\OT1/cmtt/m/n/14.4 >[] print(paste("Bootstrap[] SD[] for[] Variance[] of[] X^2:",[] sd(bootstrap_variances_x2)))[] 
- []
-
-
-Overfull \hbox (100.73404pt too wide) in paragraph at lines 167--167
-[]\OT1/cmtt/m/n/14.4 >[] print(paste("Jackknife[] Mean[] for[] Variance[] of[] X^2:",[] mean(jackknife_variances_x2)))[] 
- []
-
-
-Overfull \hbox (71.09409pt too wide) in paragraph at lines 167--167
-[]\OT1/cmtt/m/n/14.4 >[] print(paste("Jackknife[] SD[] for[] Variance[] of[] X^2:",[] sd(jackknife_variances_x2)))[] 
- []
-
+<problem_1_histogram.png, id=22, 1461.46pt x 1065.9825pt>
+File: problem_1_histogram.png Graphic file (type png)
+<use problem_1_histogram.png>
+Package pdftex.def Info: problem_1_histogram.png  used on input line 146.
+(pdftex.def)             Requested size: 514.295pt x 375.1164pt.
 
 
 [4]
-Underfull \hbox (badness 10000) in paragraph at lines 176--182
 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 176--182
-
- []
-
-
-
-[5]
-Overfull \hbox (71.09409pt too wide) in paragraph at lines 338--338
-[]\OT1/cmtt/m/n/14.4 >[] #[] For[] calculated[] CI,[] use[] Welch's[] t-test[] which[] does[] not[] assume[] equal[] variances[] 
- []
-
-
-Overfull \hbox (41.45413pt too wide) in paragraph at lines 338--338
-[]\OT1/cmtt/m/n/14.4 +[] [] [] bootstrap_ci[] =[] quantile(bootstrap_differences,[] probs[] =[] c(0.025,[] 0.975))[] 
- []
-
-
-Overfull \hbox (63.6841pt too wide) in paragraph at lines 338--338
-[]\OT1/cmtt/m/n/14.4 >[] bootstrap_results[] =[] data.frame(B[] =[] integer(),[] ci_lower[] =[] numeric(),[] ci_upper[]
- []
-
-
+[5 <./problem_1_histogram.png>]
 
 [6]
-Overfull \hbox (19.22417pt too wide) in paragraph at lines 338--338
-[]\OT1/cmtt/m/n/14.4 >[] sprintf("Calculated[] CI:[] [%f,[] %f]",[] calculated_ci[1],[] calculated_ci[2])[] 
+Overfull \hbox (78.50407pt too wide) in paragraph at lines 221--221
+[]\OT1/cmtt/m/n/14.4 >[] print(paste("Bootstrap[] Mean[] for[] Variance[] of[] X:",[] mean(bootstrap_variances_x)))[] 
  []
 
 
 
 [7]
-Overfull \hbox (78.50407pt too wide) in paragraph at lines 338--338
-[]\OT1/cmtt/m/n/14.4 +[] [] [] [] [] [] ylim[] =[] range(c(bootstrap_results$lower_mean[] -[] bootstrap_results$lower_sd,[] 
+Overfull \hbox (41.45413pt too wide) in paragraph at lines 221--221
+[]\OT1/cmtt/m/n/14.4 >[] print(paste("Bootstrap[] SD[] for[] Variance[] of[] :",[] sd(bootstrap_variances_x)))[] 
  []
 
 
-Overfull \hbox (93.32405pt too wide) in paragraph at lines 338--338
-[]\OT1/cmtt/m/n/14.4 +[] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] bootstrap_results$lower_mean[] +[] bootstrap_results$lower_sd)),[] 
+Overfull \hbox (78.50407pt too wide) in paragraph at lines 221--221
+[]\OT1/cmtt/m/n/14.4 >[] print(paste("Jackknife[] Mean[] for[] Variance[] of[] X:",[] mean(jackknife_variances_x)))[] 
  []
 
 
-Overfull \hbox (78.50407pt too wide) in paragraph at lines 338--338
-[]\OT1/cmtt/m/n/14.4 +[] [] [] [] [] [] ylim[] =[] range(c(bootstrap_results$lower_mean[] -[] bootstrap_results$lower_sd,[] 
- []
-
-
-Overfull \hbox (93.32405pt too wide) in paragraph at lines 338--338
-[]\OT1/cmtt/m/n/14.4 +[] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] bootstrap_results$lower_mean[] +[] bootstrap_results$lower_sd)),[] 
+Overfull \hbox (48.86412pt too wide) in paragraph at lines 221--221
+[]\OT1/cmtt/m/n/14.4 >[] print(paste("Jackknife[] SD[] for[] Variance[] of[] X:",[] sd(jackknife_variances_x)))[] 
  []
 
 
 
 [8]
-Overfull \hbox (78.50407pt too wide) in paragraph at lines 338--338
-[]\OT1/cmtt/m/n/14.4 +[] [] [] [] [] [] ylim[] =[] range(c(bootstrap_results$upper_mean[] -[] bootstrap_results$upper_sd,[] 
+Overfull \hbox (100.73404pt too wide) in paragraph at lines 263--263
+[]\OT1/cmtt/m/n/14.4 >[] print(paste("Bootstrap[] Mean[] for[] Variance[] of[] X^2:",[] mean(bootstrap_variances_x2)))[] 
  []
 
 
-Overfull \hbox (93.32405pt too wide) in paragraph at lines 338--338
-[]\OT1/cmtt/m/n/14.4 +[] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] bootstrap_results$upper_mean[] +[] bootstrap_results$upper_sd)),[] 
+Overfull \hbox (71.09409pt too wide) in paragraph at lines 263--263
+[]\OT1/cmtt/m/n/14.4 >[] print(paste("Bootstrap[] SD[] for[] Variance[] of[] X^2:",[] sd(bootstrap_variances_x2)))[] 
+ []
+
+
+Overfull \hbox (100.73404pt too wide) in paragraph at lines 263--263
+[]\OT1/cmtt/m/n/14.4 >[] print(paste("Jackknife[] Mean[] for[] Variance[] of[] X^2:",[] mean(jackknife_variances_x2)))[] 
+ []
+
+
+Overfull \hbox (71.09409pt too wide) in paragraph at lines 263--263
+[]\OT1/cmtt/m/n/14.4 >[] print(paste("Jackknife[] SD[] for[] Variance[] of[] X^2:",[] sd(jackknife_variances_x2)))[] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 272--278
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 272--278
+
  []
 
 
 
 [9]
-Overfull \hbox (78.50407pt too wide) in paragraph at lines 338--338
+Overfull \hbox (71.09409pt too wide) in paragraph at lines 434--434
+[]\OT1/cmtt/m/n/14.4 >[] #[] For[] calculated[] CI,[] use[] Welch's[] t-test[] which[] does[] not[] assume[] equal[] variances[] 
+ []
+
+
+
+[10]
+Overfull \hbox (41.45413pt too wide) in paragraph at lines 434--434
+[]\OT1/cmtt/m/n/14.4 +[] [] [] bootstrap_ci[] =[] quantile(bootstrap_differences,[] probs[] =[] c(0.025,[] 0.975))[] 
+ []
+
+
+Overfull \hbox (63.6841pt too wide) in paragraph at lines 434--434
+[]\OT1/cmtt/m/n/14.4 >[] bootstrap_results[] =[] data.frame(B[] =[] integer(),[] ci_lower[] =[] numeric(),[] ci_upper[]
+ []
+
+
+
+[11]
+Overfull \hbox (19.22417pt too wide) in paragraph at lines 434--434
+[]\OT1/cmtt/m/n/14.4 >[] sprintf("Calculated[] CI:[] [%f,[] %f]",[] calculated_ci[1],[] calculated_ci[2])[] 
+ []
+
+
+Overfull \hbox (78.50407pt too wide) in paragraph at lines 434--434
+[]\OT1/cmtt/m/n/14.4 +[] [] [] [] [] [] ylim[] =[] range(c(bootstrap_results$lower_mean[] -[] bootstrap_results$lower_sd,[] 
+ []
+
+
+Overfull \hbox (93.32405pt too wide) in paragraph at lines 434--434
+[]\OT1/cmtt/m/n/14.4 +[] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] bootstrap_results$lower_mean[] +[] bootstrap_results$lower_sd)),[] 
+ []
+
+
+
+[12]
+Overfull \hbox (78.50407pt too wide) in paragraph at lines 434--434
+[]\OT1/cmtt/m/n/14.4 +[] [] [] [] [] [] ylim[] =[] range(c(bootstrap_results$lower_mean[] -[] bootstrap_results$lower_sd,[] 
+ []
+
+
+Overfull \hbox (93.32405pt too wide) in paragraph at lines 434--434
+[]\OT1/cmtt/m/n/14.4 +[] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] bootstrap_results$lower_mean[] +[] bootstrap_results$lower_sd)),[] 
+ []
+
+
+
+[13]
+Overfull \hbox (78.50407pt too wide) in paragraph at lines 434--434
 []\OT1/cmtt/m/n/14.4 +[] [] [] [] [] [] ylim[] =[] range(c(bootstrap_results$upper_mean[] -[] bootstrap_results$upper_sd,[] 
  []
 
 
-Overfull \hbox (93.32405pt too wide) in paragraph at lines 338--338
+Overfull \hbox (93.32405pt too wide) in paragraph at lines 434--434
 []\OT1/cmtt/m/n/14.4 +[] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] bootstrap_results$upper_mean[] +[] bootstrap_results$upper_sd)),[] 
  []
 
-<problem_3_ci_lower_mean.png, id=41, 1075.01625pt x 560.0925pt>
+
+Overfull \hbox (78.50407pt too wide) in paragraph at lines 434--434
+[]\OT1/cmtt/m/n/14.4 +[] [] [] [] [] [] ylim[] =[] range(c(bootstrap_results$upper_mean[] -[] bootstrap_results$upper_sd,[] 
+ []
+
+
+Overfull \hbox (93.32405pt too wide) in paragraph at lines 434--434
+[]\OT1/cmtt/m/n/14.4 +[] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] bootstrap_results$upper_mean[] +[] bootstrap_results$upper_sd)),[] 
+ []
+
+
+
+[14]
+<problem_3_ci_lower_mean.png, id=60, 1075.01625pt x 560.0925pt>
 File: problem_3_ci_lower_mean.png Graphic file (type png)
 <use problem_3_ci_lower_mean.png>
-Package pdftex.def Info: problem_3_ci_lower_mean.png  used on input line 341.
+Package pdftex.def Info: problem_3_ci_lower_mean.png  used on input line 437.
 (pdftex.def)             Requested size: 514.295pt x 267.95253pt.
-<problem_3_ci_lower_sd.png, id=43, 1075.01625pt x 560.0925pt>
+<problem_3_ci_lower_sd.png, id=61, 1075.01625pt x 560.0925pt>
 File: problem_3_ci_lower_sd.png Graphic file (type png)
 <use problem_3_ci_lower_sd.png>
-Package pdftex.def Info: problem_3_ci_lower_sd.png  used on input line 345.
+Package pdftex.def Info: problem_3_ci_lower_sd.png  used on input line 441.
 (pdftex.def)             Requested size: 514.295pt x 267.95253pt.
 
 
-[10]
-<problem_3_ci_upper_mean.png, id=47, 1075.01625pt x 560.0925pt>
+[15]
+<problem_3_ci_upper_mean.png, id=65, 1075.01625pt x 560.0925pt>
 File: problem_3_ci_upper_mean.png Graphic file (type png)
 <use problem_3_ci_upper_mean.png>
-Package pdftex.def Info: problem_3_ci_upper_mean.png  used on input line 349.
+Package pdftex.def Info: problem_3_ci_upper_mean.png  used on input line 445.
 (pdftex.def)             Requested size: 514.295pt x 267.95253pt.
-<problem_3_ci_upper_sd.png, id=48, 1075.01625pt x 560.0925pt>
+<problem_3_ci_upper_sd.png, id=66, 1075.01625pt x 560.0925pt>
 File: problem_3_ci_upper_sd.png Graphic file (type png)
 <use problem_3_ci_upper_sd.png>
-Package pdftex.def Info: problem_3_ci_upper_sd.png  used on input line 353.
+Package pdftex.def Info: problem_3_ci_upper_sd.png  used on input line 449.
 (pdftex.def)             Requested size: 514.295pt x 267.95253pt.
 
 
-[11 <./problem_3_ci_lower_mean.png> <./problem_3_ci_lower_sd.png>]
+[16 <./problem_3_ci_lower_mean.png> <./problem_3_ci_lower_sd.png>]
 
-[12 <./problem_3_ci_upper_mean.png> <./problem_3_ci_upper_sd.png>]
+[17 <./problem_3_ci_upper_mean.png> <./problem_3_ci_upper_sd.png>]
 
-[13] (./mhuang_hw11.aux)
+[18] (./mhuang_hw11.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
@@ -638,18 +680,18 @@ LaTeX Font Warning: Size substitutions with differences
 
  ) 
 Here is how much of TeX's memory you used:
- 14530 strings out of 473190
- 288052 string characters out of 5715801
- 665434 words of memory out of 5000000
- 37540 multiletter control sequences out of 15000+600000
+ 14537 strings out of 473190
+ 288261 string characters out of 5715801
+ 666434 words of memory out of 5000000
+ 37547 multiletter control sequences out of 15000+600000
  562870 words of font info for 52 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 102i,13n,107p,1100b,544s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 102i,13n,107p,1227b,656s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on mhuang_hw11.pdf (13 pages, 239782 bytes).
+Output written on mhuang_hw11.pdf (18 pages, 298693 bytes).
 PDF statistics:
- 94 PDF objects out of 1000 (max. 8388607)
- 56 compressed objects within 1 object stream
+ 111 PDF objects out of 1000 (max. 8388607)
+ 66 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 33 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 38 words of extra memory for PDF output out of 10000 (max. 10000000)
 
