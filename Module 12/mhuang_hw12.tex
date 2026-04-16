@@ -48,9 +48,129 @@ asdf
 
 \section*{3.}
 
+The approximation given in (5.4) of the paper is 
+\[
+  \log{e^{\text{strong}}_{\Delta t}} \approx \log{C} + \frac{1}{2} \log{\Delta t}
+\]
+so we try to illustrate this by plotting the resulting graph of average error vs. \(\Delta t\) on a log scale, where we should see an approximately straight line with a slope of \(\frac{1}{2}\). We modify the function slightly to return \(averageFinalDifference\), and then run accordingly and graph the results:
 \begin{spverbatim}
-asdf
+> T_values = c(0.25, 0.5, 1, 2, 5, 10)
+> N_values = 2^(2:10)
+> # Same as paper
+> lambda = 2
+> mu = 1
+> nmbSimulations = 1000
+> 
+> for (T in T_values) {
++   deltat_values = as.numeric(list())
++   error_values = as.numeric(list())
++   
++   for (N in N_values) {
++     sprintf("running for T = %f, N = %d...", T, N)
++     
++     deltat_values = append(deltat_values, T / N)
++     error_values = append(error_values, abs(blackScholesConvergence(T, N, lambda, mu, nmbSimulations)))
++   }
++   
++   plot(
++     deltat_values,
++     error_values,
++     log = "xy",
++     xlab = "Delta T Values",
++     ylab = "Error Values",
++     main = sprintf("Delta T Values vs Error Values on Log Scale with T = %f", T)
++   )
++   
++   # Reference line with exact slope as 1/2 fitted to similar offset
++   ref_C = exp(mean(log(error_values)) - 0.5 * mean(log(deltat_values)))
++   y = ref_C * sqrt(deltat_values)
++   lines(
++     deltat_values,
++     y,
++     type="l",
++     col = "red",
++   )
++ }
+[1] "average deviation =  0.0492247166559775 , and the delta t =  0.0625"
+[1] "average deviation =  0.024091028137924 , and the delta t =  0.03125"
+[1] "average deviation =  0.0137789607057976 , and the delta t =  0.015625"
+[1] "average deviation =  0.00560154546568383 , and the delta t =  0.0078125"
+[1] "average deviation =  0.00461061928605198 , and the delta t =  0.00390625"
+[1] "average deviation =  0.00194927934579275 , and the delta t =  0.001953125"
+[1] "average deviation =  0.000323983109936274 , and the delta t =  0.0009765625"
+[1] "average deviation =  0.00126783021087313 , and the delta t =  0.00048828125"
+[1] "average deviation =  0.000250399393489314 , and the delta t =  0.000244140625"
+[1] "average deviation =  0.31711713984836 , and the delta t =  0.125"
+[1] "average deviation =  0.132171536010918 , and the delta t =  0.0625"
+[1] "average deviation =  0.0743188255687851 , and the delta t =  0.03125"
+[1] "average deviation =  0.051269002108907 , and the delta t =  0.015625"
+[1] "average deviation =  0.0197699304179946 , and the delta t =  0.0078125"
+[1] "average deviation =  0.0150187575230333 , and the delta t =  0.00390625"
+[1] "average deviation =  0.00449707590957639 , and the delta t =  0.001953125"
+[1] "average deviation =  0.00146653530308295 , and the delta t =  0.0009765625"
+[1] "average deviation =  0.000595854856125777 , and the delta t =  0.00048828125"
+[1] "average deviation =  2.2471645677081 , and the delta t =  0.25"
+[1] "average deviation =  1.20059710406355 , and the delta t =  0.125"
+[1] "average deviation =  0.887552190793862 , and the delta t =  0.0625"
+[1] "average deviation =  0.348304934738151 , and the delta t =  0.03125"
+[1] "average deviation =  0.182839774132024 , and the delta t =  0.015625"
+[1] "average deviation =  0.0797147803555463 , and the delta t =  0.0078125"
+[1] "average deviation =  0.0365496282298914 , and the delta t =  0.00390625"
+[1] "average deviation =  0.0201513669795156 , and the delta t =  0.001953125"
+[1] "average deviation =  0.00747017151247117 , and the delta t =  0.0009765625"
+[1] "average deviation =  38.3860350148055 , and the delta t =  0.5"
+[1] "average deviation =  31.8416907859503 , and the delta t =  0.25"
+[1] "average deviation =  21.4146284433919 , and the delta t =  0.125"
+[1] "average deviation =  14.7718342858946 , and the delta t =  0.0625"
+[1] "average deviation =  5.56539348123626 , and the delta t =  0.03125"
+[1] "average deviation =  3.41716607124377 , and the delta t =  0.015625"
+[1] "average deviation =  1.41197509467434 , and the delta t =  0.0078125"
+[1] "average deviation =  1.2757240639073 , and the delta t =  0.00390625"
+[1] "average deviation =  0.24428420763604 , and the delta t =  0.001953125"
+[1] "average deviation =  15597.69661595 , and the delta t =  1.25"
+[1] "average deviation =  15255.3191487282 , and the delta t =  0.625"
+[1] "average deviation =  20462.1594433599 , and the delta t =  0.3125"
+[1] "average deviation =  20943.8653605296 , and the delta t =  0.15625"
+[1] "average deviation =  9256.47853698749 , and the delta t =  0.078125"
+[1] "average deviation =  5654.01247705172 , and the delta t =  0.0390625"
+[1] "average deviation =  2366.18215557262 , and the delta t =  0.01953125"
+[1] "average deviation =  2552.93685449814 , and the delta t =  0.009765625"
+[1] "average deviation =  788.906730669276 , and the delta t =  0.0048828125"
+[1] "average deviation =  287769024.071099 , and the delta t =  2.5"
+[1] "average deviation =  513211342.45659 , and the delta t =  1.25"
+[1] "average deviation =  362676431.210016 , and the delta t =  0.625"
+[1] "average deviation =  364272514.331549 , and the delta t =  0.3125"
+[1] "average deviation =  265851877.484744 , and the delta t =  0.15625"
+[1] "average deviation =  229631572.665997 , and the delta t =  0.078125"
+[1] "average deviation =  161346784.854953 , and the delta t =  0.0390625"
+[1] "average deviation =  254194191.496466 , and the delta t =  0.01953125"
+[1] "average deviation =  36543557.0686745 , and the delta t =  0.009765625"
 \end{spverbatim}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{problem_3_graph_t_025.png}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{problem_3_graph_t_05.png}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{problem_3_graph_t_1.png}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{problem_3_graph_t_2.png}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{problem_3_graph_t_5.png}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{problem_3_graph_t_10.png}
+\end{figure}
+We plotted the adjusted lines with slope of \(\frac{1}{2}\) and we do see that generally, the results do follow the approximation given in the paper. At \(T=10\), we begin to falter a bit more, but it is pretty close for all the other values for \(T\).
 
 }
 
