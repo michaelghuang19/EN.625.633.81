@@ -12,7 +12,7 @@
     \parbox[t]{4cm}{ % Adjust width as needed
       Michael Huang\\
       EN.625.633.81\\
-      Homework N
+      Exam 2
     }
   }
 }
@@ -72,7 +72,19 @@
 
 \section*{7.}
 
-
+Given the stochastic differential equation
+\[
+  dX(t) = f[X(t)]dt + g[X(t)]dW(t)
+\]
+The Euler-Maruyama solution to the equation is to set up the discretization as follows: \\ \\ 
+- With \(dW_k \sim N(0, \text{Var} = \delta t)\), set up \(W_0 = 0\), \(\delta t = T / N\), \(W_{k+1} = W_k + dW_k\).
+- Then, generate the corresponding values \(X_j\) as follows:
+\[
+  X_j = X_{j-1} + f(X_{j-1})\delta t + g(X_{j-1})dW_k
+\]
+Dear Dr. Botts, I'm glad that you're continuing your journey in statistics. To help out with this question in particular, we are solving the SDE which represents the change over time of a specific value that we are trying to measure, for example the temperature of a city over time. In the given SDE, we have a more predictable component (the \(f\)) and a more random noise-like component (the \(g\)). For example, we have more predictable components around the seasonality and how we'd expect the temperature to trend as we tilt away/towards the sun, but there is some randomness within the environment that we can't precisely account for/measure (think random bouts of pressure, man-made factors, COVID, natural disasters). \\ \\
+Calculating this temperature value over time becomes extremely difficult to model neatly in a simple one-line equation of any form, so we instead use this numerical method called the Euler-Maruyama method which methodically steps through the overall time interval for which we are observing temperature values, chopping this time interval into many different subsections. We represent the width of each time interval in the equation as \(\delta t = T / N\). At each subsection between times \(j-1\) and \(j\), we take the value of the predictable component \(f\) at \(j-1\), i.e. the beginning of the time subsection. We do the same for the random noise function \(g\), but multiply this by a randomly drawn value from a bell curve / normal distribution to represent a randomized added amount of noise. These represent the 2nd and 3rd terms in the equation. We then add both of those values to the final value at the previous time, which is the 1st term in the equation. \\ \\
+To make this concrete, we go through each time window; at each time window we would predict the next time window's temperature by summing up the following: the previous time window's temperature, the expected/predictable temperature change based on the seasonality at that given time proportionalized to the width of the time window we are evaluating at, and then the random noise function multiplied by some randomly drawn value from a bell curve / normal distribution. Given that we can't do the actual calculus needed which is very difficult to solve and essentially impossible to directly evaluate in one simple equation, the Euler-Maruyama method "makes sense" because the method faithfully represents the SDE by adding up the constant change and randomized noise at each step proportionalized to each time window size. 
 
 }
 
