@@ -1,0 +1,335 @@
+\documentclass{article}
+\linespread{1.3}
+\usepackage[margin=50pt]{geometry}
+\usepackage{amsmath, amsthm, amssymb, amsthm, tikz, fancyhdr, float, graphicx, spverbatim, systeme}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\newcommand{\changefont}{\fontsize{15}{15}\selectfont}
+
+\fancypagestyle{firstpageheader}{
+  \fancyhead[R]{
+    \changefont
+    \parbox[t]{4cm}{ % Adjust width as needed
+      Michael Huang\\
+      EN.625.633.81\\
+      Homework 12
+    }
+  }
+}
+
+\begin{document}
+
+\thispagestyle{firstpageheader}
+{\Large 
+
+\section*{1.}
+
+We are given the stochastic differential equation for the Ornstein-Uhlenbrek process:
+\[
+  dX(t) = \theta (\mu - X(t))dt + \sigma dW(t)
+\]
+with the analytical solution as 
+\[
+  X(t) = X(0)e^{-\theta t} + \mu(1 - e^{-\theta t}) + \int_{0}^{t} \sigma e^{\theta (s - t)} dW(s)
+\]
+with convenient parameters as \(\theta = 1, \mu = 20, \sigma = 10\). We aim to compare this with the solution found using the Euler-Maruyama approximation. Let's simulate and compare:
+\begin{spverbatim}
+> T = 1
+> N = 1000
+> theta = 1
+> mu = 20
+> sigma = 10
+> 
+> ornstein_uhlenbrek = function(T, N, theta, mu, sigma) {
++   
++   # loop over time steps
++   dT = T / N
++   timeIncrements = seq(0, T, dT)
++   W_vec = rep(0, N+1)
++   Xt = rep(0, N+1)
++   X0 = 1
++   Xt[1] = X0
++   EM_soln = rep(0, N+1)
++   EM_soln[1] = X0
++   stochastic_integral = 0
++   
++   for (j in 1:N) {
++     dW = rnorm(1, mean = 0, sd = sqrt(dT))
++     W_vec[j+1] = W_vec[j] + dW
++     
++     # EM approximation for OU process
++     EM = EM_soln[j] + theta * (mu - EM_soln[j]) * dT + sigma * dW
++     EM_soln[j+1] = EM
++     
++     # Calculate exact solution;
++     # Taking the full stochastic integral
++     s = timeIncrements[j]
++     t = timeIncrements[j+1]
++     stochastic_integral = stochastic_integral + sigma * exp(theta * s) * dW
++     
++     constant_part = X0 * exp(-theta * t) + mu * (1 - exp(-theta * t))
++     
++     Xt[j+1] = constant_part + stochastic_integral * exp(-theta * t)
++   }
++   
++   # Plot results
++   par(mfrow = c(2,1));
++   plot(timeIncrements, Xt);
++   plot(timeIncrements, EM_soln);
++ }
+> 
+> ornstein_uhlenbrek(T, N, theta, mu, sigma)
+\end{spverbatim}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{problem_1_comparison.png}
+\end{figure}
+We see that the comparison shows that the Euler-Maruyama approximation works very well here and basically exactly matches the actual exact solution.
+
+}
+{\Large 
+
+\section*{2.}
+
+We aim to illustrate through R the difference between the Ito ingeral and the Stratonovich integral; i.e. find some value of \(h(t)\) and simulated process \(W(t)\) so that calculating the integral \(\int_{0}^{T} h(t) dW(t)\) is considerably different for the two calculations. \\ \\
+As explained in the module, the core difference between the Ito and Stratonovich is that we evaluate \(W\) at the left endpoint compared to the middle point of each interval when integrating. We can use the same example provided, i.e. setting \(h(t) = W(t)\). We know that the resulting integrals are \(\frac{1}{2}W(T)^2 - \frac{1}{2}T\) and \(\frac{1}{2}W(T)^2\) respectively, so theoretically we expect a difference of \(\frac{1}{2}T\) between the values, which is quite large as a term. Performing the simulation:
+\begin{spverbatim}
+> T_values = c(0.5, 1, 5)
+> N = 1000
+> nmbSimulations = 1000
+> 
+> ito_strat_comparison = function(T, N, nmbSimulations) {
++   
++   ito_integrals = rep(0, nmbSimulations)
++   strat_integrals = rep(0, nmbSimulations)
++   W_final_squared = rep(0, nmbSimulations)
++   
++   for (iSim in 1:nmbSimulations) {
++     dT = T / N
++     timeIncrements = seq(0, T, dT)
++     
++     # Initialize Brownian motion
++     W_values = rep(0, N+1)
++     W_values[1] = 0
++     
++     # Generate Brownian motion path
++     for (j in 1:N) {
++       dW = rnorm(1, 0, sqrt(dT))
++       W_values[j+1] = W_values[j] + dW
++     }
++     
++     ito_integral = 0
++     strat_integral = 0
++     for (j in 1:N) {
++       # Ito integral (just left endpoint)
++       dW = W_values[j+1] - W_values[j]
++       ito_integral = ito_integral + W_values[j] * dW
++       
++       # Stratonovich integral (calculate midpoint with delta Z adjustment)
++       delta_z = rnorm(1, mean = 0, sd = sqrt(dT / 4))
++       W_midpoint = 0.5 * (W_values[j] + W_values[j+1]) + delta_z
++       strat_integral = strat_integral + W_midpoint * dW
++     }
++     
++     ito_integrals[iSim] = ito_integral
++     strat_integrals[iSim] = strat_integral
++     W_final_squared[iSim] = W_values[N+1]^2
++   }
++   
++   # Compute averages to compare values
++   ito_int_avg = mean(ito_integrals)
++   strat_int_avg = mean(strat_integrals)
++   avg_W_squared = mean(W_final_squared)
++   
++   # Calculate theoretical values to compare
++   ito_int_theoretical = 0.5 * avg_W_squared - 0.5 * T
++   strat_int_theoretical = 0.5 * avg_W_squared
++   
++   sprintf("Results for T = %f, N = %d...", T, N)
++   
++   print("Ito Integral Results")
++   print(paste("Simulated average:", ito_int_avg))
++   print(paste("Theoretical value:", ito_int_theoretical))
++   print(paste("Simulated - theoretical difference:", ito_int_avg - ito_int_theoretical))
++   
++   print("Ito Integral Results")
++   print(paste("Simulated average:", strat_int_avg))
++   print(paste("Theoretical value:", strat_int_theoretical))
++   print(paste("Simulated - theoretical difference:", strat_int_avg - strat_int_theoretical))
++ 
++   print("Ito-Stratanovich Difference Results")
++   print(paste("Simulated difference:", ito_int_avg - strat_int_avg))
++   print(paste("Theoretical difference:", ito_int_theoretical - strat_int_theoretical))
++ }
+> 
+> for (T in T_values) {
++   ito_strat_comparison(T, N, nmbSimulations)
++ }
+[1] "Ito Integral Results"
+[1] "Simulated average: -0.00042617134466108"
+[1] "Theoretical value: -0.00156682061385677"
+[1] "Simulated - theoretical difference: 0.00114064926919569"
+[1] "Ito Integral Results"
+[1] "Simulated average: 0.248481126129809"
+[1] "Theoretical value: 0.248433179386143"
+[1] "Simulated - theoretical difference: 4.79467436660941e-05"
+[1] "Ito-Stratanovich Difference Results"
+[1] "Simulated difference: -0.24890729747447"
+[1] "Theoretical difference: -0.25"
+[1] "Ito Integral Results"
+[1] "Simulated average: 0.00570368151589045"
+[1] "Theoretical value: 0.00634295358654036"
+[1] "Simulated - theoretical difference: -0.000639272070649901"
+[1] "Ito Integral Results"
+[1] "Simulated average: 0.506643545799045"
+[1] "Theoretical value: 0.50634295358654"
+[1] "Simulated - theoretical difference: 0.000300592212504669"
+[1] "Ito-Stratanovich Difference Results"
+[1] "Simulated difference: -0.500939864283155"
+[1] "Theoretical difference: -0.5"
+[1] "Ito Integral Results"
+[1] "Simulated average: 0.146082889476072"
+[1] "Theoretical value: 0.14837836668234"
+[1] "Simulated - theoretical difference: -0.00229547720626805"
+[1] "Ito Integral Results"
+[1] "Simulated average: 2.64776303053536"
+[1] "Theoretical value: 2.64837836668234"
+[1] "Simulated - theoretical difference: -0.000615336146977175"
+[1] "Ito-Stratanovich Difference Results"
+[1] "Simulated difference: -2.50168014105929"
+[1] "Theoretical difference: -2.5"
+\end{spverbatim}
+We see that th average simulated difference is indeed considerably different, and matches consistently with the theoretical difference as a constant of the \(T\) value.
+
+}
+{\Large 
+
+\section*{3.}
+
+The approximation given in (5.4) of the paper is 
+\[
+  \log{e^{\text{strong}}_{\Delta t}} \approx \log{C} + \frac{1}{2} \log{\Delta t}
+\]
+so we try to illustrate this by plotting the resulting graph of average error vs. \(\Delta t\) on a log scale, where we should see an approximately straight line with a slope of \(\frac{1}{2}\). We modify the function slightly to return \(averageFinalDifference\), and then run accordingly and graph the results:
+\begin{spverbatim}
+> T_values = c(0.25, 0.5, 1, 2, 5, 10)
+> N_values = 2^(2:10)
+> # Same as paper
+> lambda = 2
+> mu = 1
+> nmbSimulations = 1000
+> 
+> for (T in T_values) {
++   deltat_values = as.numeric(list())
++   error_values = as.numeric(list())
++   
++   for (N in N_values) {
++     sprintf("running for T = %f, N = %d...", T, N)
++     
++     deltat_values = append(deltat_values, T / N)
++     error_values = append(error_values, abs(blackScholesConvergence(T, N, lambda, mu, nmbSimulations)))
++   }
++   
++   plot(
++     deltat_values,
++     error_values,
++     log = "xy",
++     xlab = "Delta T Values",
++     ylab = "Error Values",
++     main = sprintf("Delta T Values vs Error Values on Log Scale with T = %f", T)
++   )
++   
++   # Reference line with exact slope as 1/2 fitted to similar offset
++   ref_C = exp(mean(log(error_values)) - 0.5 * mean(log(deltat_values)))
++   y = ref_C * sqrt(deltat_values)
++   lines(
++     deltat_values,
++     y,
++     type="l",
++     col = "red",
++   )
++ }
+[1] "average deviation =  0.0492247166559775 , and the delta t =  0.0625"
+[1] "average deviation =  0.024091028137924 , and the delta t =  0.03125"
+[1] "average deviation =  0.0137789607057976 , and the delta t =  0.015625"
+[1] "average deviation =  0.00560154546568383 , and the delta t =  0.0078125"
+[1] "average deviation =  0.00461061928605198 , and the delta t =  0.00390625"
+[1] "average deviation =  0.00194927934579275 , and the delta t =  0.001953125"
+[1] "average deviation =  0.000323983109936274 , and the delta t =  0.0009765625"
+[1] "average deviation =  0.00126783021087313 , and the delta t =  0.00048828125"
+[1] "average deviation =  0.000250399393489314 , and the delta t =  0.000244140625"
+[1] "average deviation =  0.31711713984836 , and the delta t =  0.125"
+[1] "average deviation =  0.132171536010918 , and the delta t =  0.0625"
+[1] "average deviation =  0.0743188255687851 , and the delta t =  0.03125"
+[1] "average deviation =  0.051269002108907 , and the delta t =  0.015625"
+[1] "average deviation =  0.0197699304179946 , and the delta t =  0.0078125"
+[1] "average deviation =  0.0150187575230333 , and the delta t =  0.00390625"
+[1] "average deviation =  0.00449707590957639 , and the delta t =  0.001953125"
+[1] "average deviation =  0.00146653530308295 , and the delta t =  0.0009765625"
+[1] "average deviation =  0.000595854856125777 , and the delta t =  0.00048828125"
+[1] "average deviation =  2.2471645677081 , and the delta t =  0.25"
+[1] "average deviation =  1.20059710406355 , and the delta t =  0.125"
+[1] "average deviation =  0.887552190793862 , and the delta t =  0.0625"
+[1] "average deviation =  0.348304934738151 , and the delta t =  0.03125"
+[1] "average deviation =  0.182839774132024 , and the delta t =  0.015625"
+[1] "average deviation =  0.0797147803555463 , and the delta t =  0.0078125"
+[1] "average deviation =  0.0365496282298914 , and the delta t =  0.00390625"
+[1] "average deviation =  0.0201513669795156 , and the delta t =  0.001953125"
+[1] "average deviation =  0.00747017151247117 , and the delta t =  0.0009765625"
+[1] "average deviation =  38.3860350148055 , and the delta t =  0.5"
+[1] "average deviation =  31.8416907859503 , and the delta t =  0.25"
+[1] "average deviation =  21.4146284433919 , and the delta t =  0.125"
+[1] "average deviation =  14.7718342858946 , and the delta t =  0.0625"
+[1] "average deviation =  5.56539348123626 , and the delta t =  0.03125"
+[1] "average deviation =  3.41716607124377 , and the delta t =  0.015625"
+[1] "average deviation =  1.41197509467434 , and the delta t =  0.0078125"
+[1] "average deviation =  1.2757240639073 , and the delta t =  0.00390625"
+[1] "average deviation =  0.24428420763604 , and the delta t =  0.001953125"
+[1] "average deviation =  15597.69661595 , and the delta t =  1.25"
+[1] "average deviation =  15255.3191487282 , and the delta t =  0.625"
+[1] "average deviation =  20462.1594433599 , and the delta t =  0.3125"
+[1] "average deviation =  20943.8653605296 , and the delta t =  0.15625"
+[1] "average deviation =  9256.47853698749 , and the delta t =  0.078125"
+[1] "average deviation =  5654.01247705172 , and the delta t =  0.0390625"
+[1] "average deviation =  2366.18215557262 , and the delta t =  0.01953125"
+[1] "average deviation =  2552.93685449814 , and the delta t =  0.009765625"
+[1] "average deviation =  788.906730669276 , and the delta t =  0.0048828125"
+[1] "average deviation =  287769024.071099 , and the delta t =  2.5"
+[1] "average deviation =  513211342.45659 , and the delta t =  1.25"
+[1] "average deviation =  362676431.210016 , and the delta t =  0.625"
+[1] "average deviation =  364272514.331549 , and the delta t =  0.3125"
+[1] "average deviation =  265851877.484744 , and the delta t =  0.15625"
+[1] "average deviation =  229631572.665997 , and the delta t =  0.078125"
+[1] "average deviation =  161346784.854953 , and the delta t =  0.0390625"
+[1] "average deviation =  254194191.496466 , and the delta t =  0.01953125"
+[1] "average deviation =  36543557.0686745 , and the delta t =  0.009765625"
+\end{spverbatim}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{problem_3_graph_t_025.png}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{problem_3_graph_t_05.png}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{problem_3_graph_t_1.png}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{problem_3_graph_t_2.png}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{problem_3_graph_t_5.png}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{problem_3_graph_t_10.png}
+\end{figure}
+We plotted the adjusted lines with slope of \(\frac{1}{2}\) and we do see that generally, the results do follow the approximation given in the paper. At \(T=10\), we begin to falter a bit more, but it is pretty close for all the other values for \(T\).
+
+}
+
+\end{document}
