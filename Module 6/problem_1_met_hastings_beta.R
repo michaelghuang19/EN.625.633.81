@@ -32,7 +32,7 @@ met_hastings_beta = function(n, prop_alpha, prop_beta) {
   acc_probability = acc/n
   print(paste("Acceptance probability:", acc_probability))
   hist(x, breaks = 50, density = 50, main = paste(
-    "1. Metropolis-Hastings for Beta(", prop_alpha, ",", prop_beta, ")")
+    "1. -Hastings for Beta(", prop_alpha, ",", prop_beta, ")")
   );
 }
 

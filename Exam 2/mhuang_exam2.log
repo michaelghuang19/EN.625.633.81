@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  20 APR 2026 20:13
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  20 APR 2026 21:23
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -457,7 +457,7 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 27.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Underfull \hbox (badness 10000) in paragraph at lines 48--51
+Underfull \hbox (badness 10000) in paragraph at lines 27--29
 
  []
 
@@ -465,7 +465,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 48--51
 
 
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <15> not available
-(Font)              size <14.4> substituted on input line 62.
+(Font)              size <14.4> substituted on input line 82.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -479,73 +479,112 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 ]
 
 [2]
-Underfull \hbox (badness 10000) in paragraph at lines 122--124
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 150--155
-
- []
-
+<problem_1_met_hastings_sd_1_hist.png, id=20, 1355.0625pt x 1268.74pt>
+File: problem_1_met_hastings_sd_1_hist.png Graphic file (type png)
+<use problem_1_met_hastings_sd_1_hist.png>
+Package pdftex.def Info: problem_1_met_hastings_sd_1_hist.png  used on input line 86.
+(pdftex.def)             Requested size: 334.2886pt x 312.98323pt.
+<problem_1_met_hastings_sd_2_hist.png, id=22, 1355.0625pt x 1268.74pt>
+File: problem_1_met_hastings_sd_2_hist.png Graphic file (type png)
+<use problem_1_met_hastings_sd_2_hist.png>
+Package pdftex.def Info: problem_1_met_hastings_sd_2_hist.png  used on input line 90.
+(pdftex.def)             Requested size: 334.2886pt x 312.98323pt.
 
 
 [3]
-Overfull \hbox (48.86412pt too wide) in paragraph at lines 187--187
-[]\OT1/cmtt/m/n/14.4 +[] [] [] print(paste("Brute[] force[] mean[] estimate[] mean:",[] mean(brute_force_means)))[] 
- []
+<problem_1_met_hastings_sd_4_hist.png, id=27, 1355.0625pt x 1268.74pt>
+File: problem_1_met_hastings_sd_4_hist.png Graphic file (type png)
+<use problem_1_met_hastings_sd_4_hist.png>
+Package pdftex.def Info: problem_1_met_hastings_sd_4_hist.png  used on input line 94.
+(pdftex.def)             Requested size: 334.2886pt x 312.98323pt.
 
 
-Overfull \hbox (71.09409pt too wide) in paragraph at lines 187--187
-[]\OT1/cmtt/m/n/14.4 +[] [] [] print(paste("Brute[] force[] mean[] estimate[] variance:",[] var(brute_force_means)))[] 
- []
-
-
-Overfull \hbox (34.04414pt too wide) in paragraph at lines 187--187
-[]\OT1/cmtt/m/n/14.4 +[] [] [] print(paste("Antithetic[] mean[] estimate[] mean:",[] mean(antithetic_means)))[] 
- []
-
-
-Overfull \hbox (56.27411pt too wide) in paragraph at lines 187--187
-[]\OT1/cmtt/m/n/14.4 +[] [] [] print(paste("Antithetic[] mean[] estimate[] variance:",[] var(antithetic_means)))[] 
- []
-
-
-
-[4]
-Underfull \hbox (badness 10000) in paragraph at lines 195--198
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 195--198
+[4 <./problem_1_met_hastings_sd_1_hist.png> <./problem_1_met_hastings_sd_2_hist.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 108--111
 
  []
 
 
 
-[5]
+[5 <./problem_1_met_hastings_sd_4_hist.png>]
 
 [6]
-Underfull \hbox (badness 10000) in paragraph at lines 220--224
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 226--230
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 226--230
+Underfull \hbox (badness 10000) in paragraph at lines 182--184
 
  []
 
 
 
 [7]
+Underfull \hbox (badness 10000) in paragraph at lines 210--215
 
-[8] (./mhuang_exam2.aux)
+ []
+
+
+
+[8]
+Overfull \hbox (48.86412pt too wide) in paragraph at lines 251--251
+[]\OT1/cmtt/m/n/14.4 +[] [] [] print(paste("Brute[] force[] mean[] estimate[] mean:",[] mean(brute_force_means)))[] 
+ []
+
+
+Overfull \hbox (71.09409pt too wide) in paragraph at lines 251--251
+[]\OT1/cmtt/m/n/14.4 +[] [] [] print(paste("Brute[] force[] mean[] estimate[] variance:",[] var(brute_force_means)))[] 
+ []
+
+
+Overfull \hbox (34.04414pt too wide) in paragraph at lines 251--251
+[]\OT1/cmtt/m/n/14.4 +[] [] [] print(paste("Antithetic[] mean[] estimate[] mean:",[] mean(antithetic_means)))[] 
+ []
+
+
+Overfull \hbox (56.27411pt too wide) in paragraph at lines 251--251
+[]\OT1/cmtt/m/n/14.4 +[] [] [] print(paste("Antithetic[] mean[] estimate[] variance:",[] var(antithetic_means)))[] 
+ []
+
+<problem_4_antithetic_hist.png, id=49, 2027.575pt x 1268.74pt>
+File: problem_4_antithetic_hist.png Graphic file (type png)
+<use problem_4_antithetic_hist.png>
+Package pdftex.def Info: problem_4_antithetic_hist.png  used on input line 255.
+(pdftex.def)             Requested size: 514.295pt x 321.81111pt.
+
+
+[9]
+Underfull \hbox (badness 10000) in paragraph at lines 265--268
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 265--268
+
+ []
+
+
+
+[10 <./problem_4_antithetic_hist.png>]
+
+[11]
+Underfull \hbox (badness 10000) in paragraph at lines 290--294
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 296--300
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 296--300
+
+ []
+
+
+
+[12]
+
+[13]
+
+[14] (./mhuang_exam2.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
@@ -557,18 +596,18 @@ LaTeX Font Warning: Size substitutions with differences
 
  ) 
 Here is how much of TeX's memory you used:
- 14499 strings out of 473190
- 287069 string characters out of 5715801
- 665429 words of memory out of 5000000
- 37509 multiletter control sequences out of 15000+600000
+ 14530 strings out of 473190
+ 288286 string characters out of 5715801
+ 664431 words of memory out of 5000000
+ 37540 multiletter control sequences out of 15000+600000
  562870 words of font info for 52 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 102i,14n,107p,1556b,541s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 102i,13n,107p,1556b,654s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on mhuang_exam2.pdf (8 pages, 138944 bytes).
+Output written on mhuang_exam2.pdf (14 pages, 302570 bytes).
 PDF statistics:
- 89 PDF objects out of 1000 (max. 8388607)
- 56 compressed objects within 1 object stream
+ 117 PDF objects out of 1000 (max. 8388607)
+ 70 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 13 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 33 words of extra memory for PDF output out of 10000 (max. 10000000)
 

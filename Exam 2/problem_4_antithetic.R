@@ -22,6 +22,10 @@ antithetic_comparison = function(n, nmbSimulations) {
   print(paste("Brute force mean estimate variance:", var(brute_force_means)))
   print(paste("Antithetic mean estimate mean:", mean(antithetic_means)))
   print(paste("Antithetic mean estimate variance:", var(antithetic_means)))
+  
+  par(mfrow = c(1, 2))
+  hist(brute_force_means, breaks = 60, main = "Brute Force Means")
+  hist(antithetic_means, breaks = 60, main = "Antithetic Means")
 }
 
 antithetic_comparison(n, nmbSimulations)
