@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  20 APR 2026 23:01
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  21 APR 2026 21:48
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -582,25 +582,53 @@ Underfull \hbox (badness 10000) in paragraph at lines 330--333
 [13 <./problem_4_antithetic_hist.png>]
 
 [14]
-Underfull \hbox (badness 10000) in paragraph at lines 355--359
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 361--365
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 361--365
-
- []
-
-
 
 [15]
 
-[16] (./mhuang_exam2.aux)
+[16]
+<problem_6_a_bootstrap_hist.png, id=78, 1355.0625pt x 1268.74pt>
+File: problem_6_a_bootstrap_hist.png Graphic file (type png)
+<use problem_6_a_bootstrap_hist.png>
+Package pdftex.def Info: problem_6_a_bootstrap_hist.png  used on input line 392.
+(pdftex.def)             Requested size: 385.72124pt x 361.1494pt.
+
+
+[17 <./problem_6_a_bootstrap_hist.png>]
+
+[18]
+Overfull \hbox (93.32405pt too wide) in paragraph at lines 449--449
+[]\OT1/cmtt/m/n/14.4 +[] [] [] print(paste("Average[] bootstrap[] probability[] estimate:",[] simulated_probability))[] 
+ []
+
+<problem_6_b_bootstrap_study_hist.png, id=86, 1355.0625pt x 1268.74pt>
+File: problem_6_b_bootstrap_study_hist.png Graphic file (type png)
+<use problem_6_b_bootstrap_study_hist.png>
+Package pdftex.def Info: problem_6_b_bootstrap_study_hist.png  used on input line 453.
+(pdftex.def)             Requested size: 385.72124pt x 361.1494pt.
+
+
+[19]
+
+[20 <./problem_6_b_bootstrap_study_hist.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 465--469
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 471--475
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 471--475
+
+ []
+
+
+
+[21]
+
+[22] (./mhuang_exam2.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
@@ -612,18 +640,18 @@ LaTeX Font Warning: Size substitutions with differences
 
  ) 
 Here is how much of TeX's memory you used:
- 14537 strings out of 473190
- 288537 string characters out of 5715801
+ 14551 strings out of 473190
+ 289095 string characters out of 5715801
  664431 words of memory out of 5000000
- 37547 multiletter control sequences out of 15000+600000
+ 37561 multiletter control sequences out of 15000+600000
  562870 words of font info for 52 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 102i,13n,107p,1556b,654s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 102i,13n,107p,1618b,654s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on mhuang_exam2.pdf (16 pages, 382654 bytes).
+Output written on mhuang_exam2.pdf (22 pages, 481723 bytes).
 PDF statistics:
- 125 PDF objects out of 1000 (max. 8388607)
- 74 compressed objects within 1 object stream
+ 148 PDF objects out of 1000 (max. 8388607)
+ 87 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 38 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 48 words of extra memory for PDF output out of 10000 (max. 10000000)
 

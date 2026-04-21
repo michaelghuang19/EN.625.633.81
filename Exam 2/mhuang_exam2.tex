@@ -9,7 +9,7 @@
 \fancypagestyle{firstpageheader}{
   \fancyhead[R]{
     \changefont
-    \parbox[t]{4cm}{ % Adjust width as needed
+    \parbox[t]{4cm}{
       Michael Huang\\
       EN.625.633.81\\
       Exam 2
@@ -164,7 +164,7 @@ Inverting seems to work well here:
 We can now proceed with our sampling, alternating between getting \(X|Y\) and \(Y|X\). Within each sample, we draw using the inverse transform method. Our sampling algorithm takes the following form now: \\
 - Set \(X^0\) and \(Y^0\) to some arbitrary starting value within the range of \((0, B)\) \\
 - Generate \(X^{t+1}\) from \(f (x | y) = Y^t\) using the inverse transform method and function we just found; that is, first generate some \(U \sim \text{Unif}(0, 1)\) and set \(X^{t+1} = -\frac{\ln(1 - U(1 - e^{-BY^t}))}{Y^t} \) \\
-- Generate \(Y^{t+1}\) from \(f (y | x) = X^{t+1}\) using the inverse transform method and symmetrical version of the function we just found; that is, first generate some new \(U \sim \text{Unif}(0, 1)\) and set \(X^{t+1} = -\frac{\ln(1 - U(1 - e^{-BX^{t+1}}))}{X^{t+1}} \) \\
+- Generate \(Y^{t+1}\) from \(f (y | x) = X^{t+1}\) using the inverse transform method and symmetrical version of the function we just found; that is, first generate some new \(U \sim \text{Unif}(0, 1)\) and set \(Y^{t+1} = -\frac{\ln(1 - U(1 - e^{-BX^{t+1}}))}{X^{t+1}} \) \\
 - Repeat the above two steps for the desired number of sample pairs, which is our final simulation of \(X\) and \(Y\)
 
 }
@@ -315,7 +315,7 @@ We can now perform the estimation and compare accordingly. For the antithetic va
 [1] "Antithetic mean estimate mean: 2.00169191480643"
 [1] "Antithetic mean estimate variance: 0.0054753456242509"
 \end{spverbatim}
-In the code, we run 1000 simulations for \(n = 1000\). We first simulate 2000 values from the normal distribution (doubled because we are using the antithetic paired approach later, for which we simulate 10000 values each) and then take the inverse function value directly, and take the mean of these resulting values. This is the brute force approach. For the antithetic method, we take 1000 values from the normal distribution and then find the corresponding \(X\) and \(Y\) values from the inverse function that we previously found, and then take the mean based off of the resulting 1000 averages of these two paired values, as is described by the antithetic method. We then print the results and plot accordingly. \\ \\ 
+In the code, we run 1000 simulations for \(n = 1000\). We first simulate 2000 values from the uniform distribution (doubled because we are using the antithetic paired approach later, for which we simulate 10000 values each) and then take the inverse function value directly, and take the mean of these resulting values. This is the brute force approach. For the antithetic method, we take 1000 values from the uniform distribution and then find the corresponding \(X\) and \(Y\) values from the inverse function that we previously found, and then take the mean based off of the resulting 1000 averages of these two paired values, as is described by the antithetic method. We then print the results and plot accordingly. \\ \\ 
 We see that both mean estimates for the mean are pretty close to 2, but the variance of them mean estimate with the antithetic method is indeed a bit lower, so there seems to be some variance reduction using the method when estimating the mean of \(X\) in this case.
 \begin{figure}[H]
     \centering
@@ -329,7 +329,7 @@ We see that both mean estimates for the mean are pretty close to 2, but the vari
 
 Dear Dr. Botts, I have a lot of respect for your commitment to continued learning, especially in a field like statistics. To help out and hopefully tickle your brain a bit, I'd like to explain some useful techniques used in the real world related to estimating simple statistics based on sample data. Normally, we can easily use formulas to estimate confidence intervals of statistics of sample data. However, this doesn't always work -- we need enough data and always assume that the data is normally distributed (i.e. eventually forms the overall shape of a bell curve). While some data samples do fulfill this criteria (or at least often enough for this to be a common idea taught in introductory statistics), this often doesn't work with real-life cases, where you want more complex statistics (like the median or correlations between samples) or often don't have enough samples or aren't able to assume normality of the data in good faith. We therefore can't use these simple formulas based on the normal distribution to determine the error of your target estimate statistics and build a confidence interval around this. We need a better way of quantifying this uncertainty range around performing statistical analyses on a sample in these non-standard, cookie cutter situations. \\ \\
 Enter the Bootstrap. We use the Bootstrap to determine the standard error by treating the sample as if it were our actual population, rather than assuming some larger population distribution as we do when using normalized methods. We repeatedly sample the given data with replacement \(n\) times, where the number of data points we are given is \(n\). So we now have a new sample of \(n\) points from our initial data, with the possibility of repetitions given our new. Given this new sample, we then calculate the actual target statistic. We perform this many times to get a good spread of the actual statistic. We then can calculate the confidence interval based on this spread. This is incredibly useful in the way that it essentially works for any kind of statistic, no matter how complex. So for example, given a sample of 10 data points, we create a new sample of size 10 by sampling with replacement from the data points 10 times, and then calculate our target statistic on this new sample. We repeat this an arbitrary amount of times -- say 1000 times -- and then we can calculate the confidence interval based on those 1000 target statistics (e.g. take the middle 95\% from the 2.5 to the 97.5 percentile values to get the 95\% CI, etc.). \\ \\
-Now, there are some cases in which it can be impractical or undesirable to do the Bootstrap. Say that it's impractical to compute an arbitrary amount of times (sometimes hundreds to thousands to get meaningful values), or I want to make my results from a sample comparable against other samples without the randomness of sampling with replacement involved. In these kinds of cases, we can use the Jackknife. The Jackknife takes a similar approach, but when we create our new samples, we simply remove one value from the initial given values, and compute the statistic based on the remaining \(n-1\) (also dubbed the "leave-one-out" approach). Intuitively, we can repeat this process only \(n\) times, which is significantly simpler, and notably also non-random compared to the Bootstrap, since we know that we will have a sample in which every single individual value is left out at some point. Intuitively, this also indicates that with a smaller sample size, \(n\) will be much smaller than the arbitrary number of repetitions we need in the Bootstrap, so the Jackknife is also better with smaller samples. It should be noted, however, that the Jackknife does struggle with statistics that aren't affected as much by just leaving one sample out, such as the median, which can theoretically always stay the same when leaving one sample out -- so there is some discretion needed in choosing between the Bootstrap and the Jackknife. Hope that helps.
+Now, there are some cases in which it can be impractical or undesirable to do the Bootstrap. Say that it's impractical to compute an arbitrary amount of times (sometimes hundreds to thousands to get meaningful values), or I want to make my results from a sample comparable against other samples without the randomness of sampling with replacement involved. In these kinds of cases, we can use the Jackknife. The Jackknife takes a similar approach, but when we create our new samples, we simply remove one value from the initial given values, and compute the statistic based on the remaining \(n-1\) (also dubbed the "leave-one-out" approach). Intuitively, we can repeat this process only \(n\) times, which is significantly simpler, and notably also non-random compared to the Bootstrap, since we know that we will have a sample in which every single individual value is left out at some point. Intuitively, this also indicates that with a smaller sample size, \(n\) will be much smaller than the arbitrary number of repetitions we need in the Bootstrap, so the Jackknife is also better with smaller samples, with it being less expensive and more convenient as a result. It should be noted, however, that the Jackknife does struggle with statistics that aren't affected as much by just leaving one sample out, such as the median, which can theoretically always stay the same when leaving one sample out -- so there is some discretion needed in choosing between the Bootstrap and the Jackknife. Hope that helps.
 
 }
 {\Large 
@@ -338,11 +338,121 @@ Now, there are some cases in which it can be impractical or undesirable to do th
 
 \subsection*{(a)} 
 
-
+We aim to use the bootstrap method to estimate the probability that a random variable coming from this distribution is less than 0.75, with a 95\% confidence interval. 
+\begin{spverbatim}
+> data = c(1.491, 0.019, 0.318, 0.056, 0.816, 0.978, 0.174, 0.461, 
++          0.495, 0.547, 0.123, 2.270, 0.026, 0.041, 0.391)
+> n = length(data)
+> B = 1000
+> threshold = 0.75
+> 
+> bootstrap_prob = function(data, B, threshold) {
++   # Clever way to calculate probability using one-hot encoding
++   bootstrap_estimate = mean(data < threshold)
++   
++   bootstrap_estimates = rep(0, B)
++   for (i in 1:B) {
++     bootstrap_sample = sample(data, n, replace = TRUE)
++     bootstrap_estimates[i] = mean(bootstrap_sample < threshold)
++   }
++   
++   percentile_ci = quantile(bootstrap_estimates, c(0.025, 0.975))
++   
++   print(paste("Bootstrap estimate:", bootstrap_estimate))
++   print(
++     sprintf(
++       "95%% CI for bootstrap estimate: (%f, %f)",
++       percentile_ci[1], 
++       percentile_ci[2]
++     )
++   )
++   
++   hist(
++     bootstrap_estimates,
++     main = paste(
++       "Bootstrap distribution of Probability that RV <",
++       threshold,
++       "with B =",
++       B
++     )
++   )
++   
++   abline(
++     v = bootstrap_estimate,
++     col = "red"
++   )
++ }
+> 
+> bootstrap_prob(data, B, threshold)
+[1] "Bootstrap estimate: 0.733333333333333"
+[1] "95% CI for bootstrap estimate: (0.466667, 0.933333)"
+\end{spverbatim}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{problem_6_a_bootstrap_hist.png}
+\end{figure}
+In this code, we first set up the data constants we need for the bootstrap function: the data, the number of data points, the number of bootstrap repetitions, and the threshold for which we want to evalute the probability of the random variables being below. Within the bootstrap function itself, we begin by taking the probability of a random variable being below the given threshold as our original point estimate from the sample data we are provided. We then do the resampling with replacement a arbitrary \(B\) number of times to generate many different samples of size \(n\) for which we take and store their respective probabilities for the random variable being under the threshold. This gives us our actual sample for which we can now calculate the distribution and uncertainty, which we use in this case to calculate the 95\% percentile-based CI between the 2.5\% and 97.5\% percentile of this bootstrapped data. We then print out the estimate and CI alongside a histogram that shows the distribution of the bootstrapped probabilities and the actual estimate point. 
 
 \subsection*{(b)}
 
-
+Intuitively, it doesn't seem like the bootstrap is a bad choice for performing this estimation: we don't have a great way of determining the actual population distribution, and the number of points is also pretty low, which is a great situation for using the bootstrap. Let's try a study, choosing a super easy known distribution, \(U \sim \text{Unif}(0, 1)\), for which we very intuitively know that \(P(X < 0.75) = \frac{0.75}{1} = 0.75\): 
+\begin{spverbatim}
+> # Follow up, using Unif(0, 1)
+> n = 15
+> B = 1000
+> threshold = 0.75
+> nmbSimulations = 1000
+> 
+> bootstrap_study = function(n, B, threshold, nmbSimulations) {
++   probability_estimates = rep(0, nmbSimulations)
++   
++   for (i in 1:nmbSimulations) {
++     unif_data = runif(n, 0, 1)
++     
++     bootstrap_estimates = rep(0, B)
++     for (j in 1:B) {
++       bootstrap_sample = sample(unif_data, n, replace = TRUE)
++       bootstrap_estimates[j] = mean(bootstrap_sample < threshold)
++     }
++     
++     probability_estimates[i] = mean(bootstrap_estimates)
++   }
++   
++   true_probability = threshold / 1
++   simulated_probability = mean(probability_estimates)
++   
++   print(paste("True probability:", true_probability))
++   print(paste("Average bootstrap probability estimate:", simulated_probability))
++   print(paste("Diff:", true_probability - simulated_probability))
++   
++   hist(
++     probability_estimates,
++     main = paste(
++       "Bootstrap distribution of P( RV <",
++       threshold,
++       ") with B =",
++       B,
++       "for Unif(0,1)"
++     )
++   )
++   
++   abline(
++     v = true_probability,
++     col = "red"
++   )
++ }
+> 
+> bootstrap_study(n, B, threshold, nmbSimulations)
+[1] "True probability: 0.75"
+[1] "Average bootstrap probability estimate: 0.7454742"
+[1] "Diff: 0.00452580000000002"
+\end{spverbatim}
+In this code, we do similar things to the previous bootstrap code by initializing the corresponding bootstrap variables. However, we add \(nmbSimulations\) in order to do a more conclusive study over multiple trials of how the bootstrap behaves. We then write a function that creates an empty array for storing these probability estimate trials and begin running these 1000 trials. Within each trial, we generate \(n = 15\) data points on the \(\text{Unif}(0,1)\) distribution, as the original data also had 15 data points, and then perform the original bootstrap process with the 15-point sampling with replacement 1000 times, each time taking the sample's respective probability of points being below the 0.75 threshold. We then store this result in our greater simulation array. We finally print out the calculated theoretical probability based on our selected uniform distribution and the average simlated probability estimate from our bootstrap simulations and print out the difference and plot the actual distribution alongside the true theoretical probability.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{problem_6_b_bootstrap_study_hist.png}
+\end{figure}
+The results seem to indicate that the bootstrap really isn't such a bad choice -- the probability difference between the average simulated estimates compared to the theoretical value is actually very small. The results seem to back up the theory pretty well, and the values seem to center pretty well visually on the histogram as well. I'd definitely note that the confidence intervals are pretty wide and suboptimal, but this is more of a product of the low number of points leading to a wider range relative to the overall distribution, which is also magnified by the usage of a 95\% CI which will end up covering a large amount of the range relative to the actual point distribution. 
 
 }
 {\Large 
