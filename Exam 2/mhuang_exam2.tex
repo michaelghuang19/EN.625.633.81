@@ -24,14 +24,88 @@
 
 \section*{1.}
 
+Using the Metropolis-Hastings Algorithm, we aim to simulate 10000 values of \(X\), where \(X \sim f_X(x)\) and \(f_X(x)  = \frac{8}{x^3}\) and \(X > 2\).
 
+For the proposal distribution, we use a symmetric uniform window
+$g(x_{t+1} \mid x_t) = \mathrm{Unif}(x_t - \delta,\; x_t + \delta)$
+for some tuning parameter $\delta$. Since this proposal is symmetric,
+$g(x_t \mid x_{t+1}) = g(x_{t+1} \mid x_t)$, and the acceptance probability
+simplifies to
+\[ \rho = \min\!\left(1,\;\frac{f_X(x_{t+1})}{f_X(x_t)}\right)      = \min\!\left(1,\;\frac{8/x_{t+1}^3}{8/x_t^3}\right)      = \min\!\left(1,\;\frac{x_t^3}{x_{t+1}^3}\right). \]
+We also reject any candidate $x_{t+1} \leq 2$ since the support is $x > 2$.
 
 }
 {\Large 
 
 \section*{2.}
 
-
+We are given the random variables \(X\) and \(Y\) which both take on values in the interval \((0, B)\). We are given the following joint densities:
+\[
+  f(x | y) = C(y)\exp(-xy) \quad 0 < x < B
+\]
+\[
+  f(y | x) = C(x)\exp(-xy) \quad 0 < y < B
+\]
+where \(C(y)\) is some constant that depends on \(y\) and \(C(x)\) is some constant that depends on \(X\). The provision of both full conditional distributions gives us a hint here, where we intend to simulate values of \(X\) and \(Y\) using the Gibbs Sampling algorithm. We need to find how to sample at each step, though. \\ \\ 
+Let's find the constants in terms of \(y\) and \(x\). We need only solve one to find the other, since they are symmetric (i.e. we can swap \(x\) for \(y\) after solving). We can take the CDF and set equal to 1 to solve:
+\[
+  1 = \int_{0}^{B} C(y) \exp(-xy) dx
+\]
+\[
+  1 = C(y) \frac{e^{-xy}}{-y} |_{0}^{B}
+\]
+\[
+  1 = C(y) (\frac{e^{-By}}{-y} - \frac{e^{0}}{-y})
+\]
+\[
+  1 = C(y) (\frac{1 - e^{-By}}{y})
+\]
+\[
+  C(y) = \frac{y}{1 - e^{-By}}
+\]
+Now, find the CDF as we normally do:
+\[
+  F(x|y) = \int_0^x C(y) \exp(-ty) dt
+\]
+\[
+  F(x|y) = C(y) \int_0^x \exp(-ty) dt
+\]
+\[
+  F(x|y) = \frac{y}{1 - e^{-By}} \int_0^x \exp(-ty) dt
+\]
+\[
+  F(x|y) = \frac{y}{1 - e^{-By}} \cdot \frac{e^{-ty}}{-y} |_0^x 
+\]
+\[
+  F(x|y) = \frac{y}{1 - e^{-By}} (\frac{e^{-xy}}{-y} - \frac{e^{0}}{-y})
+\]
+\[
+  F(x|y) = \frac{y}{1 - e^{-By}} (\frac{1 - e^{-xy}}{y})
+\]
+\[
+  F(x|y) = \frac{1 - e^{-xy}}{1 - e^{-By}}
+\]
+Inverting seems to work well here:
+\[
+  U = \frac{1 - e^{-xy}}{1 - e^{-By}}
+\]
+\[
+  U(1 - e^{-By}) = 1 - e^{-xy}
+\]
+\[
+  e^{-xy} = 1 - U(1 - e^{-By})
+\]
+\[
+  -xy = \ln(1 - U(1 - e^{-By}))
+\]
+\[
+  x = F^{-1}(U) = -\frac{\ln(1 - U(1 - e^{-By}))}{y}
+\]
+We can now proceed with our sampling, alternating between getting \(X|Y\) and \(Y|X\). Within each sample, we draw using the inverse transform method. Our sampling algorithm takes the following form now: \\
+- Set \(X^0\) and \(Y^0\) to some arbitrary starting value within the range of \((0, B)\) \\
+- Generate \(X^{t+1}\) from \(f (x | y) = Y^t\) using the inverse transform method and function we just found; that is, first generate some \(U \sim \text{Unif}(0, 1)\) and set \(X^{t+1} = -\frac{\ln(1 - U(1 - e^{-BY^t}))}{Y^t} \) \\
+- Generate \(Y^{t+1}\) from \(f (y | x) = X^{t+1}\) using the inverse transform method and symmetrical version of the function we just found; that is, first generate some new \(U \sim \text{Unif}(0, 1)\) and set \(X^{t+1} = -\frac{\ln(1 - U(1 - e^{-BX^{t+1}}))}{X^{t+1}} \) \\
+- Repeat the above two steps for the desired number of sample pairs, which is our final simulation of \(X\) and \(Y\)
 
 }
 {\Large 
@@ -45,14 +119,82 @@
 
 \section*{4.}
 
+We aim to implement the antithetic variable scheme to see whether it leads to variance reduction when estimating the mean of \(X\), where \(X \sim f_X(x) = 2x^{-3}\) for \(x > 1\). \\ \\
+Let's begin with the inverse transform process, first finding the CDF:
+\[
+  F(x) = \int_1^x \frac{2}{t^3} dt 
+\]
+\[
+  F(x) = -\frac{2}{2t^2} |_1^x 
+\]
+\[
+  F(x) = -\frac{1}{x^2} - (-\frac{1}{1^2})
+\]
+\[
+  F(x) =  1 - \frac{1}{x^2} 
+\]
+Now inverting:
+\[
+  U = 1 - \frac{1}{x^2}
+\]
+\[
+  \frac{1}{x^2} = 1 - U
+\]
+\[
+  1 = (1 - U)x^2
+\]
+\[
+  x = \frac{1}{\sqrt{1 - U}}
+\]
 
+We can now perform the estimation and compare accordingly. For the antithetic variable scheme: \\ 
+- Generate \(U_1, U_2, \dots, U_n \sim \text{Unif}(0, 1)\) \\ 
+- Set \(X_j = F_X^{-1}(U_j) = \frac{1}{\sqrt{1 - U}}\) \\
+- Set \(Y_j = F_X^{-1}(1 - U_j) = \frac{1}{\sqrt{1 - (1 - U)}}\) \\
+- Set \(Y_j = F_X^{-1}(1 - U_j) = \frac{1}{\sqrt{1 - (1 - U)}} = \frac{1}{\sqrt{U}}\) \\
+\begin{spverbatim}
+> n = 1000
+> nmbSimulations = 1000
+> 
+> antithetic_comparison = function(n, nmbSimulations) {
++   brute_force_means = rep(0, nmbSimulations)
++   antithetic_means = rep(0, nmbSimulations)
++     
++   for (i in 1:nmbSimulations) {
++     # Brute force, simulate using inverse-transform directly
++     U = runif(2 * n)
++     X = 1 / sqrt(1 - U)
++     brute_force_means[i] = mean(X)
++     
++     # Antithetic approach in pairs
++     U = runif(n)
++     X = 1 / sqrt(1 - U)
++     Y = 1 / sqrt(U)
++     antithetic_means[i] = mean((X + Y) / 2)
++   }
++       
++   print(paste("Brute force mean estimate mean:", mean(brute_force_means)))
++   print(paste("Brute force mean estimate variance:", var(brute_force_means)))
++   print(paste("Antithetic mean estimate mean:", mean(antithetic_means)))
++   print(paste("Antithetic mean estimate variance:", var(antithetic_means)))
++ }
+> 
+> antithetic_comparison(n, nmbSimulations)
+[1] "Brute force mean estimate mean: 2.0053457956271"
+[1] "Brute force mean estimate variance: 0.0168857247382747"
+[1] "Antithetic mean estimate mean: 1.99593199974759"
+[1] "Antithetic mean estimate variance: 0.00435230377969703"
+\end{spverbatim}
+We see that both mean estimates for the mean are pretty close to 2, but the variance of them mean estimate with the antithetic method is indeed considerably lower, so there is indeed a variance reduction using the method when estimating the mean of \(X\) in this case.
 
 }
 {\Large 
 
 \section*{5.}
 
-
+Dear Dr. Botts, I have a lot of respect for your commitment to continued learning, especially in a field like statistics. To help out and hopefully tickle your brain a bit, I'd like to explain some useful techniques used in the real world related to estimating simple statistics based on sample data. Normally, we can easily use formulas to estimate confidence intervals of statistics of sample data. However, this doesn't always work -- we need enough data and always assume that the data is normally distributed (i.e. eventually forms the overall shape of a bell curve). While some data samples do fulfill this criteria (or at least often enough for this to be a common idea taught in introductory statistics), this often doesn't work with real-life cases, where you want more complex statistics (like the median or correlations between samples) or often don't have enough samples or aren't able to assume normality of the data in good faith. We therefore can't use these simple formulas based on the normal distribution to determine the error of your target estimate statistics and build a confidence interval around this. We need a better way of quantifying this uncertainty range around performing statistical analyses on a sample in these non-standard, cookie cutter situations. \\ \\
+Enter the Bootstrap. We use the Bootstrap to determine the standard error by treating the sample as if it were our actual population, rather than assuming some larger population distribution as we do when using normalized methods. We repeatedly sample the given data with replacement \(n\) times, where the number of data points we are given is \(n\). So we now have a new sample of \(n\) points from our initial data, with the possibility of repetitions given our new. Given this new sample, we then calculate the actual target statistic. We perform this many times to get a good spread of the actual statistic. We then can calculate the confidence interval based on this spread. This is incredibly useful in the way that it essentially works for any kind of statistic, no matter how complex. So for example, given a sample of 10 data points, we create a new sample of size 10 by sampling with replacement from the data points 10 times, and then calculate our target statistic on this new sample. We repeat this an arbitrary amount of times -- say 1000 times -- and then we can calculate the confidence interval based on those 1000 target statistics (e.g. take the middle 95\% from the 2.5 to the 97.5 percentile values to get the 95\% CI, etc.). \\ \\
+Now, there are some cases in which it can be impractical or undesirable to do the Bootstrap. Say that it's impractical to compute an arbitrary amount of times (sometimes hundreds to thousands to get meaningful values), or I want to make my results from a sample comparable against other samples without the randomness of sampling with replacement involved. In these kinds of cases, we can use the Jackknife. The Jackknife takes a similar approach, but when we create our new samples, we simply remove one value from the initial given values, and compute the statistic based on the remaining \(n-1\) (also dubbed the "leave-one-out" approach). Intuitively, we can repeat this process only \(n\) times, which is significantly simpler, and notably also non-random compared to the Bootstrap, since we know that we will have a sample in which every single individual value is left out at some point. Intuitively, this also indicates that with a smaller sample size, \(n\) will be much smaller than the arbitrary number of repetitions we need in the Bootstrap, so the Jackknife is also better with smaller samples. It should be noted, however, that the Jackknife does struggle with statistics that aren't affected as much by just leaving one sample out, such as the median, which can theoretically always stay the same when leaving one sample out -- so there is some discretion needed in choosing between the Bootstrap and the Jackknife. Hope that helps.
 
 }
 {\Large 
