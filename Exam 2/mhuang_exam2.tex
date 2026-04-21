@@ -172,6 +172,72 @@ We can now proceed with our sampling, alternating between getting \(X|Y\) and \(
 
 \section*{3.}
 
+We aim to estimate the following integral using importance sampling:
+\[
+  \int_{0}^{\infty} x^2 \sin(\pi x)e^{-\frac{x}{2}}dx
+\]
+In importance sampling, we sample from a different density that is easier to sample from, and computing the estimate
+\[
+  \hat{E}[h(X)] = \frac{1}{n} \sum h(X_j) \frac{f(X_j)}{g(X_j)}
+\]
+A natural choice here for \(g(x)\) is something exponential. It makes more sense to match this dominant decay, which is the exponential term, while sin is hard to sample from effectively and something power-based like \(x^2\) doesn't fit the shape of the function as well and is dominated by the other terms in the integral. The exponential likely cancels out well with the last term as well. Let's try a \(\exp(\lambda) = \lambda e^{-\lambda x}\), which cancels out well with \(\lambda = \frac{1}{2}\). So using \(g(x) = \exp(\frac{1}{2}) = \frac{e^{-\frac{x}{2}}}{2}\):
+\[
+  \int_{0}^{\infty} x^2 \sin(\pi x)e^{-\frac{x}{2}}dx
+\]
+\[
+  = \int_{0}^{\infty} \frac{x^2 \sin(\pi x)e^{-\frac{x}{2}}}{g(x)} g(x) dx
+\]
+\[
+  = \int_{0}^{\infty} \frac{x^2 \sin(\pi x)e^{-\frac{x}{2}}}{\frac{e^{-\frac{x}{2}}}{2}} \cdot \frac{e^{-\frac{x}{2}}}{2} dx
+\]
+\[
+  = \int_{0}^{\infty} 2x^2 \sin(\pi x) \cdot \frac{e^{-\frac{x}{2}}}{2} dx
+\]
+\[
+  = E_g [2x^2 \sin(\pi x)]
+\]
+which works out great! We can now approximate this integral by generating values \(X_1, X_2, \dots, X_n\) from our chosen \(g(x)\) and calculate the estimate \(\hat{E}[h(X)]\) as desired above. 
+
+\begin{spverbatim}
+> n = 1000
+> 
+> # h(x) = f(x) / g(x)
+> h = function(x) {
++   2 * x^2 * sin(pi * x)
++ }
+> 
+> importance_sampling = function(n) {
++   # Generate samples from our chosen g(x)
++   x = rexp(n, rate = 1 / 2)
++   
++   # Evaluate h(x) at the sample points
++   h_x = h(x)
++   
++   integral_estimate = mean(h_x)
++   
++   plot(
++     cumsum(h_x) / 1:n,
++     type = "l",
++     xlab = "Number of samples",
++     ylab = "Integral estimate",
++     main = paste(
++       "Importance Sampling Estimate with n =", 
++       n,
++       ", mean =",
++       integral_estimate
++     )
++   )
++   print(paste("Integral estimate:", integral_estimate))
++ }
+> 
+> importance_sampling(n)
+[1] "Integral estimate: -0.506219034838575"
+\end{spverbatim}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{problem_3_importance_plot.png}
+\end{figure}
+In this code, we first the function \(h(x) = \frac{f(x)}{g(x)}\) which we've already found above, with these being the values that we compute and take the mean of. We then get to the heart of the importance sampling function. We first sample based on the \(g(x)\) that we picked, and evaluate these values at \(h(x)\) accordingly. We then compute the actual estimate by taking the mean and plot the results, which indicate eventual convergence after some early jumping around. 
 
 
 }
@@ -249,13 +315,12 @@ We can now perform the estimation and compare accordingly. For the antithetic va
 [1] "Antithetic mean estimate mean: 2.00169191480643"
 [1] "Antithetic mean estimate variance: 0.0054753456242509"
 \end{spverbatim}
-In the code, we run 1000 simulations for \(n = 1000\). We first simulate 2000 values from the normal distribution (doubled because we are using the antithetic paired approach later, for which we simulate 10000 values each) and then take the inverse function value directly, and take the mean of these resulting values. This is the brute force approach. For the antithetic method, we take 1000 values from the normal distribution and then find the corresponding \(X\) and \(Y\) values from the inverse function that we previously found, and then take the mean based off of the resulting 1000 averages of these two paired values, as is described by the antithetic method. We then print the results and plot accordingly.
+In the code, we run 1000 simulations for \(n = 1000\). We first simulate 2000 values from the normal distribution (doubled because we are using the antithetic paired approach later, for which we simulate 10000 values each) and then take the inverse function value directly, and take the mean of these resulting values. This is the brute force approach. For the antithetic method, we take 1000 values from the normal distribution and then find the corresponding \(X\) and \(Y\) values from the inverse function that we previously found, and then take the mean based off of the resulting 1000 averages of these two paired values, as is described by the antithetic method. We then print the results and plot accordingly. \\ \\ 
+We see that both mean estimates for the mean are pretty close to 2, but the variance of them mean estimate with the antithetic method is indeed a bit lower, so there seems to be some variance reduction using the method when estimating the mean of \(X\) in this case.
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{problem_4_antithetic_hist.png}
 \end{figure}
-
-We see that both mean estimates for the mean are pretty close to 2, but the variance of them mean estimate with the antithetic method is indeed a bit lower, so there seems to be some variance reduction using the method when estimating the mean of \(X\) in this case.
 
 }
 {\Large 

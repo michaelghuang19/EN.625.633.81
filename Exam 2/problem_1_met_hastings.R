@@ -33,7 +33,7 @@ met_hastings = function(n, sd) {
   acc_probability = acc / n
   print(paste("Acceptance probability:", acc_probability))
   print(paste("Estimated mean:", mean(x)))
-  hist(x, breaks = 60, probability = TRUE,
+  hist(x, breaks = 75, probability = TRUE,
        main = paste("Metropolitan-Hastings Sample with sd =", sd))
 }
 
