@@ -31,7 +31,141 @@
 
 \section*{2.}
 
-
+We are given two state space models:
+\begin{align*}
+  X_{t+1,1} &= F_1 X_{t,1} + V_{t,1} \\
+  Y_{t,1} &= G_1 X_{t,1} + W_{t,1}
+\end{align*}
+and 
+\begin{align*}
+  X_{t+1,2} &= F_2 X_{t,2} + V_{t,2} \\
+  Y_{t,2} &= G_2 X_{t,2} + W_{t,2}
+\end{align*}
+where \(V_{t,1}\), \(W_{t,1}\), \(V_{t,2}\), and \(W_{t,2}\) are all uncorrelated. We aim to derive a state-space representation for \((Y_{t,1}^T, Y_{t,2}^T)^T\). \\ \\
+Let's define the combined state and measurement vectors accordingly, and determine their respective equations. So we define 
+\[
+  X_t = \begin{pmatrix}
+    X_{t, 1} \\
+    X_{t, 2}
+  \end{pmatrix}
+\]
+and 
+\[
+  Y_t = \begin{pmatrix}
+    Y_{t, 1} \\
+    Y_{t, 2}
+  \end{pmatrix}
+\]
+For the state equation:
+\[
+  X_{t+1} = \begin{pmatrix}
+    X_{t+1, 1} \\
+    X_{t+1, 2}
+  \end{pmatrix}
+\]
+\[
+  = \begin{pmatrix}
+    F_1 X_{t,1} + V_{t,1} \\
+    F_2 X_{t,2} + V_{t,2}
+  \end{pmatrix}
+\]
+\[
+  X_{t+1} = \begin{pmatrix}
+    F_1 & 0 \\
+    0 & F_2
+  \end{pmatrix}
+  \begin{pmatrix}
+    X_{t,1} \\
+    X_{t,2}
+  \end{pmatrix} + 
+  \begin{pmatrix}
+    V_{t,1} \\
+    V_{t,2}
+  \end{pmatrix}
+\]
+with \(V_t \sim N(0, Q)\). We know that because all of the process noise and measurement noise between these two state space models are uncorrelated, we can represent 
+\[
+  Q = \begin{pmatrix}
+    Q_1 & 0 \\
+    0 & Q_2
+  \end{pmatrix}
+\]
+Similarly, we find the measurement equation to be 
+\[
+  Y_t = \begin{pmatrix}
+    Y_{t,1} \\
+    Y_{t,2}
+  \end{pmatrix}
+\]
+\[
+  = \begin{pmatrix}
+    G_1 X_{t,1} + W_{t,1} \\
+    G_2 X_{t,2} + W_{t,2}
+  \end{pmatrix}
+\]
+\[
+  Y_t = \begin{pmatrix}
+    G_1 & 0 \\
+    0 & G_2 
+  \end{pmatrix}
+  \begin{pmatrix}
+    X_{t,1} \\
+    X_{t,2}
+  \end{pmatrix} + 
+  \begin{pmatrix}
+    W_{t,1} \\
+    W_{t,2}
+  \end{pmatrix}
+\]
+with \(W_t \sim N(0, R)\). Similar to above, the lack of correlation between both models' noise lets us represent \(R\) as \(\begin{pmatrix}
+  R_1 & 0 \\
+  0 & R_2
+\end{pmatrix}\). This leaves us with the following state space representation for the two states:
+\begin{align*}
+  \begin{pmatrix}
+    X_{t+1,1} \\
+    X_{t+1,2}
+  \end{pmatrix} = 
+  \begin{pmatrix}
+    F_1 & 0 \\
+    0 & F_2   
+  \end{pmatrix} 
+  \begin{pmatrix}
+    X_{t,1} \\
+    X_{t,2}  
+  \end{pmatrix} + 
+  \begin{pmatrix}
+    V_{t,1} \\
+    V_{t,2}
+  \end{pmatrix}
+  \quad 
+\end{align*}
+with \(V_t \sim N(0, \begin{pmatrix}
+  Q_1 & 0 \\
+  0 & Q_2
+\end{pmatrix}) \), and 
+\begin{align*}
+  \begin{pmatrix}
+    Y_{t,1} \\ 
+    Y_{t,2}
+  \end{pmatrix} = 
+  \begin{pmatrix}
+    G_1 & 0 \\
+    0 & G_2
+  \end{pmatrix} 
+  \begin{pmatrix}
+    X_{t,1} \\
+    X_{t,2}
+  \end{pmatrix} + 
+  \begin{pmatrix}
+    W_{t,1} \\ 
+    W_{t,2}
+  \end{pmatrix}
+\end{align*}
+with \(W_t \sim N(0, \begin{pmatrix}
+  R_1 & 0 \\
+  0 & R_2
+\end{pmatrix})\)
 
 }
 {\Large 
@@ -51,6 +185,9 @@
 
 \section*{4.}
 
+I found this highly cited paper aptly titled "Estimating and Testing Exponential Affine Term Structure Models by Kalman Filter" by Jin-Chuan Duan and Jean-Guy Simonato (luckily, there was a free download link at https://cirano.qc.ca/en/summaries/95s-44). \\ \\
+The context of this paper is that of fixed income instruments, i.e. bonds and coupons. The exact phrase "Affine Term Structure Model" essentially just refers to the process of modeling what boils down to yields of bonds and the structures of how interest rates change over time. Bonds themselves and their "risk-free" coupon returns form the backbone of the economy by acting as an essential portfolio management tool for diversifcation and hedging risk while offering an easy way for corporations and governments to finance their needs and wants. These models are used in conjunction to interpret how the overall yield curve, which is the graphical curve representation of the relationship different interest rates / yields of a debt security across different lengths of maturity. Being able to effectively comprehend and model the real value or price of different debt instruments and the consequences this has on a financial market is extremely important to financial professionals and public policymakers alike. This paper is from the 90s, after the theoretical revolutions of the 70s and 80s in quantitative finance led to the creation of hugely influencial models for pricing and factor decompositions but still struggled to reliably quantify, observe, and thus practically implement the elements in said models. \\ \\
+The Kalman Filter is used to solve the problem of properly estimating a constantly changing set of parameters and state when it comes to estimating interest rates. Intuitively, the spot interest rate any instant cannot be directly observed or measured. Moreover, for those rates that we can measure, we don't know how those are determined! So this fits the Kalman Filter situation in which we have many models that take in parameters like volatility, risk premia, etc. which we can only determine or estimate based on seemingly unmeasurable data. A naive approach using only observed factors or yields to build a model leads to an insufficient model. We therefore apply the Kalman Filter to elegantly solve this as a "state-space formulation" with a state matrix consisting of unobservable factors that contribute to the pricing model while the measurement matrix contains the observations of the bond yields at various maturities. The Kalman Filter is used to recursively predict the next state and observe yields using the different models based off of the popular exponential models of the time presented in the paper. The Kalman Filter is able to go through a process to optimally estimate the dozens of dimensions that include the parameters of the state and the yield states themselves rather than solve for all of these at the same time, which was especially technologically difficult back then. This means reduced dimensionality and the balancing of the process of making estimates more accurate and accounting for noisy observations through effective use of the filter on feedback (error).
 
 
 }

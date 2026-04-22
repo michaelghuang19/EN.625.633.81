@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  21 APR 2026 22:43
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  22 APR 2026 18:39
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -449,10 +449,23 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
  (/usr/local/texlive/2025/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
+LaTeX Font Info:    Trying to load font information for U+msa on input line 35.
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 35.
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+Underfull \hbox (badness 10000) in paragraph at lines 43--46
+
+ []
+
+
 
 
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <15> not available
-(Font)              size <14.4> substituted on input line 58.
+(Font)              size <14.4> substituted on input line 92.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -463,7 +476,28 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [1{/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
-] (./mhuang_hw13.aux)
+]
+Overfull \hbox (44.91965pt too wide) in paragraph at lines 188--191
+\OT1/cmr/m/n/14.4 Si-monato (luck-ily, there was a free down-load link at https://cirano.qc.ca/en/summaries/95s-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 188--191
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 188--191
+
+ []
+
+
+
+[2]
+
+[3]
+
+[4] (./mhuang_hw13.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
@@ -475,18 +509,18 @@ LaTeX Font Warning: Size substitutions with differences
 
  ) 
 Here is how much of TeX's memory you used:
- 14459 strings out of 473190
- 286311 string characters out of 5715801
- 655432 words of memory out of 5000000
- 37482 multiletter control sequences out of 15000+600000
- 560400 words of font info for 41 fonts, out of 8000000 for 9000
+ 14499 strings out of 473190
+ 287093 string characters out of 5715801
+ 672432 words of memory out of 5000000
+ 37510 multiletter control sequences out of 15000+600000
+ 562701 words of font info for 51 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 102i,13n,107p,501b,405s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb>
-Output written on mhuang_hw13.pdf (1 page, 31786 bytes).
+ 102i,14n,107p,1708b,465s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+Output written on mhuang_hw13.pdf (4 pages, 81564 bytes).
 PDF statistics:
- 26 PDF objects out of 1000 (max. 8388607)
- 16 compressed objects within 1 object stream
+ 55 PDF objects out of 1000 (max. 8388607)
+ 34 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 
