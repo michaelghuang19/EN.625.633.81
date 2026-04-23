@@ -1,0 +1,403 @@
+\documentclass{article}
+\linespread{1.3}
+\usepackage[margin=50pt]{geometry}
+\usepackage{amsmath, amsthm, amssymb, amsthm, tikz, fancyhdr, float, graphicx, spverbatim, systeme}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\newcommand{\changefont}{\fontsize{15}{15}\selectfont}
+
+\fancypagestyle{firstpageheader}{
+  \fancyhead[R]{
+    \changefont
+    \parbox[t]{4cm}{
+      Michael Huang\\
+      EN.625.633.81\\
+      Homework 13
+    }
+  }
+}
+
+\begin{document}
+
+\thispagestyle{firstpageheader}
+{\Large 
+
+\section*{1.}
+
+We add smoothing, starting from the place labeled \([NEW]\):
+\begin{spverbatim}
+> Kalman_Filtering_Example_With_Smoothing = function(target, n) {
++   
++   #####  Establishing Sigma Values
++   sigma_V = .2;
++   sigma_W = .1;
++   
++   ##### Creating storage vectors for X, Y, X_pred, X_filt, Omega, Delta and Theta
++   X = rep(0, n);
++   Y = rep(0, n);
++   X_hat_pred = rep(0,n);
++   X_hat_filt = rep(0,n);
++   Omega = rep(0,n);
++   Delta = rep(0,n);
++   Theta = rep(0,n);
++   
++   ###### Starting everything with t = 1 
++   X[1] = rnorm(1, 0, sigma_V);
++   Y[1] = X[1] + rnorm(1,0, sigma_W);
++   X_hat_pred[1] = .2;
++   Omega[1] = .04;
++   Delta[1] = Omega[1] + sigma_W^2;
++   Theta[1] = Omega[1]
++   
++   for (j in 2:n) {
++     
++     #########  doing prediction ##########
++     X_hat_pred[j] = X_hat_pred[j-1] + (Theta[j-1]/Delta[j-1])*(Y[j-1] - X_hat_pred[j-1]);
++     Omega[j] = Omega[j-1] + sigma_V^2 - Theta[j-1]^2/Delta[j-1];
++     Delta[j] = Omega[j] + sigma_W^2;
++     Theta[j] = Omega[j];
++     
++     ######## simulating next value of X and Y ###########
++     X[j] = X[j-1] + rnorm(1, 0, sigma_V);
++     Y[j] = X[j] + rnorm(1, 0, sigma_W);
++     
++     ####### filtering   ############
++     X_hat_filt[j] = X_hat_pred[j] + (Omega[j]/Delta[j])*(Y[j] - X_hat_pred[j]);
++   }
++   
++   # [NEW] Smoothing
++   
++   Omega_filt_target = Omega[target] - Omega[target]^2 / Delta[target]
++   X_hat_smooth = X_hat_filt[target]
++   Omega_cross = Omega_filt_target
++   Omega_smooth = Omega_filt_target
++   
++   for (k in (target + 1):n) {
++     Omega_cross = Omega_cross * (1 - (Theta[k-1] / Delta[k-1]))
++     X_hat_smooth = X_hat_smooth + (Omega_cross / Delta[k]) * (Y[k] - X_hat_pred[k])
++     Omega_smooth = Omega_smooth - (Omega_cross^2 / Delta[k])
++   }
++   
++   
++   
++   plot(X, type = "l")
++   lines(X_hat_pred, type = "l", col = "red");
++   lines(X_hat_filt, type = "l", col = "blue");
++   legend(x = "topleft", legend=c("True X", "Predicted X", "Filtered X"),
++          col=c("black", "red", "blue"), lty = c(1,1,1))
++   
++   print(paste("Results with target =", target))
++   print(paste("True X[target]:", X[target]))
++   print(paste("X_hat_pred[target]:", X_hat_pred[target]));
++   print(paste("X_hat_filt[target]:", X_hat_filt[target]));
++   print(paste("X_hat_smooth:", X_hat_smooth))
++   print(paste("Prediction error cov:", Omega[target]))
++   print(paste("Filtered error cov:", Omega_filt_target))
++   print(paste("Smoothed error cov:", Omega_smooth))
++ }
+> 
+> Kalman_Filtering_Example_With_Smoothing(50, 100)
+[1] "Results with target = 50"
+[1] "True X[target]: 0.933482311119781"
+[1] "X_hat_pred[target]: 0.967600141713493"
+[1] "X_hat_filt[target]: 1.11285860285574"
+[1] "X_hat_smooth: 1.11588213079415"
+[1] "Prediction error cov: 0.0482842712474619"
+[1] "Filtered error cov: 0.00828427124746191"
+[1] "Smoothed error cov: 0.00824855787277986"
+\end{spverbatim}
+The smoothed error covariance seems to be the lowest as we expected, with a supposedly improved \(X\) value.
+
+
+}
+{\Large 
+
+\section*{2.}
+
+We are given two state space models:
+\begin{align*}
+  X_{t+1,1} &= F_1 X_{t,1} + V_{t,1} \\
+  Y_{t,1} &= G_1 X_{t,1} + W_{t,1}
+\end{align*}
+and 
+\begin{align*}
+  X_{t+1,2} &= F_2 X_{t,2} + V_{t,2} \\
+  Y_{t,2} &= G_2 X_{t,2} + W_{t,2}
+\end{align*}
+where \(V_{t,1}\), \(W_{t,1}\), \(V_{t,2}\), and \(W_{t,2}\) are all uncorrelated. We aim to derive a state-space representation for \((Y_{t,1}^T, Y_{t,2}^T)^T\). \\ \\
+Let's define the combined state and measurement vectors accordingly, and determine their respective equations. So we define 
+\[
+  X_t = \begin{pmatrix}
+    X_{t, 1} \\
+    X_{t, 2}
+  \end{pmatrix}
+\]
+and 
+\[
+  Y_t = \begin{pmatrix}
+    Y_{t, 1} \\
+    Y_{t, 2}
+  \end{pmatrix}
+\]
+For the state equation:
+\[
+  X_{t+1} = \begin{pmatrix}
+    X_{t+1, 1} \\
+    X_{t+1, 2}
+  \end{pmatrix}
+\]
+\[
+  = \begin{pmatrix}
+    F_1 X_{t,1} + V_{t,1} \\
+    F_2 X_{t,2} + V_{t,2}
+  \end{pmatrix}
+\]
+\[
+  X_{t+1} = \begin{pmatrix}
+    F_1 & 0 \\
+    0 & F_2
+  \end{pmatrix}
+  \begin{pmatrix}
+    X_{t,1} \\
+    X_{t,2}
+  \end{pmatrix} + 
+  \begin{pmatrix}
+    V_{t,1} \\
+    V_{t,2}
+  \end{pmatrix}
+\]
+with \(V_t \sim N(0, Q)\). We know that because all of the process noise and measurement noise between these two state space models are uncorrelated, we can represent 
+\[
+  Q = \begin{pmatrix}
+    Q_1 & 0 \\
+    0 & Q_2
+  \end{pmatrix}
+\]
+Similarly, we find the measurement equation to be 
+\[
+  Y_t = \begin{pmatrix}
+    Y_{t,1} \\
+    Y_{t,2}
+  \end{pmatrix}
+\]
+\[
+  = \begin{pmatrix}
+    G_1 X_{t,1} + W_{t,1} \\
+    G_2 X_{t,2} + W_{t,2}
+  \end{pmatrix}
+\]
+\[
+  Y_t = \begin{pmatrix}
+    G_1 & 0 \\
+    0 & G_2 
+  \end{pmatrix}
+  \begin{pmatrix}
+    X_{t,1} \\
+    X_{t,2}
+  \end{pmatrix} + 
+  \begin{pmatrix}
+    W_{t,1} \\
+    W_{t,2}
+  \end{pmatrix}
+\]
+with \(W_t \sim N(0, R)\). Similar to above, the lack of correlation between both models' noise lets us represent \(R\) as \(\begin{pmatrix}
+  R_1 & 0 \\
+  0 & R_2
+\end{pmatrix}\). This leaves us with the following state space representation for the two states:
+\begin{align*}
+  \begin{pmatrix}
+    X_{t+1,1} \\
+    X_{t+1,2}
+  \end{pmatrix} = 
+  \begin{pmatrix}
+    F_1 & 0 \\
+    0 & F_2   
+  \end{pmatrix} 
+  \begin{pmatrix}
+    X_{t,1} \\
+    X_{t,2}  
+  \end{pmatrix} + 
+  \begin{pmatrix}
+    V_{t,1} \\
+    V_{t,2}
+  \end{pmatrix}
+  \quad 
+\end{align*}
+with \(V_t \sim N(0, \begin{pmatrix}
+  Q_1 & 0 \\
+  0 & Q_2
+\end{pmatrix}) \), and 
+\begin{align*}
+  \begin{pmatrix}
+    Y_{t,1} \\ 
+    Y_{t,2}
+  \end{pmatrix} = 
+  \begin{pmatrix}
+    G_1 & 0 \\
+    0 & G_2
+  \end{pmatrix} 
+  \begin{pmatrix}
+    X_{t,1} \\
+    X_{t,2}
+  \end{pmatrix} + 
+  \begin{pmatrix}
+    W_{t,1} \\ 
+    W_{t,2}
+  \end{pmatrix}
+\end{align*}
+with \(W_t \sim N(0, \begin{pmatrix}
+  R_1 & 0 \\
+  0 & R_2
+\end{pmatrix})\)
+
+}
+{\Large 
+
+\section*{3.}
+
+\subsection*{(a)} 
+
+We aim to explain the state equation and matrix, given the state vector is as follows:
+\[
+  x_t = \begin{pmatrix}
+  u_t \\ y_t \\ z_t \\ \dot{u_t} \\ \dot{y_t} \\ \dot{z_t}
+  \end{pmatrix}
+\]
+where \(u_t\), \(y_t\), and \(z_t\) are East, North, and Down positions, and
+\(\dot{u_t}\), \(\dot{y_t}\), and \(\dot{z_t}\) are the corresponding velocities; the state equation is \(x_{t+1} = Fx_t + V_{t+1}\) with:
+\[
+  F = \begin{pmatrix}     
+  1 & 0 & 0 & 1 & 0 & 0 \\
+  0 & 1 & 0 & 0 & 1 & 0 \\
+  0 & 0 & 1 & 0 & 0 & 1 \\
+  0 & 0 & 0 & 1 & 0 & 0 \\
+  0 & 0 & 0 & 0 & 1 & 0 \\
+  0 & 0 & 0 & 0 & 0 & 1   
+  \end{pmatrix}
+\]
+Let's begin interpreting the state equation row by row: \\ \\
+Row 1:
+\[
+  u_{t+1} = u_t + \dot{u_t} + v_{1,t+1}
+\]
+We can interpret this as the new East position being calculated by taking the old East position and adding the East velocity times \(\Delta t\) and the random noise/error value. \\ \\ 
+Row 2:
+\[
+  y_{t+1} = y_t + \dot{y_t} + v_{2,t+1}
+\]
+Similar to the previous row, we can interpret this as the new North position being calculated by taking the old North position and adding the North velocity times \(\Delta t\) and the random noise/error value. \\ \\ 
+Row 3: 
+\[
+  z_{t+1} = z_t + \dot{z_t} + v_{3,t+1}
+\]
+Similar to the previous row, we can interpret this as the new Down position being calculated by taking the old Down position and adding the Down velocity times \(\Delta t\) and the random noise/error value. \\ \\
+Row 4:
+\[
+  \dot{u_{t+1}} = \dot{u_t} + v_{4,t+1}
+\]
+We can interpret this as saying that the Eastern velocity staying the same as it was in the previous time, plus some noise/error value. \\ \\
+Row 5:
+\[
+  \dot{y_{t+1}} = \dot{y_t} + v_{5,t+1}
+\]
+We can interpret this as saying that the Northern velocity staying the same as it was in the previous time, plus some noise/error value. \\ \\
+Row 6:
+\[
+  \dot{z_{t+1}} = \dot{z_t} + v_{6,t+1}
+\]
+We can interpret this as saying that the Downward velocity staying the same as it was in the previous time, plus some noise/error value. \\ \\
+The entries \(F\) makes sense in the context of the problem: \\
+- The upper left 3x3 identity matrix block indicates that the previous positions are kept exactly with consideration to determining the next position. This makes sense since we always start from our previous position when determining the next position, and with respect to the specific type of direction we are concerned about. \\
+- The upper right 3x3 identity matrix indicates that we are adding the velocity to the position. This makes sense since this is adding exactly the velocity per time to the position at every time frame, and only to each corresponding direction. \\
+- The lower left 3x3 block with all 0s indicates that the velocity doesn't depend on any position. This makes sense since the velocity of the submarine should be determined irrespective of where exactly it is. \\ 
+- The lower right 3x3 identity matrix indicates that the velocity in the next timeframe is the same as the velocity in the current timeframe. This makes sense in the way that the velocity in each direction is kept about the same over time, with no acceleration or deceleration. \\ 
+- Finally, we add some random noise/error to each calculation to account for the approximate nature of the model.
+
+\subsection*{(b)}
+
+We implement the full multivariate Kalman Filter to estimate the position of the vehicle at time 53:
+\begin{spverbatim}
+> data = readRDS("underwaterVehicle.rds")
+> Y = as.matrix(data)
+> n = nrow(Y)
+> dimensions = 6
+> 
+> 
+> F = rbind(
++   c(1, 0, 0, 1, 0, 0),
++   c(0, 1, 0, 0, 1, 0),
++   c(0, 0, 1, 0, 0, 1),
++   c(0, 0, 0, 1, 0, 0),
++   c(0, 0, 0, 0, 1, 0),
++   c(0, 0, 0, 0, 0, 1)
++ )
+> 
+> G = diag(dimensions)
+> Q = 0.02 * diag(dimensions)
+> R = 0.01 * diag(dimensions)
+> 
+> X_hat_pred = matrix(0, nrow = n, ncol = dimensions)
+> X_hat_filt = matrix(0, nrow = n, ncol = dimensions)
+> # Choose to use lists instead here as the syntax is nicer than 3D array
+> Omega = list()
+> Delta = list()
+> Theta = list()
+> 
+> # Initial predictors of 0, and 6 scalar matrix for error 
+> X_hat_pred[1, ] = rep(0, dimensions)
+> Omega[[1]] = dimensions * diag(dimensions)
+> Delta[[1]] = G %*% Omega[[1]] %*% t(G) + R
+> Theta[[1]] = F %*% Omega[[1]] %*% t(G)
+> 
+> for (j in 2:n) {
++   
++   # Prediction
++   
++   X_hat_pred[j, ] = F %*% X_hat_pred[j-1, ] +
++     Theta[[j-1]] %*% solve(Delta[[j-1]]) %*%
++     (Y[j-1, ] - G %*% X_hat_pred[j-1, ])
++   
++   Omega[[j]] = F %*% Omega[[j-1]] %*% t(F) + Q - 
++     Theta[[j-1]] %*% solve(Delta[[j-1]]) %*% t(Theta[[j-1]])
++   
++   Delta[[j]] = G %*% Omega[[j]] %*% t(G) + R
++   Theta[[j]] = F %*% Omega[[j]] %*% t(G)
++ 
++   # Filtering 
++   X_hat_filt[j, ] = X_hat_pred[j, ] +
++     Omega[[j]] %*% t(G) %*% solve(Delta[[j]]) %*%
++     (Y[j, ] - G %*% X_hat_pred[j, ])
++ }
+> 
+> print("Estimated position at time 53")
+[1] "Estimated position at time 53"
+> print(paste("East position (u):", X_hat_filt[53, 1]))
+[1] "East position (u): 108.722083412992"
+> print(paste("North position (y):", X_hat_filt[53, 2]))
+[1] "North position (y): -7.67883748158519"
+> print(paste("Down position (z):", X_hat_filt[53, 3]))
+[1] "Down position (z): -5.01646093272719"
+> 
+> print("Raw position at time 53")
+[1] "Raw position at time 53"
+> print(paste("East position (u):", Y[53, 1]))
+[1] "East position (u): 108.725086245291"
+> print(paste("North position (y):", Y[53, 2]))
+[1] "North position (y): -7.59501688859726"
+> print(paste("Down position (z):", Y[53, 3]))
+[1] "Down position (z): -5.01003426763845"
+\end{spverbatim}
+
+}
+{\Large 
+
+\section*{4.}
+
+I found this highly cited paper aptly titled "Estimating and Testing Exponential Affine Term Structure Models by Kalman Filter" by Jin-Chuan Duan and Jean-Guy Simonato (luckily, there was a free download link at https://cirano.qc.ca/en/summaries/95s-44). \\ \\
+The context of this paper is that of fixed income instruments, i.e. bonds and coupons. The exact phrase "Affine Term Structure Model" essentially just refers to the process of modeling what boils down to yields of bonds and the structures of how interest rates change over time. Bonds themselves and their "risk-free" coupon returns form the backbone of the economy by acting as an essential portfolio management tool for diversifcation and hedging risk while offering an easy way for corporations and governments to finance their needs and wants. These models are used in conjunction to interpret how the overall yield curve, which is the graphical curve representation of the relationship different interest rates / yields of a debt security across different lengths of maturity. Being able to effectively comprehend and model the real value or price of different debt instruments and the consequences this has on a financial market is extremely important to financial professionals and public policymakers alike. This paper is from the 90s, after the theoretical revolutions of the 70s and 80s in quantitative finance led to the creation of hugely influencial models for pricing and factor decompositions but still struggled to reliably quantify, observe, and thus practically implement the elements in said models. \\ \\
+The Kalman Filter is used to solve the problem of properly estimating a constantly changing set of parameters and state when it comes to estimating interest rates. Intuitively, the spot interest rate any instant cannot be directly observed or measured. Moreover, for those rates that we can measure, we don't know how those are determined! So this fits the Kalman Filter situation in which we have many models that take in parameters like volatility, risk premia, etc. which we can only determine or estimate based on seemingly unmeasurable data. A naive approach using only observed factors or yields to build a model leads to an insufficient model. We therefore apply the Kalman Filter to elegantly solve this as a "state-space formulation" with a state matrix consisting of unobservable factors that contribute to the pricing model while the measurement matrix contains the observations of the bond yields at various maturities. The Kalman Filter is used to recursively predict the next state and observe yields using the different models based off of the popular exponential models of the time presented in the paper. The Kalman Filter is able to go through a process to optimally estimate the dozens of dimensions that include the parameters of the state and the yield states themselves rather than solve for all of these at the same time, which was especially technologically difficult back then. This means reduced dimensionality and the balancing of the process of making estimates more accurate and accounting for noisy observations through effective use of the filter on feedback (error).
+
+
+}
+
+\end{document}
