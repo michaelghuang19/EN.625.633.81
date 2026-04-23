@@ -24,6 +24,89 @@
 
 \section*{1.}
 
+We add smoothing, starting from the place labeled \([NEW]\):
+\begin{spverbatim}
+> Kalman_Filtering_Example_With_Smoothing = function(target, n) {
++   
++   #####  Establishing Sigma Values
++   sigma_V = .2;
++   sigma_W = .1;
++   
++   ##### Creating storage vectors for X, Y, X_pred, X_filt, Omega, Delta and Theta
++   X = rep(0, n);
++   Y = rep(0, n);
++   X_hat_pred = rep(0,n);
++   X_hat_filt = rep(0,n);
++   Omega = rep(0,n);
++   Delta = rep(0,n);
++   Theta = rep(0,n);
++   
++   ###### Starting everything with t = 1 
++   X[1] = rnorm(1, 0, sigma_V);
++   Y[1] = X[1] + rnorm(1,0, sigma_W);
++   X_hat_pred[1] = .2;
++   Omega[1] = .04;
++   Delta[1] = Omega[1] + sigma_W^2;
++   Theta[1] = Omega[1]
++   
++   for (j in 2:n) {
++     
++     #########  doing prediction ##########
++     X_hat_pred[j] = X_hat_pred[j-1] + (Theta[j-1]/Delta[j-1])*(Y[j-1] - X_hat_pred[j-1]);
++     Omega[j] = Omega[j-1] + sigma_V^2 - Theta[j-1]^2/Delta[j-1];
++     Delta[j] = Omega[j] + sigma_W^2;
++     Theta[j] = Omega[j];
++     
++     ######## simulating next value of X and Y ###########
++     X[j] = X[j-1] + rnorm(1, 0, sigma_V);
++     Y[j] = X[j] + rnorm(1, 0, sigma_W);
++     
++     ####### filtering   ############
++     X_hat_filt[j] = X_hat_pred[j] + (Omega[j]/Delta[j])*(Y[j] - X_hat_pred[j]);
++   }
++   
++   # [NEW] Smoothing
++   
++   Omega_filt_target = Omega[target] - Omega[target]^2 / Delta[target]
++   X_hat_smooth = X_hat_filt[target]
++   Omega_cross = Omega_filt_target
++   Omega_smooth = Omega_filt_target
++   
++   for (k in (target + 1):n) {
++     Omega_cross = Omega_cross * (1 - (Theta[k-1] / Delta[k-1]))
++     X_hat_smooth = X_hat_smooth + (Omega_cross / Delta[k]) * (Y[k] - X_hat_pred[k])
++     Omega_smooth = Omega_smooth - (Omega_cross^2 / Delta[k])
++   }
++   
++   
++   
++   plot(X, type = "l")
++   lines(X_hat_pred, type = "l", col = "red");
++   lines(X_hat_filt, type = "l", col = "blue");
++   legend(x = "topleft", legend=c("True X", "Predicted X", "Filtered X"),
++          col=c("black", "red", "blue"), lty = c(1,1,1))
++   
++   print(paste("Results with target =", target))
++   print(paste("True X[target]:", X[target]))
++   print(paste("X_hat_pred[target]:", X_hat_pred[target]));
++   print(paste("X_hat_filt[target]:", X_hat_filt[target]));
++   print(paste("X_hat_smooth:", X_hat_smooth))
++   print(paste("Prediction error cov:", Omega[target]))
++   print(paste("Filtered error cov:", Omega_filt_target))
++   print(paste("Smoothed error cov:", Omega_smooth))
++ }
+> 
+> Kalman_Filtering_Example_With_Smoothing(50, 100)
+[1] "Results with target = 50"
+[1] "True X[target]: 0.933482311119781"
+[1] "X_hat_pred[target]: 0.967600141713493"
+[1] "X_hat_filt[target]: 1.11285860285574"
+[1] "X_hat_smooth: 1.11588213079415"
+[1] "Prediction error cov: 0.0482842712474619"
+[1] "Filtered error cov: 0.00828427124746191"
+[1] "Smoothed error cov: 0.00824855787277986"
+\end{spverbatim}
+The smoothed error covariance seems to be the lowest as we expected, with a supposedly improved \(X\) value.
 
 
 }
@@ -174,11 +257,136 @@ with \(W_t \sim N(0, \begin{pmatrix}
 
 \subsection*{(a)} 
 
-
+We aim to explain the state equation and matrix, given the state vector is as follows:
+\[
+  x_t = \begin{pmatrix}
+  u_t \\ y_t \\ z_t \\ \dot{u_t} \\ \dot{y_t} \\ \dot{z_t}
+  \end{pmatrix}
+\]
+where \(u_t\), \(y_t\), and \(z_t\) are East, North, and Down positions, and
+\(\dot{u_t}\), \(\dot{y_t}\), and \(\dot{z_t}\) are the corresponding velocities; the state equation is \(x_{t+1} = Fx_t + V_{t+1}\) with:
+\[
+  F = \begin{pmatrix}     
+  1 & 0 & 0 & 1 & 0 & 0 \\
+  0 & 1 & 0 & 0 & 1 & 0 \\
+  0 & 0 & 1 & 0 & 0 & 1 \\
+  0 & 0 & 0 & 1 & 0 & 0 \\
+  0 & 0 & 0 & 0 & 1 & 0 \\
+  0 & 0 & 0 & 0 & 0 & 1   
+  \end{pmatrix}
+\]
+Let's begin interpreting the state equation row by row: \\ \\
+Row 1:
+\[
+  u_{t+1} = u_t + \dot{u_t} + v_{1,t+1}
+\]
+We can interpret this as the new East position being calculated by taking the old East position and adding the East velocity times \(\Delta t\) and the random noise/error value. \\ \\ 
+Row 2:
+\[
+  y_{t+1} = y_t + \dot{y_t} + v_{2,t+1}
+\]
+Similar to the previous row, we can interpret this as the new North position being calculated by taking the old North position and adding the North velocity times \(\Delta t\) and the random noise/error value. \\ \\ 
+Row 3: 
+\[
+  z_{t+1} = z_t + \dot{z_t} + v_{3,t+1}
+\]
+Similar to the previous row, we can interpret this as the new Down position being calculated by taking the old Down position and adding the Down velocity times \(\Delta t\) and the random noise/error value. \\ \\
+Row 4:
+\[
+  \dot{u_{t+1}} = \dot{u_t} + v_{4,t+1}
+\]
+We can interpret this as saying that the Eastern velocity staying the same as it was in the previous time, plus some noise/error value. \\ \\
+Row 5:
+\[
+  \dot{y_{t+1}} = \dot{y_t} + v_{5,t+1}
+\]
+We can interpret this as saying that the Northern velocity staying the same as it was in the previous time, plus some noise/error value. \\ \\
+Row 6:
+\[
+  \dot{z_{t+1}} = \dot{z_t} + v_{6,t+1}
+\]
+We can interpret this as saying that the Downward velocity staying the same as it was in the previous time, plus some noise/error value. \\ \\
+The entries \(F\) makes sense in the context of the problem: \\
+- The upper left 3x3 identity matrix block indicates that the previous positions are kept exactly with consideration to determining the next position. This makes sense since we always start from our previous position when determining the next position, and with respect to the specific type of direction we are concerned about. \\
+- The upper right 3x3 identity matrix indicates that we are adding the velocity to the position. This makes sense since this is adding exactly the velocity per time to the position at every time frame, and only to each corresponding direction. \\
+- The lower left 3x3 block with all 0s indicates that the velocity doesn't depend on any position. This makes sense since the velocity of the submarine should be determined irrespective of where exactly it is. \\ 
+- The lower right 3x3 identity matrix indicates that the velocity in the next timeframe is the same as the velocity in the current timeframe. This makes sense in the way that the velocity in each direction is kept about the same over time, with no acceleration or deceleration. \\ 
+- Finally, we add some random noise/error to each calculation to account for the approximate nature of the model.
 
 \subsection*{(b)}
 
-
+We implement the full multivariate Kalman Filter to estimate the position of the vehicle at time 53:
+\begin{spverbatim}
+> data = readRDS("underwaterVehicle.rds")
+> Y = as.matrix(data)
+> n = nrow(Y)
+> dimensions = 6
+> 
+> 
+> F = rbind(
++   c(1, 0, 0, 1, 0, 0),
++   c(0, 1, 0, 0, 1, 0),
++   c(0, 0, 1, 0, 0, 1),
++   c(0, 0, 0, 1, 0, 0),
++   c(0, 0, 0, 0, 1, 0),
++   c(0, 0, 0, 0, 0, 1)
++ )
+> 
+> G = diag(dimensions)
+> Q = 0.02 * diag(dimensions)
+> R = 0.01 * diag(dimensions)
+> 
+> X_hat_pred = matrix(0, nrow = n, ncol = dimensions)
+> X_hat_filt = matrix(0, nrow = n, ncol = dimensions)
+> # Choose to use lists instead here as the syntax is nicer than 3D array
+> Omega = list()
+> Delta = list()
+> Theta = list()
+> 
+> # Initial predictors of 0, and 6 scalar matrix for error 
+> X_hat_pred[1, ] = rep(0, dimensions)
+> Omega[[1]] = dimensions * diag(dimensions)
+> Delta[[1]] = G %*% Omega[[1]] %*% t(G) + R
+> Theta[[1]] = F %*% Omega[[1]] %*% t(G)
+> 
+> for (j in 2:n) {
++   
++   # Prediction
++   
++   X_hat_pred[j, ] = F %*% X_hat_pred[j-1, ] +
++     Theta[[j-1]] %*% solve(Delta[[j-1]]) %*%
++     (Y[j-1, ] - G %*% X_hat_pred[j-1, ])
++   
++   Omega[[j]] = F %*% Omega[[j-1]] %*% t(F) + Q - 
++     Theta[[j-1]] %*% solve(Delta[[j-1]]) %*% t(Theta[[j-1]])
++   
++   Delta[[j]] = G %*% Omega[[j]] %*% t(G) + R
++   Theta[[j]] = F %*% Omega[[j]] %*% t(G)
++ 
++   # Filtering 
++   X_hat_filt[j, ] = X_hat_pred[j, ] +
++     Omega[[j]] %*% t(G) %*% solve(Delta[[j]]) %*%
++     (Y[j, ] - G %*% X_hat_pred[j, ])
++ }
+> 
+> print("Estimated position at time 53")
+[1] "Estimated position at time 53"
+> print(paste("East position (u):", X_hat_filt[53, 1]))
+[1] "East position (u): 108.722083412992"
+> print(paste("North position (y):", X_hat_filt[53, 2]))
+[1] "North position (y): -7.67883748158519"
+> print(paste("Down position (z):", X_hat_filt[53, 3]))
+[1] "Down position (z): -5.01646093272719"
+> 
+> print("Raw position at time 53")
+[1] "Raw position at time 53"
+> print(paste("East position (u):", Y[53, 1]))
+[1] "East position (u): 108.725086245291"
+> print(paste("North position (y):", Y[53, 2]))
+[1] "North position (y): -7.59501688859726"
+> print(paste("Down position (z):", Y[53, 3]))
+[1] "Down position (z): -5.01003426763845"
+\end{spverbatim}
 
 }
 {\Large 
